@@ -4,7 +4,8 @@ Live: https://ibdotboss.github.io/ip-quiz/
 
 Practice for the MOD002643 Image Processing in-class test at ARU. The weekly quizzes change their numbers on every attempt, so every question here is generated with new numbers too. Each one shows its working, a quick method, and the mistake to avoid.
 
-- 77 question types across weeks 1 to 11
+- 78 question types across weeks 1 to 11
+- The picture questions for weeks 1, 4, 6, 7, 8 and 9 use the tutor's own quiz pictures, stored in `docs/img`
 - A cheatsheet for each week, and one page of rules that apply to every week
 - A mixed paper with two questions from each week
 - Scores stay in your browser. Nothing is sent anywhere.

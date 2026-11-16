@@ -13,13 +13,14 @@ if test.returncode:
     sys.exit("tests failed; nothing written")
 
 tpl = open(os.path.join(HERE, "template.html"), encoding="utf8").read()
-assert "/*FONT*/" in tpl and "/*GENS*/" in tpl
+assert "/*FONT*/" in tpl and "/*GENS*/" in tpl and "/*IMG*/" in tpl
 font = open(os.path.join(HERE, "fonts", "AtkinsonHyperlegibleNext.woff2"), "rb").read()
 gens = open(os.path.join(HERE, "src", "gens.js"), encoding="utf8").read().replace("</", "<\\/")
 out = tpl.replace("/*FONT*/", base64.b64encode(font).decode()).replace("/*GENS*/", gens)
 
 # docs/index.html is what GitHub Pages serves. index.html is the same file for opening locally.
-for path in (os.path.join(HERE, "docs", "index.html"), os.path.join(HERE, "index.html")):
+# The quiz pictures live in docs/img, so the two copies point at them from different places.
+for path, img in ((os.path.join(HERE, "docs", "index.html"), "img/"), (os.path.join(HERE, "index.html"), "docs/img/")):
     os.makedirs(os.path.dirname(path), exist_ok=True)
-    open(path, "w", encoding="utf8").write(out)
+    open(path, "w", encoding="utf8").write(out.replace("/*IMG*/", img))
 print("wrote", len(out) // 1024, "KB")

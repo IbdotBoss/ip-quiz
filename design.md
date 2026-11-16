@@ -6,7 +6,7 @@
 - **Audience.** Stage, revising on a phone and a laptop.
 - **The one job.** Make the method for each question type fast and checked, by doing it again with new numbers.
 - **Material.** Nine captured quiz attempts, 22 lecture and reading PDFs. Quizzes 10 and 11 were locked.
-- **Absent.** No logo or photos. The tutor's quiz pictures are not reused. Pictures are drawn by the page.
+- **Absent.** No logo. The picture questions for weeks 1, 4, 6, 7, 8 and 9 use the tutor's own quiz pictures (captured 16 Nov 2026, in `docs/img`), because Stage needs to recognise the real ones. The week 11 filter masks are cropped from the Lecture 11 slide. The week 11 stripes and spectra are still drawn by the page until that quiz unlocks.
 
 ## Concept
 

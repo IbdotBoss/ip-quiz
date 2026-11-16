@@ -70,6 +70,7 @@ figcaption{font-size:var(--t-s);font-weight:700;margin-bottom:4px}
 .mx td.ok{box-shadow:inset 0 0 0 3px var(--right)}
 .scroll{overflow-x:auto;max-width:100%}
 img.px{image-rendering:pixelated;display:block;border:1px solid var(--ink)}
+img.real{display:block;max-width:100%;height:auto;border:1px solid var(--ink);background:var(--ink)}
 .formula{font-size:var(--t-s);background:var(--tint);padding:8px 12px;border-radius:var(--r);overflow-wrap:break-word}
 .meta{font-size:var(--t-s);color:var(--ink-2);margin-top:24px}
 .stem{font-size:var(--t-l);font-weight:700;line-height:1.3;margin:4px 0 0;white-space:pre-wrap}
@@ -188,7 +189,9 @@ const pxImg = (px, label) => {
   const s = Math.max(1, Math.floor(132 / Math.max(w, h)));
   return `<img class="px" src="${c.toDataURL()}" width="${w * s}" height="${h * s}" alt="${esc(label || "picture")}">`;
 };
-const vis = (it, label) => it.px ? pxImg(it.px, label) : it.svg ? it.svg : it.m ? matHTML(it.m, it.kind, it.mark, it.half) : "";
+const IMG = "/*IMG*/";
+const realImg = (it, label) => `<img class="real" src="${IMG}${it.img}.jpg" width="${it.w}" height="${it.h}" alt="${esc(label || "Picture")}" loading="lazy">`;
+const vis = (it, label) => it.img ? realImg(it, label) : it.px ? pxImg(it.px, label) : it.svg ? it.svg : it.m ? matHTML(it.m, it.kind, it.mark, it.half) : "";
 const figs = show => !show || !show.length ? "" : `<div class="figs">` + show.map(it => `<figure>${it.cap ? `<figcaption>${esc(it.cap)}</figcaption>` : ""}${vis(it, it.cap)}</figure>`).join("") + `</div>`;
 
 /* ---------- pages ---------- */
@@ -240,7 +243,7 @@ const inputHTML = (inp, n) => {
   if (inp.k === "grid") h = `<div class="scroll" style="margin-top:8px"><table class="mx"><tbody>` + inp.ans.map((r, i) => "<tr>" + r.map((_, j) => `<td class="io"><input data-i="${n}" data-r="${i}" data-c="${j}" type="text" inputmode="decimal" autocomplete="off" aria-label="Row ${i + 1}, column ${j + 1}"></td>`).join("") + "</tr>").join("") + `</tbody></table></div>`;
   if (inp.k === "fields") h = `<div class="fl">` + inp.labels.map((l, f) => `<label for="f${n}-${f}">${esc(l)}</label><input class="in1" id="f${n}-${f}" data-i="${n}" data-f="${f}" type="text" inputmode="decimal" autocomplete="off"><span class="mk" data-m="${n}-${f}"></span>`).join("") + `</div>`;
   if (inp.k === "mc" || inp.k === "multi") h = inp.opts.map((o, k) => `<label class="o"><input type="${inp.k === "mc" ? "radio" : "checkbox"}" name="i${n}" data-i="${n}" value="${k}"><span>${esc(o)}<small data-m="${n}-${k}"></small></span></label>`).join("");
-  if (inp.k === "match") h = inp.left.map((l, k) => `<div class="mrow">${l.px || l.svg ? `<b>${esc(l.t)}</b>${vis(l, "Picture " + l.t)}` : `<span>${esc(l.t)}</span>`}<select data-i="${n}" data-f="${k}" aria-label="Match for ${esc(l.t)}"><option value="">Choose</option>${inp.opts.map((o, x) => `<option value="${x}">${esc(o)}</option>`).join("")}</select><span class="mk" data-m="${n}-${k}"></span></div>`).join("");
+  if (inp.k === "match") h = inp.left.map((l, k) => `<div class="mrow">${l.px || l.svg || l.img ? `<b>${esc(l.t)}</b>${vis(l, "Picture " + l.t)}` : `<span>${esc(l.t)}</span>`}<select data-i="${n}" data-f="${k}" aria-label="Match for ${esc(l.t)}"><option value="">Choose</option>${inp.opts.map((o, x) => `<option value="${x}">${esc(o)}</option>`).join("")}</select><span class="mk" data-m="${n}-${k}"></span></div>`).join("");
   return `<fieldset>${cap}${h}</fieldset>`;
 };
 

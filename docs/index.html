@@ -70,6 +70,7 @@ figcaption{font-size:var(--t-s);font-weight:700;margin-bottom:4px}
 .mx td.ok{box-shadow:inset 0 0 0 3px var(--right)}
 .scroll{overflow-x:auto;max-width:100%}
 img.px{image-rendering:pixelated;display:block;border:1px solid var(--ink)}
+img.real{display:block;max-width:100%;height:auto;border:1px solid var(--ink);background:var(--ink)}
 .formula{font-size:var(--t-s);background:var(--tint);padding:8px 12px;border-radius:var(--r);overflow-wrap:break-word}
 .meta{font-size:var(--t-s);color:var(--ink-2);margin-top:24px}
 .stem{font-size:var(--t-l);font-weight:700;line-height:1.3;margin:4px 0 0;white-space:pre-wrap}
@@ -201,46 +202,6 @@ const S = {
 };
 
 /* ---------- small pictures, returned as data ---------- */
-// A test scene: a ramp, a bright disc and a dark bar. Values 0..255.
-const scene = (n = 44) => Array.from({ length: n }, (_, i) => Array.from({ length: n }, (_, j) => {
-  let v = 70 + 90 * j / n + 30 * i / n;
-  if ((i - n * 0.38) ** 2 + (j - n * 0.36) ** 2 < (n * 0.2) ** 2) v = 225;
-  if (i > n * 0.66 && i < n * 0.84 && j > n * 0.3 && j < n * 0.86) v = 40;
-  return Math.round(v);
-}));
-// An asymmetric glyph so that all eight orientations look different.
-const GLYPH = ["0000000", "0111110", "0100000", "0100000", "0111100", "0100000", "0100000", "0100010", "0000000"]
-  .map((r, i) => [...r].map((c, j) => c === "1" ? 235 : 60 + 6 * i + 4 * j));
-const histSvg = (L) => {
-  const h = Array(32).fill(0); L.flat().forEach(v => h[Math.min(31, v >> 3)]++);
-  const mx = Math.max(...h);
-  return `<svg viewBox="0 0 132 70" width="132" height="70" role="img" aria-label="histogram"><rect x="1" y="1" width="130" height="68" fill="none" stroke="currentColor"/>` +
-    h.map((v, x) => `<rect x="${2 + x * 4}" y="${68 - 64 * v / mx}" width="3.4" height="${64 * v / mx}" fill="currentColor"/>`).join("") + `<\/svg>`;
-};
-// Kernel drawn as bars standing on a tilted grid. Bars below the grid are negative.
-const surfSvg = k => {
-  const n = k.length, m = k[0].length, dx = 22, dy = 11, cx = 80, cy = 46, mx = Math.max(...k.flat().map(Math.abs)) || 1, bars = [];
-  for (let s = 0; s <= n + m - 2; s++) for (let r = 0; r < n; r++) { const c = s - r; if (c < 0 || c >= m) continue;
-    const x = cx + (c - r) * dx, y = cy + (c + r) * dy, h = k[r][c] / mx * 34;
-    const top = h > 0 ? y - h : y, p = (px, py) => `${px.toFixed(1)},${py.toFixed(1)}`;
-    const face = (pts, f) => `<polygon points="${pts}" fill="${f}" stroke="#17171c" stroke-width=".8"/>`;
-    let g = "";
-    if (Math.abs(h) > 0.5) {   // positive bars stand on the floor, negative bars hang below it
-      const y0 = top, y1 = top + Math.abs(h);
-      g += face([p(x - dx, y0), p(x, y0 + dy), p(x, y1 + dy), p(x - dx, y1)].join(" "), h > 0 ? "#8d8d96" : "#4a4a55");
-      g += face([p(x + dx, y0), p(x, y0 + dy), p(x, y1 + dy), p(x + dx, y1)].join(" "), h > 0 ? "#b9b9c2" : "#6a6a75");
-    }
-    g += face([p(x, top - dy), p(x + dx, top), p(x, top + dy), p(x - dx, top)].join(" "), h > 0.5 ? "#fff" : h < -0.5 ? "#17171c" : "#e3e3e8");
-    bars.push(g);
-  }
-  return `<svg viewBox="0 0 160 142" width="160" height="142" role="img" aria-label="kernel surface plot">${bars.join("")}<\/svg>`;
-};
-const maskSvg = kind => {
-  const disc = (r, f) => `<circle cx="40" cy="40" r="${r}" fill="${f}"/>`, W = "#fff", B = "#1b1424";
-  const body = { low: disc(14, W), high: disc(14, B), bandpass: disc(26, W) + disc(13, B), bandreject: disc(26, B) + disc(13, W) }[kind];
-  const bg = (kind === "low" || kind === "bandpass") ? B : W;
-  return `<svg viewBox="0 0 80 80" width="80" height="80" role="img" aria-label="filter mask"><rect width="80" height="80" fill="${bg}" stroke="#1b1424"/>${body}<\/svg>`;
-};
 const grating = (f, deg, n = 48) => Array.from({ length: n }, (_, i) => Array.from({ length: n }, (_, j) => {
   const a = deg * Math.PI / 180, u = (j * Math.cos(a) + i * Math.sin(a)) / n;
   return Math.round(127.5 + 127.5 * Math.sin(2 * Math.PI * f * u));
@@ -257,6 +218,9 @@ const fields = (labels, ans, tol = 0) => ({ k: "fields", labels, ans, tol });
 const mc = (right, wrongs) => { const opts = shuffle([right, ...wrongs]); return { k: "mc", opts, ans: opts.indexOf(right) }; };
 const fact = bank => () => { const [q, right, ...wrongs] = pick(bank); return { stem: q, input: mc(right, wrongs), steps: [] }; };
 const TOL = 0.011;
+// A picture copied from the tutor's own Canvas quiz, stored in docs/img. w and h are the size it is shown at.
+const real = (img, w, h) => ({ img, w, h });
+const realMatch = (rows, opts, w, h) => { const v = shuffle(rows); return { input: { k: "match", left: v.map((x, n) => ({ t: "ABCDEFG"[n], ...real(x[1], x[3] || w, x[4] || h) })), opts, ans: v.map(x => opts.indexOf(x[0])) }, steps: v.map((x, n) => `${"ABCDEFG"[n]} is ${x[0]}: ${x[2]}.`) }; };
 
 const GENS = [];
 const G = (w, id, name, rule, trap, make) => GENS.push({ w, id: "w" + w + "-" + id, name, rule, trap, make });
@@ -303,15 +267,9 @@ G(1, "rgb", "RGB triplets and colours", "One channel at 255 gives red, green or 
   const p = shuffle(all).slice(0, 5), opts = all.map(a => a[1]);
   return { stem: "Match each RGB triplet to its colour.", input: { k: "match", left: p.map(a => ({ t: a[0] })), opts, ans: p.map(a => opts.indexOf(a[1])) }, steps: p.map(a => `${a[0]} is ${a[1]}.`) };
 });
-G(1, "formats", "Recognise the image format", "Binary has only black and white. Greyscale has smooth greys. RGB has smooth colour. Indexed colour has few colours, so gradients break into bands. Vector has clean flat shapes with sharp edges at any size.", "Indexed and RGB are both colour. Look for banding in the gradient to spot indexed.", () => {
-  const g = scene(40), col = map2(g, (v, i, j) => [clip(v + 30), clip(200 - v / 2 + i), clip(60 + 3 * j)]);
-  const items = shuffle([
-    ["binary", { px: map2(g, v => v >= 128 ? 255 : 0) }], ["greyscale", { px: g }], ["RGB", { px: col }],
-    ["indexed", { px: map2(col, c => c.map(x => Math.round(x / 85) * 85)) }],
-    ["vector", { svg: `<svg viewBox="0 0 40 40" width="120" height="120" role="img" aria-label="picture"><rect width="40" height="40" fill="#8a7fb0"/><circle cx="14.5" cy="15" r="8" fill="#f2e9c9"/><rect x="12" y="26.5" width="22.5" height="7" fill="#2a2140"/><\/svg>` }],
-  ]);
-  const opts = ["binary", "greyscale", "indexed", "RGB", "vector"];
-  return { stem: "Match each picture to its image format.", input: { k: "match", left: items.map((it, n) => ({ t: "ABCDE"[n], ...it[1] })), opts, ans: items.map(it => opts.indexOf(it[0])) }, steps: [] };
+G(1, "formats", "Recognise the image format", "Binary has only pure black and pure white. Greyscale has smooth greys and no colour. RGB has smooth colour. Indexed colour has few colours, so a smooth background breaks into flat bands. Vector is built from points and lines, so the quiz shows it as a wire mesh.", "Indexed and RGB are both colour. Look at the background: bands mean indexed, a smooth fade means RGB.", () => {
+  const r = realMatch([["greyscale", "q1-anuA", "smooth greys and no colour"], ["indexed", "q1-anuB", "colour, but the background breaks into flat bands"], ["vector", "q1-anuC", "a mesh of points and lines, not pixels"], ["RGB", "q1-anuD", "smooth colour with no banding"], ["binary", "q1-anuE", "only pure black and pure white"]], ["binary", "greyscale", "indexed", "RGB", "vector"], 150, 227);
+  return { stem: "Match the images to their image formats. These are the pictures from Quiz 01.", input: r.input, steps: r.steps };
 });
 
 /* ================= Week 2 ================= */
@@ -411,10 +369,10 @@ G(4, "equalise", "Histogram equalisation, new grey levels", "List the levels in 
   const lv = S.levels(L), f = L.flat(), map = S.equalise(L); let c = 0; const cum = lv.map(v => (c += f.filter(x => x === v).length)), h0 = cum[0];
   return { stem: "Enter the new value of each grey level after histogram equalisation, with t = 255 and b = 0.", show: [{ m: L, kind: "grey" }], input: fields(lv.map(v => "Level " + v), lv.map(v => map[v])), steps: [`Running totals for the levels are ${cum.join(", ")}.`, `Bottom = MN − H(Lmin) = 9 − ${h0} = ${9 - h0}.`, ...lv.map((v, n) => `${v}: (${cum[n]} − ${h0}) ÷ ${9 - h0} × 255 = ${((cum[n] - h0) / (9 - h0) * 255).toFixed(2)}, which rounds to ${map[v]}.`)] };
 });
-G(4, "histmatch", "Match pictures to histograms", "Dark picture: bars bunched on the left. Bright: bunched on the right. Low contrast: a narrow clump. High contrast: bars spread across the whole width.", "Low contrast is about how narrow the clump is, not where it sits.", () => {
-  const g = scene(40), v = [["dark", map2(g, x => Math.round(x * 0.35))], ["bright", map2(g, x => Math.round(150 + x * 0.4))], ["low contrast", map2(g, x => Math.round(105 + x * 0.18))], ["high contrast", map2(g, x => clip(Math.round((x - 40) * 1.38)))]];
+G(4, "histmatch", "Match pictures to histograms", "Read where the bars sit. Dark picture: bars bunched on the left. Washed-out grey picture: a narrow clump in the middle. Stretched picture: the same shape pulled across the full width. Equalised picture: separate spikes with gaps between them, at roughly level heights.", "Stretched and equalised both reach from 0 to 255. Stretched keeps the shape of the original histogram. Equalised has gaps and looks flattened.", () => {
+  const v = [["q4-imgA", "q4-hist2", "washed-out greys with no true black or white, so the bars sit in a narrow clump from about 70 to 190"], ["q4-imgB", "q4-hist4", "the strongest contrast. It was equalised, so the bars are separate spikes with gaps, spread over the whole range"], ["q4-imgC", "q4-hist3", "full black to full white. It was stretched, so the histogram keeps its shape but covers the whole width"], ["q4-imgD", "q4-hist1", "dark, so every bar is on the left and nothing is above about 125"]];
   const imgs = shuffle(v), hs = shuffle(v), opts = ["1", "2", "3", "4"];
-  return { stem: "Match pictures A to D to histograms 1 to 4.", show: hs.map((h, n) => ({ cap: "Histogram " + (n + 1), svg: histSvg(h[1]) })), input: { k: "match", left: imgs.map((im, n) => ({ t: "ABCD"[n], px: im[1] })), opts, ans: imgs.map(im => hs.findIndex(h => h[0] === im[0])) }, steps: imgs.map((im, n) => `Picture ${"ABCD"[n]} is the ${im[0]} one.`) };
+  return { stem: "Match the images of busy quiz-takers, A to D, to histograms 1 to 4. These are the pictures from Quiz 04.", show: hs.map((h, n) => ({ cap: "Histogram " + (n + 1), ...real(h[1], 220, 208) })), input: { k: "match", left: imgs.map((im, n) => ({ t: "ABCD"[n], ...real(im[0], 300, 226) })), opts, ans: imgs.map(im => hs.indexOf(im)) }, steps: imgs.map((im, n) => `Picture ${"ABCD"[n]} goes with histogram ${hs.indexOf(im) + 1}: ${im[2]}.`) };
 });
 G(4, "facts", "Contrast methods, facts", "Stretch is one-to-one (bijective): every level keeps its own new level. Alpha-trimmed stretch, equalisation and CLAHE can send several old levels to the same new one (surjective). CLAHE limits how much noise gets amplified.", "Stretch fails when a single outlier pixel sits at 0 or 255. That is what alpha trimming fixes.", fact([
   ["What kind of mapping between input and output grey levels does a plain histogram stretch give?", "Bijective, one old level to one new level", "Surjective, several old levels can share a new level", "Random", "Injective only, with unused input levels"],
@@ -490,9 +448,15 @@ G(6, "formula", "Direct formulas for rotation", "Test the formula on the top-lef
   const o = pick(OPS), wrong = shuffle(OPS.filter(x => x !== o)).slice(0, 3).map(x => x[2]);
   return { stem: `Which direct formula performs ${o[0]}?`, input: mc(o[2], wrong), steps: [`Pixel (1,1) goes to ${{ flipLR: "(1,N), the top-right", flipUD: "(M,1), the bottom-left", rot180: "(M,N), the bottom-right", transpose: "(1,1), so it stays", rotP90: "(1,M), the top-right", rotM90: "(N,1), the bottom-left", antiT: "(N,M), the bottom-right" }[o[1]]}.`, `Put i = 1 and j = 1 into ${o[2]} to confirm.`] };
 });
-G(6, "pictures", "Recognise the rotation", "Find one feature and follow it. Here the stem of the F starts on the left with its arms pointing right. A mirrored F with no turn is a flip. A turned F that is not mirrored is a rotation. A turned and mirrored F is a transpose.", "Transpose and rotate +90° both lay the F on its side. Only the transpose also mirrors it.", () => {
-  const p = shuffle(OPS).slice(0, 4), opts = OPS.map(o => o[0]);
-  return { stem: "Match each picture to the operation applied to the original.", show: [{ cap: "Original", px: GLYPH }], input: { k: "match", left: p.map((o, n) => ({ t: "ABCD"[n], px: S[o[1]](GLYPH) })), opts, ans: p.map(o => opts.indexOf(o[0])) }, steps: p.map((o, n) => `${"ABCD"[n]} is ${o[0]}.`) };
+const FLY = [["q6-A", "wings in the top-right, picture still wide", 216, 144], ["q6-B", "wings in the bottom-left, picture still wide", 216, 144], ["q6-C", "wings in the bottom-right, picture still wide", 216, 144], ["q6-D", "wings still in the top-left, but the picture is now tall", 144, 216], ["q6-E", "wings in the top-right, picture now tall", 144, 216], ["q6-F", "wings in the bottom-left, picture now tall", 144, 216], ["q6-G", "wings in the bottom-right, picture now tall", 144, 216]];
+const FLYRULE = "Two checks. First the shape: a picture that is still wide is a flip or the 180° turn, and a picture that became tall swapped rows and columns, so it is a transpose or a 90° turn. Then the corner the wings moved to, starting from the top-left.";
+G(6, "pictures", "Recognise the rotation", FLYRULE + " Wide: top-right is flip left-right, bottom-left is flip up-down, bottom-right is both flips. Tall: top-left is transpose, top-right is +90°, bottom-left is −90°, bottom-right is anti-diagonal transpose.", "Flip left-right and rotate +90° both send the wings to the top-right. The shape of the picture separates them.", () => {
+  const r = realMatch(OPS.map((o, k) => [o[0], ...FLY[k]]), OPS.map(o => o[0]));
+  return { stem: "Match rotated images A to G to the operation that has been applied to the original image. These are the pictures from Quiz 06.", show: [{ cap: "Original", ...real("q6-orig", 216, 144) }], input: r.input, steps: r.steps };
+});
+G(6, "picformula", "Match pictures to direct formulas", FLYRULE + " In the formula, M+1−i sends a row to the opposite end and N+1−j sends a column to the opposite end. Swapped i and j means the picture became tall.", "A formula that starts L′(i or L′(M+1−i keeps the picture wide. One that starts L′(j or L′(N+1−j makes it tall. Flip left-right is L′(i, N+1−j), not L′(j, i).", () => {
+  const r = realMatch(OPS.map((o, k) => [o[2], ...FLY[k]]), OPS.map(o => o[2]));
+  return { stem: "Match rotated images A to G to their direct formulas relative to the original image. These are the pictures from Quiz 06.", show: [{ cap: "Original", ...real("q6-orig", 216, 144) }], input: r.input, steps: r.steps };
 });
 G(6, "down", "Downsampling", "Split the image into 2 × 2 blocks. Decimation keeps one pixel from each block. Region averaging replaces each block by the mean of its four pixels, rounded.", "A decimated pixel always existed in the original. An averaged pixel may be a new value.", () => {
   const L = rmat(4, 4, 0, 255), blk = (a, b) => [L[2 * a][2 * b], L[2 * a][2 * b + 1], L[2 * a + 1][2 * b], L[2 * a + 1][2 * b + 1]];
@@ -520,10 +484,8 @@ G(7, "majority", "Majority filter", "Count the ones in the 3 × 3 window. Five o
   return { stem: `Calculate the output of a 3 × 3 majority filter centred at ${pos(i, j)} on this binary image.`, show: [{ m: L, kind: "bin", mark: [i, j] }], input: num(n >= 5 ? 1 : 0), steps: [`The window holds ${n} ones and ${9 - n} zeros.`, `The majority value is ${n >= 5 ? 1 : 0}.`] };
 });
 G(7, "noise", "Pick the filter for the noise", "White specks are salt, and the min filter removes them. Black specks are pepper, and the max filter removes them. Both together need the median. Fine grain all over is Gaussian noise, where the midpoint filter is the simplest choice.", "It runs opposite to what you might guess. Bright specks need the min filter, because min throws away the brightest value.", () => {
-  const g = scene(44), n = (f) => map2(g, v => f(v));
-  const v = shuffle([["Midpoint", n(x => clip(Math.round(x + (Math.random() + Math.random() + Math.random() - 1.5) * 50)))], ["Min filter", n(x => Math.random() < 0.07 ? 255 : x)], ["Max filter", n(x => Math.random() < 0.07 ? 0 : x)], ["Median filter", n(x => { const r = Math.random(); return r < 0.04 ? 255 : r < 0.08 ? 0 : x; })]]);
-  const opts = ["Min filter", "Max filter", "Median filter", "Midpoint"];
-  return { stem: "For each noisy picture, choose the simplest non-linear filter that would reduce the noise.", show: [{ cap: "Original", px: g }], input: { k: "match", left: v.map((x, k) => ({ t: "ABCD"[k], px: x[1] })), opts, ans: v.map(x => opts.indexOf(x[0])) }, steps: [] };
+  const r = realMatch([["Midpoint", "q7-xGaussian", "fine grain over the whole picture is Gaussian noise"], ["Min filter", "q7-xSalt", "white specks only is salt, and min throws the bright values away"], ["Max filter", "q7-xPepper", "black specks only is pepper, and max throws the dark values away. Look on the bright bones, because pepper does not show on the black background"], ["Median filter", "q7-xSaltPepper", "white and black specks together is salt and pepper"]], ["Min filter", "Max filter", "Median filter", "Midpoint"], 330, 248);
+  return { stem: "For each image A to D, identify the simplest non-linear filter that will reduce or remove the noise. These are the pictures from Quiz 07.", show: [{ cap: "Original", ...real("q7-xRayThumbsUp", 330, 248) }], input: r.input, steps: r.steps };
 });
 G(7, "border", "Handling the image border", "A window that hangs over the edge needs a rule. The valid choices are: only filter where the window fits (smaller output), pad with zeros, repeat the edge rows and columns, mirror them, wrap around to the opposite side, or shrink the window to what is inside.", "All six are accepted methods. The wrong options are the ones that change the picture itself.", () => {
   const good = ["Apply the window only where it fully fits, making the output smaller", "Pad with zeros around the border", "Duplicate the rows and columns at the border", "Mirror the rows and columns around the outside", "Copy pixels from the opposite side of the image", "Truncate the window so it uses only values inside the image"], bad = ["Rotate the image by 90° before filtering", "Replace border pixels with the image's median grey level and leave them unfiltered", "Double the window size at the border"];
@@ -572,9 +534,9 @@ G(8, "usm", "Unsharp mask", "usm = L + (L − blurred). At the centre that is 2 
   const L = rmat(3, 3, 0, 255), m = S.mean(L), v = S.usm(L);
   return { stem: "Calculate the unsharp mask output at the centre of this image, using a 3 × 3 mean kernel for the blur. Round to a whole number, with .5 rounding upwards, and give the raw value.", show: [{ m: L, kind: "grey" }], formula: "usm(L) = L + (L − L∗k)", input: num(rnd(v)), steps: [`The nine pixels add up to ${sum(L.flat())}, so the blurred centre is ${m.toFixed(3)}.`, `2 × ${L[1][1]} − ${m.toFixed(3)} = ${v.toFixed(3)}.`, `Rounded, that is ${rnd(v)}.`] };
 });
-G(8, "plots", "Recognise the kernel from its surface plot", "Mean is flat, with every bar the same height. Gaussian is a hill, tallest in the middle. Sharpen is one tall spike with four bars going below the floor around it. Emboss has one bar up in a corner and one bar down in the opposite corner.", "Sharpen and Gaussian both peak in the middle. Only sharpen has bars below the floor.", () => {
-  const v = shuffle([["Mean", S.K.mean3], ["Gaussian", S.K.gauss], ["Sharpen", S.K.sharpen], ["Emboss", S.K.emboss]]), opts = ["Mean", "Gaussian", "Sharpen", "Emboss"];
-  return { stem: "Match each surface plot to its filter. A white top is a positive coefficient, a black top is a negative one that hangs below the floor, and a grey top is zero.", input: { k: "match", left: v.map((x, n) => ({ t: "ABCD"[n], svg: surfSvg(x[1]) })), opts, ans: v.map(x => opts.indexOf(x[0])) }, steps: [] };
+G(8, "plots", "Recognise the kernel from its surface plot", "Mean is a box: a flat top with straight walls, because every coefficient is equal. Gaussian is a smooth hill with shoulders that fall away gently. Sharpen is a taller, thinner peak with a dip around its base, because the neighbours are negative. Emboss is a twisted sheet: one corner pulled up and the opposite corner pushed down.", "Sharpen and Gaussian both peak in the middle. Sharpen is the one that dips below the sheet around the peak.", () => {
+  const r = realMatch([["Sharpen", "q8-sharpenKernel", "a thin peak with a dip around its base, from the negative neighbours"], ["Gaussian", "q8-gaussianKernel", "a smooth hill with no part below the edge of the sheet"], ["Emboss", "q8-embossKernel", "a twisted sheet, up at one corner and down at the opposite one"], ["Mean", "q8-meanKernel", "a flat-topped box, because every coefficient is the same"]], ["Mean", "Gaussian", "Sharpen", "Emboss"], 280, 210);
+  return { stem: "Match linear filter surface plots A to D to their corresponding filter names. These are the plots from Quiz 08.", input: r.input, steps: r.steps };
 });
 G(8, "facts", "Linear filters, facts", "Linear filtering is convolution: a weighted sum of the window. Blur kernels add up to 1, which keeps brightness the same. Kernels have odd sides so there is one clear centre pixel.", "Gaussian blurs less harshly than mean and keeps edges more intact. It is not faster and it does not blur more.", fact([
   ["Linear filtering is also known as what?", "Convolution", "Composition", "Conflation", "Confounding"],
@@ -623,9 +585,9 @@ G(9, "mse", "Template matching with mean square error", "Subtract the template f
   const L = rmat(3, 3, 0, 255), t = rmat(3, 3, 0, 255), d = L.flat().map((v, n) => (v - t.flat()[n]) ** 2);
   return { stem: "Calculate the mean square error between image patch L and template t. Give 2 d.p.", show: [{ cap: "L", m: L, kind: "grey" }, { cap: "t", m: t, kind: "grey" }], input: num(dp2(S.mse(L, t)), TOL), steps: [`Squared differences: ${d.join(", ")}.`, `They add up to ${sum(d)}.`, `${sum(d)} ÷ 9 = ${dp2(S.mse(L, t))}.`] };
 });
-G(9, "plots", "Recognise the edge kernel from its surface plot", "Roberts is the only 2 × 2. Laplacian has one tall centre with negative bars around it. Sobel and Prewitt both have a positive row, a zero row and a negative row, and Sobel's middle bars are twice as tall.", "Sobel and Prewitt look alike. Check whether the bars in each row are level (Prewitt) or peaked in the middle (Sobel).", () => {
-  const v = shuffle([["Roberts cross", S.K.robX], ["Laplacian", S.K.lap4], ["Sobel", S.K.sobelY], ["Prewitt", S.K.prewittY]]), opts = ["Roberts cross", "Laplacian", "Sobel", "Prewitt"];
-  return { stem: "Match each surface plot to its edge detection filter. A white top is a positive coefficient, a black top is a negative one that hangs below the floor, and a grey top is zero.", input: { k: "match", left: v.map((x, n) => ({ t: "ABCD"[n], svg: surfSvg(x[1]) })), opts, ans: v.map(x => opts.indexOf(x[0])) }, steps: [] };
+G(9, "plots", "Recognise the edge kernel from its surface plot", "Laplacian is the only one that is the same in every direction: one sharp spike in the middle of a flat sheet with a dip around it. The other three are slopes, high on one side and low on the other. Prewitt is a plain ramp, level along its length. Sobel is a ramp whose ridge and valley bulge in the middle, because the middle weight is 2. Roberts cross is a single smooth wave across the diagonal, coarse because the kernel is only 2 × 2.", "Sobel and Prewitt look alike. Check whether the high edge is level (Prewitt) or humped in the middle (Sobel).", () => {
+  const r = realMatch([["Roberts cross", "q9-robKernel", "one hump and one dip across the diagonal, with a coarse mesh from the 2 × 2 kernel"], ["Laplacian", "q9-lapKernel", "one sharp spike in the middle with a dip around it, the same in every direction"], ["Sobel", "q9-sobKernel", "a slope whose ridge and valley bulge in the middle"], ["Prewitt", "q9-prewKernel", "a plain ramp that is level along its length"]], ["Roberts cross", "Laplacian", "Sobel", "Prewitt"], 280, 210);
+  return { stem: "Match the following edge detection filter surface plots to the corresponding filter names. These are the plots from Quiz 09.", input: r.input, steps: r.steps };
 });
 G(9, "facts", "Edge detection, facts", "Edge kernels add up to 0, so a flat area gives no output. Blur with a Gaussian before a Laplacian to calm the noise. √(Gx² + Gy²) is the accurate magnitude, and the other two are quick estimates. Canny is the standard method.", "The morphological match for an edge detector is the gradient, not opening or closing.", fact([
   ["Which morphological operator has an effect most like convolution with an edge detection kernel?", "Outer gradient", "Closing", "Opening", "Erosion"],
@@ -693,8 +655,8 @@ G(11, "spectra", "Match stripes to spectra", "Each spectrum has a centre dot and
   return { stem: "Match striped pictures A to D to magnitude spectra 1 to 4.", show: sp.map((s, n) => ({ cap: "Spectrum " + (n + 1), svg: spectrumSvg(s[0], s[1]) })), input: { k: "match", left: v.map((g, n) => ({ t: "ABCD"[n], px: grating(g[0], g[1]) })), opts, ans: v.map(g => sp.indexOf(g)) }, steps: ["Vertical stripes change brightness as you move left to right, so their dots lie on a horizontal line.", "The picture with more stripes has its dots further out."] };
 });
 G(11, "masks", "Recognise the frequency filter mask", "White passes and black blocks. Low frequencies are at the centre. A white disc in the middle is low-pass. A black disc in the middle is high-pass. A white ring is band-pass. A black ring is band-reject.", "Name the filter after what the white area keeps.", () => {
-  const v = shuffle([["Low-pass", "low"], ["High-pass", "high"], ["Band-pass", "bandpass"], ["Band-reject", "bandreject"]]), opts = ["Low-pass", "High-pass", "Band-pass", "Band-reject"];
-  return { stem: "Match each ideal filter mask to its name. The mask is multiplied with the shifted spectrum.", input: { k: "match", left: v.map((x, n) => ({ t: "ABCD"[n], svg: maskSvg(x[1]) })), opts, ans: v.map(x => opts.indexOf(x[0])) }, steps: [] };
+  const r = realMatch([["Low-pass", "w11-low", "white only at the centre, so only low frequencies pass"], ["High-pass", "w11-high", "black at the centre, so the low frequencies are blocked and the rest pass"], ["Band-pass", "w11-bandpass", "a white ring, so only a middle band of frequencies passes"], ["Band-reject", "w11-bandreject", "a black ring, so only a middle band of frequencies is blocked"]], ["Low-pass", "High-pass", "Band-pass", "Band-reject"], 120, 120);
+  return { stem: "Match each ideal filter mask to its name. The mask is multiplied with the shifted spectrum. Low-pass, band-pass and high-pass are the masks from the Lecture 11 slide. Band-reject is the band-pass mask inverted.", input: r.input, steps: r.steps };
 });
 G(11, "facts", "Spatial frequency, facts", "Any image can be built by adding 2D sine waves. The Fourier transform finds them. In the shifted spectrum the centre is the mean, distance from the centre is frequency in cycles per image, and the angle of the dots follows the angle of the pattern.", "Periodic noise shows up as a few bright dots in the spectrum. Blank those dots out and transform back. Sliding window filters cannot do this.", fact([
   ["What is the number of cycles a sine wave completes per unit of time called?", "Frequency", "Phase", "Peak amplitude", "Sample rate"],
@@ -800,7 +762,9 @@ const pxImg = (px, label) => {
   const s = Math.max(1, Math.floor(132 / Math.max(w, h)));
   return `<img class="px" src="${c.toDataURL()}" width="${w * s}" height="${h * s}" alt="${esc(label || "picture")}">`;
 };
-const vis = (it, label) => it.px ? pxImg(it.px, label) : it.svg ? it.svg : it.m ? matHTML(it.m, it.kind, it.mark, it.half) : "";
+const IMG = "img/";
+const realImg = (it, label) => `<img class="real" src="${IMG}${it.img}.jpg" width="${it.w}" height="${it.h}" alt="${esc(label || "Picture")}" loading="lazy">`;
+const vis = (it, label) => it.img ? realImg(it, label) : it.px ? pxImg(it.px, label) : it.svg ? it.svg : it.m ? matHTML(it.m, it.kind, it.mark, it.half) : "";
 const figs = show => !show || !show.length ? "" : `<div class="figs">` + show.map(it => `<figure>${it.cap ? `<figcaption>${esc(it.cap)}</figcaption>` : ""}${vis(it, it.cap)}</figure>`).join("") + `</div>`;
 
 /* ---------- pages ---------- */
@@ -852,7 +816,7 @@ const inputHTML = (inp, n) => {
   if (inp.k === "grid") h = `<div class="scroll" style="margin-top:8px"><table class="mx"><tbody>` + inp.ans.map((r, i) => "<tr>" + r.map((_, j) => `<td class="io"><input data-i="${n}" data-r="${i}" data-c="${j}" type="text" inputmode="decimal" autocomplete="off" aria-label="Row ${i + 1}, column ${j + 1}"></td>`).join("") + "</tr>").join("") + `</tbody></table></div>`;
   if (inp.k === "fields") h = `<div class="fl">` + inp.labels.map((l, f) => `<label for="f${n}-${f}">${esc(l)}</label><input class="in1" id="f${n}-${f}" data-i="${n}" data-f="${f}" type="text" inputmode="decimal" autocomplete="off"><span class="mk" data-m="${n}-${f}"></span>`).join("") + `</div>`;
   if (inp.k === "mc" || inp.k === "multi") h = inp.opts.map((o, k) => `<label class="o"><input type="${inp.k === "mc" ? "radio" : "checkbox"}" name="i${n}" data-i="${n}" value="${k}"><span>${esc(o)}<small data-m="${n}-${k}"></small></span></label>`).join("");
-  if (inp.k === "match") h = inp.left.map((l, k) => `<div class="mrow">${l.px || l.svg ? `<b>${esc(l.t)}</b>${vis(l, "Picture " + l.t)}` : `<span>${esc(l.t)}</span>`}<select data-i="${n}" data-f="${k}" aria-label="Match for ${esc(l.t)}"><option value="">Choose</option>${inp.opts.map((o, x) => `<option value="${x}">${esc(o)}</option>`).join("")}</select><span class="mk" data-m="${n}-${k}"></span></div>`).join("");
+  if (inp.k === "match") h = inp.left.map((l, k) => `<div class="mrow">${l.px || l.svg || l.img ? `<b>${esc(l.t)}</b>${vis(l, "Picture " + l.t)}` : `<span>${esc(l.t)}</span>`}<select data-i="${n}" data-f="${k}" aria-label="Match for ${esc(l.t)}"><option value="">Choose</option>${inp.opts.map((o, x) => `<option value="${x}">${esc(o)}</option>`).join("")}</select><span class="mk" data-m="${n}-${k}"></span></div>`).join("");
   return `<fieldset>${cap}${h}</fieldset>`;
 };
 
