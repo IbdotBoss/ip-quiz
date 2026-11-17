@@ -13,7 +13,7 @@ if test.returncode:
     sys.exit("tests failed; nothing written")
 
 tpl = open(os.path.join(HERE, "template.html"), encoding="utf8").read()
-assert all(k in tpl for k in ("/*FONT*/", "/*MONO*/", "/*GENS*/", "/*IMG*/", "/*CARDS*/"))
+assert all(k in tpl for k in ("/*FONT*/", "/*FONTB*/", "/*MATH*/", "/*MATHI*/", "/*GENS*/", "/*IMG*/", "/*CARDS*/"))
 b64 = lambda name: base64.b64encode(open(os.path.join(HERE, "fonts", name), "rb").read()).decode()
 gens = open(os.path.join(HERE, "src", "gens.js"), encoding="utf8").read().replace("</", "<\\/")
 
@@ -29,7 +29,8 @@ for d in cards.values():
             sys.exit("quiz %s question %s points at a generator that does not exist: %s" % (d["quiz"], c["n"], c["gen"]))
 cards_js = json.dumps(cards, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")
 
-out = (tpl.replace("/*FONT*/", b64("AtkinsonHyperlegibleNext.woff2")).replace("/*MONO*/", b64("AtkinsonHyperlegibleMono.woff2"))
+out = (tpl.replace("/*FONT*/", b64("Lato-400.woff2")).replace("/*FONTB*/", b64("Lato-700.woff2"))
+          .replace("/*MATH*/", b64("KaTeX_Main-Regular.woff2")).replace("/*MATHI*/", b64("KaTeX_Math-Italic.woff2"))
           .replace("/*GENS*/", gens).replace("/*CARDS*/", cards_js))
 
 # docs/index.html is what GitHub Pages serves. index.html is the same file for opening locally.

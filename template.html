@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en-GB" data-theme="dark">
+<html lang="en-GB" data-theme="light">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -11,23 +11,26 @@
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://ibdotboss.github.io/ip-quiz/">
 <meta name="color-scheme" content="dark light">
-<script>try { document.documentElement.dataset.theme = localStorage.getItem("ip-sheet-theme") || "dark"; } catch (e) {}</script>
+<script>(function () { var t = null; try { t = localStorage.getItem("ip-sheet-mode"); } catch (e) {} document.documentElement.dataset.theme = t || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"); })();</script>
 <style>
-@font-face{font-family:"Atkinson Next";src:url(data:font/woff2;base64,/*FONT*/) format("woff2");font-weight:200 800;font-display:swap}
-@font-face{font-family:"Atkinson Mono";src:url(data:font/woff2;base64,/*MONO*/) format("woff2");font-weight:200 800;font-display:swap}
+@font-face{font-family:"Lato";src:url(data:font/woff2;base64,/*FONT*/) format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:"Lato";src:url(data:font/woff2;base64,/*FONTB*/) format("woff2");font-weight:700;font-display:swap}
+@font-face{font-family:"KaTeX Main";src:url(data:font/woff2;base64,/*MATH*/) format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:"KaTeX Math";src:url(data:font/woff2;base64,/*MATHI*/) format("woff2");font-style:italic;font-display:swap}
 :root{
-  --body:"Atkinson Next",Verdana,Arial,sans-serif;--mono:"Atkinson Mono",ui-monospace,Consolas,monospace;
-  --t-s:.9375rem;--t-m:1.0625rem;--t-l:1.25rem;--t-xl:1.75rem;--r:2px;--strip:57px;
+  --body:"Lato","Helvetica Neue",Helvetica,Arial,sans-serif;
+  --math:"KaTeX Main","Latin Modern Roman","Cambria Math","Times New Roman",serif;
+  --mathi:"KaTeX Math","KaTeX Main","Cambria Math","Times New Roman",serif;
+  --t-s:.9375rem;--t-m:1rem;--t-l:1.25rem;--t-xl:1.75rem;--r:4px;--strip:57px;
 }
-/* Slide: the black ground of the tutor's slides and pictures. */
-html[data-theme="dark"]{--paper:#000;--panel:#111113;--ink:#f2f2f0;--ink-2:#b0b0ab;--hair:#3d3d41;--tint:#1a1a1d;--mark:#ffd84a;--mark-ink:#000;--right:#7be0a4;--wrong:#ff9d94;--focus:#8ab4ff;--grid:none}
-/* Paper: squared paper and a highlighter, for daylight and for printing. */
-html[data-theme="light"]{--paper:#fbfbf7;--panel:#fff;--ink:#14213d;--ink-2:#4d5670;--hair:#b3c0d8;--tint:#edf1f7;--mark:#ffe45c;--mark-ink:#14213d;--right:#0c6b3d;--wrong:#b3261e;--focus:#2f5fd0;
-  --grid:linear-gradient(#e1e8f3 1px,transparent 1px),linear-gradient(90deg,#e1e8f3 1px,transparent 1px)}
+/* Light: the colours of a Canvas quiz page. */
+html[data-theme="light"]{--paper:#fff;--panel:#fff;--ink:#2d3b45;--ink-2:#556572;--hair:#c7cdd1;--tint:#f5f5f5;--mark:#ffe680;--mark-ink:#2d3b45;--right:#0b874b;--wrong:#c5221f;--focus:#0770a3;--nb:#2d3b45;--nb-ink:#fff}
+/* Dark: the same page with the lights off. */
+html[data-theme="dark"]{--paper:#12171b;--panel:#1b2228;--ink:#f2f4f5;--ink-2:#a9b3b9;--hair:#3b464e;--tint:#222a31;--mark:#f5d76e;--mark-ink:#12171b;--right:#57cc94;--wrong:#ff928c;--focus:#74bde8;--nb:#f2f4f5;--nb-ink:#12171b}
 *{box-sizing:border-box}
 html{scroll-padding-top:calc(var(--strip) + 16px)}
 html,body{overflow-x:clip}
-body{margin:0;background:var(--paper);background-image:var(--grid);background-size:16px 16px;color:var(--ink);font:400 var(--t-m)/1.5 var(--body)}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 var(--t-m)/1.5 var(--body)}
 main{max-width:1180px;margin:0 auto;padding:16px 16px 64px;min-height:100dvh}
 main.narrow{max-width:760px}
 h1,h2,h3{text-wrap:balance;margin:0}
@@ -41,10 +44,10 @@ p{margin:8px 0;text-wrap:pretty}
 a{color:var(--ink)}
 svg{display:block}
 button,select,input{font:400 1rem/1.2 var(--body);color:var(--ink)}
-button,select,a.btn{font-weight:700;background:transparent;border:1px solid var(--ink);border-radius:var(--r);padding:12px 16px;min-height:44px;cursor:pointer}
+button,select,a.btn{font-weight:700;background:var(--panel);border:1px solid var(--hair);border-radius:var(--r);padding:12px 16px;min-height:44px;cursor:pointer}
 a.btn{display:inline-flex;align-items:center;text-decoration:none}
-select{font-weight:400;padding:8px 12px;max-width:100%;background:var(--panel)}
-button.p{background:var(--ink);color:var(--paper)}
+select{font-weight:400;padding:8px 12px;max-width:100%}
+button.p{background:var(--ink);color:var(--paper);border-color:var(--ink)}
 :is(button,a.btn):hover{background:var(--tint)}
 button.p:hover{background:var(--ink-2)}
 :is(input,select):disabled{background:var(--tint);color:var(--ink);cursor:default}
@@ -54,13 +57,20 @@ button.p:hover{background:var(--ink-2)}
 .top button{padding:8px 12px;min-height:40px;font-size:var(--t-s)}
 .acts{display:flex;flex-wrap:wrap;gap:12px;margin-top:16px;align-items:center}
 
+/* maths, set the way Canvas sets it */
+.m{font-family:var(--math);font-size:1.16em;line-height:1.3}
+.m i{font-family:var(--mathi);font-style:italic}
+.m sub,.m sup{font-size:.72em;line-height:0}
+.fm{margin:4px 0 12px;font-size:1.3rem;overflow-wrap:break-word}
+
 /* the question strip: one square per quiz question */
 .strip{display:flex;gap:4px;overflow-x:auto;padding:8px 0;scrollbar-width:thin}
 .strip.stick{position:sticky;top:0;z-index:2;background:var(--paper);border-bottom:1px solid var(--hair)}
-.strip a{flex:0 0 auto;min-width:40px;height:40px;display:grid;place-items:center;font:700 1rem var(--mono);color:var(--ink);text-decoration:none;border:1px solid var(--hair);border-radius:var(--r);background:var(--panel)}
+.strip a{flex:0 0 auto;min-width:40px;height:40px;display:grid;place-items:center;font-weight:700;color:var(--ink);text-decoration:none;border:1px solid var(--hair);border-radius:var(--r);background:var(--panel)}
 .strip a:hover{border-color:var(--ink)}
 .strip a.lost{background:var(--mark);color:var(--mark-ink);border-color:var(--mark)}
-.strip a[aria-current]{box-shadow:0 0 0 2px var(--paper),0 0 0 4px var(--ink)}
+.strip a[aria-current]{background:var(--nb);color:var(--nb-ink);border-color:var(--nb)}
+.strip a.lost[aria-current]{box-shadow:inset 0 -4px 0 var(--mark)}
 .key{font-size:var(--t-s);color:var(--ink-2);margin:8px 0 0}
 .key i{display:inline-block;width:12px;height:12px;background:var(--mark);vertical-align:-1px;margin-right:8px}
 .wk{padding:16px 0 12px;border-top:1px solid var(--hair)}
@@ -68,12 +78,13 @@ button.p:hover{background:var(--ink-2)}
 .wk h2 a{text-decoration:none;display:inline-block;padding:4px 0}
 .wk h2 a:hover{text-decoration:underline}
 
-/* one card per quiz question: what you see on the left, what you do on the right */
-.card{display:grid;grid-template-columns:minmax(0,1fr);gap:16px 40px;padding:32px 0;border-bottom:1px solid var(--hair)}
+/* one card per quiz question: the Canvas question on the left, what to do on the right */
+.card{display:grid;grid-template-columns:minmax(0,1fr);gap:16px 48px;padding:32px 0;border-bottom:1px solid var(--hair)}
 @media(min-width:900px){.card{grid-template-columns:minmax(0,5fr) minmax(0,6fr)}}
-.num{font:700 1rem var(--mono);color:var(--ink-2);margin:0 0 4px;display:flex;flex-wrap:wrap;gap:4px 16px;align-items:center}
-.lost{background:var(--mark);color:var(--mark-ink);padding:0 8px;border-radius:var(--r);font-family:var(--body);font-size:var(--t-s)}
-.qt{font-size:var(--t-l);line-height:1.4;font-weight:600;white-space:pre-line;overflow-wrap:break-word;margin:0 0 12px}
+.num{margin:0 0 16px;display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;color:var(--ink-2)}
+.nb{display:grid;place-items:center;min-width:44px;height:36px;padding:0 8px;background:var(--nb);color:var(--nb-ink);font-weight:700}
+.lost{background:var(--mark);color:var(--mark-ink);padding:2px 8px;border-radius:var(--r);font-size:var(--t-s)}
+.qt{font-size:1.0625rem;line-height:1.55;white-space:pre-line;overflow-wrap:break-word;margin:0 0 12px}
 .opts{margin:8px 0;padding-left:1.2em}
 .opts li{margin:4px 0}
 .pics{display:grid;grid-template-columns:repeat(auto-fill,minmax(132px,1fr));gap:8px;margin:12px 0}
@@ -84,31 +95,41 @@ button.p:hover{background:var(--ink-2)}
 .do li{margin:4px 0}
 .trap{background:var(--mark);color:var(--mark-ink);padding:8px 12px;border-radius:var(--r)}
 .check h3{color:var(--right)}
-.work{font:400 1rem/1.6 var(--mono);background:var(--panel);border:1px solid var(--hair);padding:12px;border-radius:var(--r);white-space:pre-wrap;overflow-wrap:break-word}
-.work div{padding-left:1.5em;text-indent:-1.5em}
-.ansr{margin:8px 0 0}
-.ansr b{background:var(--mark);color:var(--mark-ink);padding:0 8px;border-radius:var(--r);font-family:var(--mono)}
+.work{background:var(--tint);border-left:3px solid var(--hair);padding:8px 12px;overflow-wrap:break-word}
+.work div{margin:4px 0}
+.ansbar{display:flex;align-items:stretch;border:2px solid var(--right);border-radius:var(--r);margin:8px 0 0;overflow:hidden}
+.ansbar .tk{flex:0 0 44px;display:grid;place-items:center;background:var(--right);color:var(--paper)}
+.ansbar .av{padding:8px 12px;min-width:0;overflow-wrap:break-word;align-self:center}
 
-/* matrices and pictures */
-.figs{display:flex;flex-wrap:wrap;gap:12px 24px;align-items:flex-end;margin:12px 0}
+/* image matrices are tables, kernels are bracketed, as on Canvas */
+.figs{display:flex;flex-wrap:wrap;gap:16px 24px;align-items:center;margin:12px 0}
 figure{margin:0;max-width:100%}
-figcaption{font:700 var(--t-s) var(--mono);color:var(--ink-2);margin-bottom:4px}
-.mx{border-collapse:collapse;font:700 1.0625rem var(--mono);font-variant-numeric:tabular-nums}
-.mx td{border:1px solid var(--hair);min-width:44px;height:40px;padding:0 8px;text-align:center;background:var(--panel)}
+figcaption{font-size:var(--t-s);font-weight:700;color:var(--ink-2);margin-bottom:4px}
+.mx{border-collapse:collapse;border:2px solid var(--ink);font-variant-numeric:tabular-nums}
+.mx td{border:1px solid var(--ink-2);min-width:44px;height:40px;padding:0 8px;text-align:center;background:var(--panel)}
 .mx td.in{box-shadow:inset 0 0 0 3px var(--focus)}
-.mx input{width:52px;height:40px;border:0;text-align:center;background:var(--panel);font:400 1rem var(--mono)}
+.mx input{width:52px;height:40px;border:0;text-align:center;background:var(--panel)}
 .mx td.io{padding:0;min-width:52px}
 .mx td.bad{box-shadow:inset 0 0 0 3px var(--wrong)}
 .mx td.ok{box-shadow:inset 0 0 0 3px var(--right)}
+.bm{display:inline-flex;align-items:center;gap:8px;font-size:1.05rem}
+.bm .br{position:relative;padding:4px 10px}
+.bm .br::before,.bm .br::after{content:"";position:absolute;top:0;bottom:0;width:7px;border:1.5px solid var(--ink)}
+.bm .br::before{left:0;border-right:0}
+.bm .br::after{right:0;border-left:0}
+.bm table{border-collapse:collapse}
+.bm td{padding:3px 9px;text-align:center;min-width:1.5em;white-space:nowrap}
+.fr{display:inline-flex;flex-direction:column;align-items:center;line-height:1.15;font-size:.84em;vertical-align:middle}
+.fr span:first-child{border-bottom:1px solid currentColor;padding:0 3px}
 .scroll{overflow-x:auto;max-width:100%}
 img.px{image-rendering:pixelated;display:block;border:1px solid var(--hair)}
 img.real{display:block;width:100%;max-width:100%;height:auto;border:1px solid var(--hair);background:#000}
 .mrow img.real{width:auto}
 
 /* trying a question with new numbers */
-.formula{font:400 var(--t-s) var(--mono);background:var(--tint);padding:8px 12px;border-radius:var(--r);overflow-wrap:break-word}
-.stem{font-size:var(--t-l);font-weight:700;line-height:1.35;margin:8px 0 0;white-space:pre-wrap}
-.in1{border:1px solid var(--ink);border-radius:var(--r);background:var(--panel);padding:8px 12px;min-height:44px;width:min(100%,260px);font-family:var(--mono)}
+.formula{background:var(--tint);padding:8px 12px;border-radius:var(--r);overflow-wrap:break-word}
+.stem{font-size:1.125rem;line-height:1.5;margin:8px 0 0;white-space:pre-wrap}
+.in1{border:1px solid var(--ink-2);border-radius:var(--r);background:var(--panel);padding:8px 12px;min-height:44px;width:min(100%,260px)}
 .fl{display:grid;grid-template-columns:minmax(0,auto) 120px auto;gap:8px 12px;align-items:center;margin-top:12px;justify-content:start}
 .fl .in1{width:120px}
 fieldset{border:0;margin:16px 0 0;padding:0;min-width:0}legend{padding:0;font-weight:700;font-size:var(--t-s)}
@@ -117,7 +138,7 @@ fieldset{border:0;margin:16px 0 0;padding:0;min-width:0}legend{padding:0;font-we
 .o small,.mk{display:block;font-weight:700;font-size:var(--t-s)}
 .good{color:var(--right)}.poor{color:var(--wrong)}
 .mrow{display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px;padding:12px 0;border-top:1px solid var(--hair)}
-.mrow b{min-width:1.2em;font-family:var(--mono)}
+.mrow b{min-width:1.2em}
 .fb{margin-top:24px;border-top:1px solid var(--ink);padding-top:8px}
 .verdict{display:flex;align-items:center;gap:8px;font-size:var(--t-l);font-weight:700}
 .note{background:var(--tint);padding:12px;border-radius:var(--r);font-size:var(--t-s);margin-top:12px}
@@ -129,7 +150,7 @@ fieldset{border:0;margin:16px 0 0;padding:0;min-width:0}legend{padding:0;font-we
 .foot a{color:var(--ink-2)}
 .foot .gh{display:inline-flex;align-items:center;gap:8px;vertical-align:bottom}
 @media print{
-  html{--paper:#fff;--panel:#fff;--ink:#000;--ink-2:#333;--hair:#999;--tint:#eee;--mark:#ffe45c;--mark-ink:#000;--right:#0c6b3d;--grid:none}
+  html{--paper:#fff;--panel:#fff;--ink:#000;--ink-2:#333;--hair:#999;--tint:#f2f2f2;--mark:#ffe680;--mark-ink:#000;--right:#0b874b;--nb:#000;--nb-ink:#fff}
   button,a.btn,.foot,.top nav,.strip,.key{display:none}
   main{max-width:none;padding:0}
   .card{break-inside:avoid;padding:16px 0}
@@ -219,10 +240,23 @@ const cellStyle = (v, kind) => {
   if (kind === "bin" && typeof v === "number") return v ? "background:#fff;color:#17171c" : "background:#17171c;color:#fff";
   return "";
 };
-const matHTML = (m, kind = "plain", mark, half = 1) => `<div class="scroll"><table class="mx"><tbody>` + m.map((r, i) => "<tr>" + [].concat(r).map((v, j) => {
-  const inside = mark && Math.abs(i + 1 - mark[0]) <= half && Math.abs(j + 1 - mark[1]) <= half;
-  return `<td${inside ? ' class="in"' : ""} style="${cellStyle(v, kind)}">${esc(typeof v === "number" && !Number.isInteger(v) ? Math.round(v * 10000) / 10000 : v)}</td>`;
-}).join("") + "</tr>").join("") + "</tbody></table></div>";
+// Sets a line of maths: single letters in italic, _x as a subscript, ^x as a superscript.
+const mathHTML = s => esc(s)
+  .replace(/_\{?(\w+)\}?/g, "\u0001$1\u0002").replace(/\^\{?(-?\w+)\}?/g, "\u0003$1\u0004")
+  .replace(/&\w+;|[A-Za-z\u0370-\u03ff]+′?/g, w => w[0] === "&" ? w : /^[GkL][xy]$/.test(w) ? `<i>${w[0]}</i>\u0001<i>${w[1]}</i>\u0002` : (w.replace("′", "").length === 1 || /^[A-Z]{2,3}′?$/.test(w)) ? `<i>${w}</i>` : w)
+  .replace(/\u0001/g, "<sub>").replace(/\u0002/g, "</sub>").replace(/\u0003/g, "<sup>").replace(/\u0004/g, "</sup>");
+// Finds the bits of maths inside a sentence, such as (2,3), 3×3 and L′(i,j) = L(i,j).
+const inl = s => esc(s).replace(/[A-Z]′\([^()]*\)\s?=\s?[A-Z]\([^()]*\)|\(\d+,\s?\d+\)|\d+\s?×\s?\d+|∈\s?[ℤℕℝ]|\[0\.\.255\]|√\([^()]*\)|√\d+/g, m => `<span class="m">${mathHTML(m.replace(/&amp;/g, "&"))}</span>`);
+const SYMBOL = /^[A-Za-z]{1,2}[₀-₉]?(\(\d\))?$/;
+const capHTML = c => SYMBOL.test(c) ? `<span class="m">${mathHTML(c.replace(/[₀-₉]/, d => "_" + "₀₁₂₃₄₅₆₇₈₉".indexOf(d)).replace(/\((\d)\)$/, "^{($1)}").replace(/\^\{\((\d)\)\}/, "\u0003($1)\u0004")).replace(/\u0003/g, "<sup>").replace(/\u0004/g, "</sup>")}</span>` : esc(c);
+const cell = v => typeof v === "number" && !Number.isInteger(v) ? Math.round(v * 10000) / 10000 : v;
+const frac = v => { const f = String(v).match(/^(-?\d+)\/(\d+)$/); return f ? `<span class="fr"><span>${f[1]}</span><span>${f[2]}</span></span>` : esc(String(cell(v)).replace(/^-/, "−")); };
+const matHTML = (m, kind = "plain", mark, half = 1) => kind === "k"
+  ? `<span class="br m"><table><tbody>` + m.map(r => "<tr>" + [].concat(r).map(v => `<td>${frac(v)}</td>`).join("") + "</tr>").join("") + `</tbody></table></span>`
+  : `<div class="scroll"><table class="mx"><tbody>` + m.map((r, i) => "<tr>" + [].concat(r).map((v, j) => {
+    const inside = mark && Math.abs(i + 1 - mark[0]) <= half && Math.abs(j + 1 - mark[1]) <= half;
+    return `<td${inside ? ' class="in"' : ""} style="${cellStyle(v, kind)}">${esc(cell(v))}</td>`;
+  }).join("") + "</tr>").join("") + "</tbody></table></div>";
 const pxImg = (px, label) => {
   const h = px.length, w = px[0].length, c = document.createElement("canvas"); c.width = w; c.height = h;
   const x = c.getContext("2d"), d = x.createImageData(w, h);
@@ -234,11 +268,13 @@ const pxImg = (px, label) => {
 const IMG = "/*IMG*/";
 const realImg = (it, label) => `<img class="real" src="${IMG}${it.img}.jpg" width="${it.w}" height="${it.h}" alt="${esc(label || "Picture")}" loading="lazy">`;
 const vis = (it, label) => it.img ? realImg(it, label) : it.px ? pxImg(it.px, label) : it.svg ? it.svg : it.m ? matHTML(it.m, it.kind, it.mark, it.half) : "";
-const figs = show => !show || !show.length ? "" : `<div class="figs">` + show.map(it => `<figure>${it.cap ? `<figcaption>${esc(it.cap)}</figcaption>` : ""}${vis(it, it.cap)}</figure>`).join("") + `</div>`;
+const figs = show => !show || !show.length ? "" : `<div class="figs">` + show.map(it => it.m && it.kind === "k"
+  ? `<figure class="scroll"><span class="bm">${it.cap ? (SYMBOL.test(it.cap) ? capHTML(it.cap) + `<span class="m">=</span>` : `<span>${esc(it.cap)}</span>`) : ""}${vis(it, it.cap)}</span></figure>`
+  : `<figure>${it.cap ? `<figcaption>${capHTML(it.cap)}</figcaption>` : ""}${vis(it, it.cap)}</figure>`).join("") + `</div>`;
 
 /* ---------- pages ---------- */
 let here = "";
-const themeBtn = () => `<button type="button" data-theme-toggle>${root.dataset.theme === "dark" ? "Light paper" : "Dark slide"}</button>`;
+const themeBtn = () => `<button type="button" data-theme-toggle>${root.dataset.theme === "dark" ? "Light mode" : "Dark mode"}</button>`;
 const head = (h1, links) => `<div class="top"><h1>${h1}</h1><nav aria-label="Site">${links}${themeBtn()}</nav></div>`;
 function page(html, narrow, focus = "h1") {
   app.className = narrow ? "narrow" : ""; app.innerHTML = html + FOOT; window.scrollTo(0, 0);
@@ -263,24 +299,30 @@ const picHTML = (c) => {
   const ps = (c.pics || []).filter(p => PIC[p]); if (!ps.length) return "";
   return `<div class="pics${ps.length === 8 ? " p4" : ""}">` + ps.map(p => `<figure><figcaption>${PIC[p][0]}</figcaption><img class="real" src="${IMG}${p}.jpg" width="${PIC[p][1]}" height="${PIC[p][2]}" alt="${PIC[p][0]}, picture for question ${c.n}" loading="lazy"></figure>`).join("") + `</div>`;
 };
+const KERNEL = /^(k|S$|TL$|TR$|BL$|BR$)/;
+const TICKS = `<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5" fill="none" stroke="currentColor" stroke-width="3"/></svg>`;
+const ansbar = a => `<div class="ansbar"><span class="tk">${TICKS}</span><span class="av">${inl(a)}</span></div>`;
+const workLine = l => /=/.test(l) && !(l.replace(/(max|min|round|arctan|sqrt|mean|log|floor|ceil)/g, "").match(/[A-Za-z]{3,}/)) ? `<div class="m">${mathHTML(l)}</div>` : `<div>${inl(l)}</div>`;
 function cardHTML(w, c) {
   const lost = c.mine && c.mine !== "right", ex = c.example;
+  const f = c.q.match(/^([\s\S]*?)\s*(Formulas?:)\s*([\s\S]*)$/), qt = f ? f[1] : c.q;
   const sec = (h, body, cls) => body ? `<section${cls ? ` class="${cls}"` : ""}><h3>${h}</h3>${body}</section>` : "";
   return `<article class="card" id="c${c.n}" data-n="${c.n}">
 <div class="q">
-<p class="num"><span>Question ${c.n}</span><span>${esc(c.kind || "")}</span>${lost ? `<span class="lost">You lost marks here</span>` : ""}</p>
-<p class="qt">${esc(c.q)}</p>
-${figs((c.given || []).filter(g => g.m && g.m.length))}
+<p class="num"><b class="nb">${c.n}</b><span>${esc(c.kind || "")}</span>${lost ? `<span class="lost">You lost marks here</span>` : ""}</p>
+<p class="qt">${inl(qt)}</p>
+${figs((c.given || []).filter(g => g.m && g.m.length).map(g => ({ ...g, kind: KERNEL.test(g.cap || "") ? "k" : "plain" })))}
 ${picHTML(c)}
-${c.opts && c.opts.length ? `<ul class="opts">${c.opts.map(o => `<li>${esc(o)}</li>`).join("")}</ul>` : ""}
+${f ? `<p>${f[2]}</p><p class="fm m">${mathHTML(f[3])}</p>` : ""}
+${c.opts && c.opts.length ? `<ul class="opts">${c.opts.map(o => `<li>${inl(o)}</li>`).join("")}</ul>` : ""}
 ${c.varies ? `<p class="s">Changes each attempt: ${esc(c.varies)}</p>` : ""}
 </div>
 <div class="do">
 ${c.same ? `<p class="s">Same method as <a href="#/q/${w}/${c.same}">Question ${c.same}</a>.</p>` : ""}
-${sec("Method", c.method && c.method.length ? (c.method.length === 1 ? `<p>${esc(c.method[0])}</p>` : `<ol>${c.method.map(m => `<li>${esc(m)}</li>`).join("")}</ol>`) : "")}
-${sec("Check", c.check ? `<p>${esc(c.check)}</p>` : "", "check")}
-${sec("Trap", c.trap ? `<div class="trap">${esc(c.trap)}</div>` : "")}
-${ex ? sec("Worked example", `<div class="work">${(ex.working || []).map(l => `<div>${esc(l)}</div>`).join("")}</div>${ex.m ? figs([{ cap: ex.m2 ? "Cross correlation" : "", m: ex.m }].concat(ex.m2 ? [{ cap: "Convolution", m: ex.m2 }] : [])) : ""}<p class="ansr">Answer <b>${esc(ex.answer)}</b></p>`) : sec("Answer", c.ans ? `<p>${esc(c.ans)}</p>` : "")}
+${sec("Method", c.method && c.method.length ? (c.method.length === 1 ? `<p>${inl(c.method[0])}</p>` : `<ol>${c.method.map(m => `<li>${inl(m)}</li>`).join("")}</ol>`) : "")}
+${sec("Check", c.check ? `<p>${inl(c.check)}</p>` : "", "check")}
+${sec("Trap", c.trap ? `<div class="trap">${inl(c.trap)}</div>` : "")}
+${ex ? sec("Worked example", `<div class="work">${(ex.working || []).map(workLine).join("")}</div>${ex.m ? figs([{ cap: ex.m2 ? "Cross correlation" : "", m: ex.m }].concat(ex.m2 ? [{ cap: "Convolution", m: ex.m2 }] : [])) : ""}${ansbar(ex.answer)}`) : sec("Answer", c.ans ? ansbar(c.ans) : "")}
 ${/Canvas (did not|showed no|marked)/.test(c.unsure || "") && lost ? `<p class="s">Canvas did not show the right answer for this question. The answer here is worked out from the reading and checked by calculation.</p>` : ""}
 ${c.gen && gen(c.gen) ? `<a class="btn" href="#/try/${c.gen}/${w}-${c.n}">${SHUFFLED.includes(c.gen) ? "Try with shuffled letters" : "Try with new numbers"}</a>` : ""}
 </div>
@@ -345,7 +387,7 @@ function drawQ() {
   page(head(`${from.n ? `Question ${from.n}` : esc(g.name)} <span>${SHUFFLED.includes(g.id) ? "with shuffled letters" : "with new numbers"}</span>`, `<a href="${backHref()}">${backText()}</a>`) + `
 <p class="stem">${esc(q.stem)}</p>
 ${figs(q.show)}
-${q.formula ? `<p class="formula">${esc(q.formula)}</p>` : ""}
+${q.formula ? `<p class="formula m">${mathHTML(q.formula)}</p>` : ""}
 <form id="f" novalidate>${q.inputs.map(inputHTML).join("")}
 <div class="acts"><button class="p" type="submit">Check answer</button></div></form>
 <div id="fb" class="fb" aria-live="polite" hidden></div>`, true);
@@ -412,8 +454,8 @@ app.addEventListener("click", e => {
   else if ("again" in d) ask(q.g.id);
   else if ("themeToggle" in d) {
     root.dataset.theme = root.dataset.theme === "dark" ? "light" : "dark";
-    try { localStorage.setItem("ip-sheet-theme", root.dataset.theme); } catch (err) {}
-    b.textContent = root.dataset.theme === "dark" ? "Light paper" : "Dark slide";
+    try { localStorage.setItem("ip-sheet-mode", root.dataset.theme); } catch (err) {}
+    b.textContent = root.dataset.theme === "dark" ? "Light mode" : "Dark mode";
   }
 });
 route();

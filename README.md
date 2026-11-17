@@ -9,7 +9,7 @@ A cheatsheet for the MOD002643 Image Processing in-class test at ARU. The test d
 - A yellow question number marks a question I lost marks on in my own attempt.
 - "Try with new numbers" on a card opens the same question type with fresh numbers and checks the answer.
 - Quizzes 10 and 11 were still locked, so those two pages are built from the readings.
-- Dark and light themes. Every quiz page prints.
+- Set like the Canvas questions: same text face, kernels in brackets, formulas as maths. Dark and light modes. Every quiz page prints.
 
 ## Build
 
@@ -20,6 +20,6 @@ A cheatsheet for the MOD002643 Image Processing in-class test at ARU. The test d
 - `template.html`: the page
 - `src/cards/quizNN.json`: one file of cards per quiz
 - `src/gens.js`: solvers and the question generators behind "Try with new numbers"
-- `fonts/`: Atkinson Hyperlegible Next and Mono (OFL)
+- `fonts/`: Lato, KaTeX Main and KaTeX Math (OFL)
 
 See `design.md` for the design decisions.
