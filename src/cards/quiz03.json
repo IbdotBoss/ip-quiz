@@ -16,8 +16,8 @@
     "Add them and divide by 2.",
     "If the result ends in .5, round it up to the next whole number."
    ],
-   "check": "The answer lies between the smallest and the largest channel value, exactly half way.",
-   "trap": "Using all three values. That is the average method in card 2. Lightness uses only the largest and the smallest.",
+   "check": "The answer is half way between the smallest and the largest channel value.",
+   "trap": "Using all three values. That is the average method in Question 2. Lightness uses only the largest and the smallest.",
    "example": {
     "working": [
      "Largest = 202 and smallest = 32.",
@@ -25,10 +25,8 @@
     ],
     "answer": "117"
    },
-   "mine": "right",
    "gen": "w3-togrey",
-   "same": null,
-   "unsure": ""
+   "same": null
   },
   {
    "n": 2,
@@ -45,7 +43,7 @@
     "Round to the nearest whole number."
    ],
    "check": "The answer lies between the smallest and the largest channel value.",
-   "trap": "Cutting the decimals off. 151.67 becomes 152, not 151.",
+   "trap": "Cutting the decimals off. 151.67 rounds to 152, so 151 is wrong.",
    "example": {
     "working": [
      "227 + 117 + 111 = 455.",
@@ -53,10 +51,8 @@
     ],
     "answer": "152"
    },
-   "mine": "right",
    "gen": "w3-togrey",
-   "same": null,
-   "unsure": ""
+   "same": null
   },
   {
    "n": 3,
@@ -68,25 +64,20 @@
    "pics": [],
    "varies": "The RGB triplet.",
    "method": [
-    "Multiply red by 0.21, green by 0.72 and blue by 0.07. Write the three products down.",
-    "Add the three products.",
-    "Round the total to the nearest whole number. Round once, at the end."
+    "Type the whole sum into the calculator in one line, 0.21 × R + 0.72 × G + 0.07 × B, and press =.",
+    "Round the result to the nearest whole number."
    ],
-   "check": "The three weights add up to 1, so the answer lies between the smallest and the largest channel value. Green has the largest weight, so the answer sits closest to the green value.",
-   "trap": "You entered 210, and the answer is 219. Write the three products on paper (32.55, 181.44, 4.69) and add them again before typing. Keep the weights in the order red 0.21, green 0.72, blue 0.07.",
+   "check": "The three weights add up to 1, so the answer lies between the smallest and the largest channel value. Green has the largest weight, so a high green value gives a high answer.",
+   "trap": "Giving a weight to the wrong channel. The order is red 0.21, green 0.72, blue 0.07. Rounding each product before adding is the other mistake. Round once, at the end.",
    "example": {
     "working": [
-     "0.21 × 155 = 32.55.",
-     "0.72 × 252 = 181.44.",
-     "0.07 × 67 = 4.69.",
-     "32.55 + 181.44 + 4.69 = 218.68, which rounds to 219."
+     "0.21 × 155 + 0.72 × 252 + 0.07 × 67 = 218.68.",
+     "218.68 rounds to 219."
     ],
     "answer": "219"
    },
-   "mine": "wrong",
    "gen": "w3-togrey",
-   "same": null,
-   "unsure": "Canvas did not show the correct answer. 219 comes from the formula. The capture does not show how 210 was reached. Reading 03 has a worked example, (100,150,5), that prints 130 where the formula gives 129.35. The quiz wording says nearest integer, so this card follows the quiz. For these numbers rounding to nearest and rounding up both give 219."
+   "same": null
   },
   {
    "n": 4,
@@ -112,9 +103,9 @@
    "opts": [],
    "ans": "Row 1: 0, 0, 1. Row 2: 1, 0, 0.",
    "pics": [],
-   "varies": "Only one attempt was captured, so this is not confirmed. In Quiz 02 the Fill in the Blank questions kept the same numbers every attempt. The test may use a different matrix or T.",
+   "varies": "The test may use a different matrix or T.",
    "method": [
-    "Write the test next to the matrix: 0 if L < T, otherwise 1.",
+    "Write the test next to the matrix. A pixel becomes 0 if L < T and 1 otherwise.",
     "Go through the pixels one at a time. A pixel below T becomes 0.",
     "A pixel equal to T or above T becomes 1."
    ],
@@ -127,10 +118,8 @@
     ],
     "answer": "Row 1: 0, 0, 1. Row 2: 1, 0, 0."
    },
-   "mine": "right",
    "gen": "w3-thresh",
-   "same": null,
-   "unsure": ""
+   "same": null
   },
   {
    "n": 5,
@@ -140,14 +129,14 @@
    "opts": [],
    "ans": "Binary: minimum 1, maximum 2. 8-bit greyscale: minimum 1, maximum 256.",
    "pics": [],
-   "varies": "Only one attempt was captured, so this is not confirmed. The question looks fixed. The test may ask about a different bit depth.",
+   "varies": "The question looks fixed. The test may ask about a different bit depth.",
    "method": [
     "A histogram has one bar for each pixel value that is present in the image.",
     "The minimum is 1. That happens when every pixel has the same value.",
     "The maximum is the number of possible values. That is 2 for binary and 2^b for a b-bit image. For 8-bit, 2⁸ = 256."
    ],
    "check": "The maximum number of bars equals the number of shades from Quiz 01, v = 2^t.",
-   "trap": "You entered 8 for the 8-bit maximum. 8 is the number of bits. The number of possible values is 2⁸ = 256, from 0 to 255.",
+   "trap": "Giving 8 for the 8-bit maximum. 8 is the number of bits. The number of possible values is 2⁸ = 256, from 0 to 255.",
    "example": {
     "working": [
      "Binary: values 0 and 1, so at most 2 bars and at least 1.",
@@ -155,10 +144,8 @@
     ],
     "answer": "1, 2, 1, 256"
    },
-   "mine": "partial",
    "gen": "w3-bars",
-   "same": null,
-   "unsure": "Canvas did not show the correct value for the last blank. 256 follows from Reading 03, which says each greyscale pixel may assume one of 256 levels."
+   "same": null
   },
   {
    "n": 6,
@@ -209,7 +196,7 @@
    "opts": [],
    "ans": "Luminance 0: 3. 1: 5. 2: 3. 3: 2. 4: 2. 5: 5. 6: 4. 7: 1.",
    "pics": [],
-   "varies": "Only one attempt was captured, so this is not confirmed. Cards 6 to 9 all use this same matrix. The test may use a different matrix.",
+   "varies": "Questions 6 to 9 all use this matrix. The test may use a different matrix.",
    "method": [
     "Write the levels 0 to 7 in a column.",
     "Go through the matrix one pixel at a time and put a tally mark next to its level. Cross each pixel off as you go.",
@@ -225,10 +212,8 @@
     ],
     "answer": "3, 5, 3, 2, 2, 5, 4, 1"
    },
-   "mine": "right",
    "gen": "w3-hist",
-   "same": null,
-   "unsure": ""
+   "same": null
   },
   {
    "n": 7,
@@ -279,9 +264,9 @@
    "opts": [],
    "ans": "Luminance 0: 0.12. 1: 0.20. 2: 0.12. 3: 0.08. 4: 0.08. 5: 0.20. 6: 0.16. 7: 0.04.",
    "pics": [],
-   "varies": "Same matrix as card 6. Not confirmed across attempts.",
+   "varies": "Same matrix as Question 6.",
    "method": [
-    "Build the count histogram as in card 6.",
+    "Build the count histogram as in Question 6.",
     "Divide every count by MN.",
     "Round each value to 2 decimal places."
    ],
@@ -295,10 +280,8 @@
     ],
     "answer": "0.12, 0.20, 0.12, 0.08, 0.08, 0.20, 0.16, 0.04"
    },
-   "mine": "right",
    "gen": "w3-hist",
-   "same": 6,
-   "unsure": ""
+   "same": 6
   },
   {
    "n": 8,
@@ -349,14 +332,14 @@
    "opts": [],
    "ans": "Luminance 0: 3. 1: 8. 2: 11. 3: 13. 4: 15. 5: 20. 6: 24. 7: 25.",
    "pics": [],
-   "varies": "Same matrix as card 6. Not confirmed across attempts.",
+   "varies": "Same matrix as Question 6.",
    "method": [
-    "Build the count histogram as in card 6.",
+    "Build the count histogram as in Question 6.",
     "The first cumulative value is the first count.",
-    "For each next level, add its count to the cumulative value above it."
+    "For each next level, add its count to the cumulative value of the level before."
    ],
    "check": "The values never go down. The last value is MN, which is 25 here.",
-   "trap": "Entering the plain counts again. Each cumulative value is the count of that level plus all the levels before it.",
+   "trap": "Giving the plain counts again. Each cumulative value is the count of that level plus the counts of all the levels before it.",
    "example": {
     "working": [
      "Counts: 3, 5, 3, 2, 2, 5, 4, 1.",
@@ -364,10 +347,8 @@
     ],
     "answer": "3, 8, 11, 13, 15, 20, 24, 25"
    },
-   "mine": "right",
    "gen": "w3-hist",
-   "same": 6,
-   "unsure": ""
+   "same": 6
   },
   {
    "n": 9,
@@ -418,14 +399,14 @@
    "opts": [],
    "ans": "Luminance 0: 0.12. 1: 0.32. 2: 0.44. 3: 0.52. 4: 0.60. 5: 0.80. 6: 0.96. 7: 1.00.",
    "pics": [],
-   "varies": "Same matrix as card 6. Not confirmed across attempts.",
+   "varies": "Same matrix as Question 6.",
    "method": [
-    "Build the cumulative count histogram as in card 8.",
+    "Build the cumulative count histogram as in Question 8.",
     "Divide every cumulative value by MN.",
     "Round each value to 2 decimal places."
    ],
    "check": "The values never go down. The last value is exactly 1.",
-   "trap": "Adding up the rounded normalised counts from card 7. Rounding errors can build up that way. Divide the whole-number cumulative counts by MN.",
+   "trap": "Adding up the rounded normalised counts from Question 7. Rounding errors can build up that way. Divide the whole-number cumulative counts by MN.",
    "example": {
     "working": [
      "Cumulative counts: 3, 8, 11, 13, 15, 20, 24, 25. MN = 25.",
@@ -434,10 +415,8 @@
     ],
     "answer": "0.12, 0.32, 0.44, 0.52, 0.60, 0.80, 0.96, 1.00"
    },
-   "mine": "right",
    "gen": "w3-hist",
-   "same": 8,
-   "unsure": ""
+   "same": 8
   },
   {
    "n": 10,
@@ -468,9 +447,9 @@
    "opts": [],
    "ans": "Row 1: 0, 0, 0. Row 2: 1, 0, 1. Row 3: 0, 0, 0.",
    "pics": [],
-   "varies": "Only one attempt was captured, so this is not confirmed. Cards 10 to 13 and 15 use this same matrix with different thresholds. The test may change the matrix or T.",
+   "varies": "Questions 10 to 13 and 15 use this matrix with different thresholds. The test may change the matrix or T.",
    "method": [
-    "Write the test next to the matrix: 1 if L ≤ T.",
+    "Write the test next to the matrix. A pixel becomes 1 if L ≤ T.",
     "Go through the pixels one at a time. Write 1 where the test is true and 0 where it is false.",
     "Low-pass lets the low (dark) values pass, so the dark pixels become 1."
    ],
@@ -484,10 +463,8 @@
     ],
     "answer": "Row 1: 0, 0, 0. Row 2: 1, 0, 1. Row 3: 0, 0, 0."
    },
-   "mine": "right",
    "gen": "w3-thresh",
-   "same": null,
-   "unsure": ""
+   "same": null
   },
   {
    "n": 11,
@@ -518,9 +495,9 @@
    "opts": [],
    "ans": "Row 1: 1, 1, 1. Row 2: 0, 1, 0. Row 3: 0, 1, 1.",
    "pics": [],
-   "varies": "Same matrix as card 10 with a different T. Not confirmed across attempts.",
+   "varies": "Same matrix as Question 10 with a different T.",
    "method": [
-    "Same steps as card 10. The test changes to: 1 if L ≥ T.",
+    "Use the steps from Question 10 with the test changed. A pixel becomes 1 if L ≥ T.",
     "High-pass lets the high (bright) values pass, so the bright pixels become 1."
    ],
    "check": "Count the pixels that are ≥ T. The mask has that many 1s. Here six pixels pass.",
@@ -533,10 +510,8 @@
     ],
     "answer": "Row 1: 1, 1, 1. Row 2: 0, 1, 0. Row 3: 0, 1, 1."
    },
-   "mine": "right",
    "gen": "w3-thresh",
-   "same": 10,
-   "unsure": ""
+   "same": 10
   },
   {
    "n": 12,
@@ -567,9 +542,9 @@
    "opts": [],
    "ans": "Row 1: 0, 0, 0. Row 2: 0, 0, 0. Row 3: 1, 0, 0.",
    "pics": [],
-   "varies": "Same matrix as card 10 with two thresholds. Not confirmed across attempts.",
+   "varies": "Same matrix as Question 10 with two thresholds.",
    "method": [
-    "Same steps as card 10. The test changes to: 1 if T₁ ≤ L ≤ T₂.",
+    "Use the steps from Question 10 with the test changed. A pixel becomes 1 if T₁ ≤ L ≤ T₂.",
     "The ∧ symbol means AND. A pixel must pass both parts, so it must sit inside the band from T₁ to T₂."
    ],
    "check": "Every pixel marked 1 has a value from T₁ to T₂. Here only 92 is between 64 and 100.",
@@ -582,10 +557,8 @@
     ],
     "answer": "Row 1: 0, 0, 0. Row 2: 0, 0, 0. Row 3: 1, 0, 0."
    },
-   "mine": "right",
    "gen": "w3-thresh",
-   "same": 10,
-   "unsure": ""
+   "same": 10
   },
   {
    "n": 13,
@@ -616,26 +589,23 @@
    "opts": [],
    "ans": "Row 1: 1, 0, 0. Row 2: 1, 1, 1. Row 3: 1, 1, 1.",
    "pics": [],
-   "varies": "Same matrix as card 10 with two thresholds. Not confirmed across attempts.",
+   "varies": "Same matrix as Question 10 with two thresholds.",
    "method": [
-    "Same steps as card 10. The test changes to: 1 if L ≤ T₁ or L ≥ T₂.",
-    "The ∨ symbol means OR. A pixel passes if it is at or below T₁, or at or above T₂.",
-    "Fast way: find the pixels strictly between T₁ and T₂ and write 0 there. Write 1 everywhere else."
+    "The ∨ symbol means OR. A pixel becomes 1 if it is at or below T₁, or at or above T₂.",
+    "Find the pixels strictly between T₁ and T₂ and write 0 there.",
+    "Write 1 everywhere else."
    ],
-   "check": "Every pixel marked 0 has a value strictly between T₁ and T₂. Here only 160 and 150 are between 120 and 180.",
-   "trap": "Mixing up ∧ and ∨. Also, a pixel equal to T₁ or T₂ becomes 1 here as well, so band-reject is not the exact opposite of band-pass at those two values.",
+   "check": "Pick two pixels marked 1 and test them. Here 115 ≤ 120 and 197 ≥ 180, so both pass.",
+   "trap": "Mixing up ∧ and ∨. Also, a pixel equal to T₁ or T₂ becomes 1 in band-reject and in band-pass, so the two masks are not exact opposites at those two values.",
    "example": {
     "working": [
-     "Row 1: 197 ≥ 180 gives 1, 160 and 150 are between 120 and 180 so 0, 0.",
-     "Row 2: 15 ≤ 120 gives 1, 208 ≥ 180 gives 1, 12 ≤ 120 gives 1.",
-     "Row 3: 92 ≤ 120 gives 1, 200 ≥ 180 gives 1, 115 ≤ 120 gives 1."
+     "Strictly between 120 and 180 are 160 and 150, both in row 1. Those two places are 0.",
+     "Every other place is 1."
     ],
     "answer": "Row 1: 1, 0, 0. Row 2: 1, 1, 1. Row 3: 1, 1, 1."
    },
-   "mine": "right",
    "gen": "w3-thresh",
-   "same": 10,
-   "unsure": ""
+   "same": 10
   },
   {
    "n": 14,
@@ -691,7 +661,7 @@
    "opts": [],
    "ans": "Row 1: 0, 0, 0. Row 2: 1, 0, 1.",
    "pics": [],
-   "varies": "Only one attempt was captured, so this is not confirmed. The test may change the channel values, the thresholds or the direction of each test.",
+   "varies": "The test may change the channel values, the thresholds or the direction of each test.",
    "method": [
     "Read the three tests and note the direction of each one. Here red must be below T₁, green above T₂ and blue above T₃.",
     "Test the red channel. Cross out every place that fails.",
@@ -709,10 +679,8 @@
     ],
     "answer": "Row 1: 0, 0, 0. Row 2: 1, 0, 1."
    },
-   "mine": "right",
    "gen": "w3-multiband",
-   "same": null,
-   "unsure": "The question text names the mask M in one place and S in the formula. That is the tutor's wording. They are the same mask."
+   "same": null
   },
   {
    "n": 15,
@@ -743,14 +711,14 @@
    "opts": [],
    "ans": "Row 1: 0, 0, 0. Row 2: 15, 0, 12. Row 3: 92, 0, 0.",
    "pics": [],
-   "varies": "Same matrix as card 10. Not confirmed across attempts. The test may change T or the type of threshold.",
+   "varies": "Same matrix as Question 10. The test may change T or the type of threshold.",
    "method": [
-    "Make the mask B with the low-pass test from card 10: 1 if L ≤ T.",
+    "Make the mask B with the low-pass test from Question 10. A pixel becomes 1 if L ≤ T.",
     "Where B is 1, copy the original grey value from L.",
     "Where B is 0, write 0. This is the same as the entry-wise product L ∘ B from Quiz 02."
    ],
    "check": "Every value in the answer is either 0 or an original value from L that passes the test.",
-   "trap": "Entering the mask (1s and 0s). The answer holds grey values and 0s. Here 115 is above 100, so it becomes 0.",
+   "trap": "Giving the mask of 1s and 0s. The answer holds grey values and 0s. Here 115 is above 100, so it becomes 0.",
    "example": {
     "working": [
      "Mask B with T = 100: Row 1: 0, 0, 0. Row 2: 1, 0, 1. Row 3: 1, 0, 0.",
@@ -758,10 +726,8 @@
     ],
     "answer": "Row 1: 0, 0, 0. Row 2: 15, 0, 12. Row 3: 92, 0, 0."
    },
-   "mine": "right",
    "gen": "w3-select",
-   "same": 10,
-   "unsure": ""
+   "same": 10
   }
  ]
 }

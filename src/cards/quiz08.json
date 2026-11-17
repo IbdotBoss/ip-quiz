@@ -14,10 +14,8 @@
    "varies": "",
    "check": "",
    "example": null,
-   "mine": "right",
    "gen": "w8-facts",
    "same": null,
-   "unsure": "",
    "n": 1,
    "kind": "Multiple choice",
    "q": "Linear filtering is also known as what?",
@@ -40,10 +38,8 @@
    "varies": "",
    "check": "",
    "example": null,
-   "mine": "wrong",
    "gen": "w8-facts",
    "same": null,
-   "unsure": "Canvas did not show the correct option because his answer was wrong. The answer is taken from Lecture 08 (\"Kernels are usually odd-sided so that there is a defined centre\") and Reading 07.",
    "n": 2,
    "kind": "Multiple choice",
    "q": "Why do 2D filter kernels usually have an odd-sided number of rows and columns?",
@@ -53,7 +49,7 @@
     "The boundary option is wrong because every kernel larger than 1×1 hangs over the image edge, odd or even. The boundary is handled by a separate rule such as zero padding.",
     "A kernel of any size can sum to 1, so that option is wrong too."
    ],
-   "trap": "You chose \"to prevent the kernel from overrunning the image boundary\". Odd size does not stop the overrun. It only gives the kernel a centre cell."
+   "trap": "Choosing \"to prevent the kernel from overrunning the image boundary\". An odd size does not stop the overrun. An odd size only gives the kernel a centre cell."
   },
   {
    "given": [],
@@ -72,10 +68,8 @@
    "varies": "",
    "check": "Only Sharpen and Emboss go below the level of the sheet edge. Emboss does it at one corner. Sharpen does it in a ring around the peak.",
    "example": null,
-   "mine": "right",
    "gen": "w8-plots",
    "same": null,
-   "unsure": "The capture shows only the correct matches. Any extra options in the drop-down list are not visible.",
    "n": 3,
    "kind": "Matching",
    "q": "Match linear filter surface plots A-D to their corresponding filter names.",
@@ -185,7 +179,7 @@
    ],
    "opts": [],
    "pics": [],
-   "varies": "The pixel values change on each attempt.",
+   "varies": "The pixel values.",
    "check": "The answer is an average, so it sits between the smallest and largest pixel in the window. Here that is between 1 and 249, near the middle.",
    "example": {
     "working": [
@@ -196,10 +190,8 @@
     ],
     "answer": "131"
    },
-   "mine": "right",
    "gen": "w8-mean",
    "same": null,
-   "unsure": "",
    "n": 4,
    "kind": "Formula",
    "q": "For the following 8-bit greyscale image matrix, calculate the output produced if the 5×5 mean kernel were applied centred at coordinate (4,3). Round any answer ∈ ℝ/ℕ to be ∈ ℕ, and round 0.5 upwards.",
@@ -245,10 +237,8 @@
     ],
     "answer": "255"
    },
-   "mine": "right",
    "gen": "w8-maxout",
    "same": null,
-   "unsure": "",
    "n": 5,
    "kind": "Numeric",
    "q": "What is the maximum possible output value at any given window position of the Mean filter kernel defined below when applied to an 8-bit greyscale image? Enter the full value, rather than limiting to [0..255], where applicable.",
@@ -258,7 +248,7 @@
     "Mean kernel: nine coefficients of 1/9 add up to 1. So the largest output is 255 × 1 = 255.",
     "The flip does not matter for any maximum output question. Turning the kernel moves the coefficients but does not change their sum."
    ],
-   "trap": "This one is 255, but only because the coefficients add up to 1. Use the rule every time. Do not answer 255 from habit (see card 14)."
+   "trap": "Answering 255 from habit. The answer is 255 here only because the positive coefficients add up to 1. Use the rule every time. Question 14 has the same wording and its answer is 1275."
   },
   {
    "given": [],
@@ -274,10 +264,8 @@
     ],
     "answer": "0.0204"
    },
-   "mine": "right",
    "gen": "w8-cell",
    "same": null,
-   "unsure": "",
    "n": 6,
    "kind": "Numeric",
    "q": "What (decimal) value would feature in each cell of a mean filter kernel of size 7×7? Enter you answer to 4 d.p.",
@@ -287,7 +275,7 @@
     "Count the cells: n × n. For 7×7 that is 49.",
     "Each cell = 1 ÷ 49. Round to 4 decimal places."
    ],
-   "trap": "Dividing by 7 instead of 49. Also round, do not cut: 0.020408 gives 0.0204."
+   "trap": "Dividing by 7 instead of 49. Also cutting the decimal off where it should round. For an 11×11 kernel, 1 ÷ 121 = 0.008264 rounds to 0.0083."
   },
   {
    "given": [],
@@ -302,10 +290,8 @@
    "varies": "",
    "check": "",
    "example": null,
-   "mine": "right",
    "gen": "w8-facts",
    "same": null,
-   "unsure": "",
    "n": 7,
    "kind": "Multiple choice",
    "q": "How will applying a 2D Gaussian filter to an image affect its appearance?",
@@ -328,10 +314,8 @@
    "varies": "",
    "check": "",
    "example": null,
-   "mine": "right",
    "gen": "w8-facts",
    "same": null,
-   "unsure": "",
    "n": 8,
    "kind": "Multiple choice",
    "q": "What is the advantage of the Gaussian filter over the mean filter?",
@@ -397,7 +381,7 @@
    ],
    "opts": [],
    "pics": [],
-   "varies": "The pixel values change on each attempt.",
+   "varies": "The pixel values.",
    "check": "The answer is a weighted average, so it sits between the smallest and largest pixel in the window (18 and 219 here).",
    "example": {
     "working": [
@@ -409,10 +393,8 @@
     ],
     "answer": "129"
    },
-   "mine": "right",
    "gen": "w8-apply",
    "same": null,
-   "unsure": "",
    "n": 9,
    "kind": "Formula",
    "q": "For the following 8-bit greyscale image matrix, calculate the output produced if the 3×3 Gaussian filter kernel defined below were applied centred at coordinate (2,3). Round any answer ∈ ℝ/ℕ to be ∈ ℕ, and round .5 upwards.",
@@ -459,16 +441,14 @@
     ],
     "answer": "255"
    },
-   "mine": "right",
    "gen": "w8-maxout",
    "same": 5,
-   "unsure": "",
    "n": 10,
    "kind": "Numeric",
    "q": "What is the maximum possible output value at any given window position of the Gaussian filter kernel defined below when applied to an 8-bit greyscale image? Enter the full value, rather than limiting to [0..255], where applicable.",
    "ans": "255",
    "method": [
-    "Same rule as card 5: 255 × the sum of the positive coefficients.",
+    "Same rule as Question 5: 255 × the sum of the positive coefficients.",
     "Gaussian: 1/4 + 4 × 1/8 + 4 × 1/16 = 1/4 + 1/2 + 1/4 = 1. So the largest output is 255."
    ],
    "trap": "Skipping the sum. Add the coefficients every time, because the answer is 255 only when they add up to 1."
@@ -527,7 +507,7 @@
    ],
    "opts": [],
    "pics": [],
-   "varies": "The pixel values change on each attempt.",
+   "varies": "The pixel values.",
    "check": "Compare the centre with the average of its four neighbours. Centre darker than the neighbours gives an answer below the centre, often negative. Centre brighter gives an answer above the centre. The answer must lie between −1020 and 1275.",
    "example": {
     "working": [
@@ -539,10 +519,8 @@
     ],
     "answer": "−322"
    },
-   "mine": "right",
    "gen": "w8-apply",
    "same": null,
-   "unsure": "",
    "n": 11,
    "kind": "Formula",
    "q": "For the following 8-bit greyscale image matrix, calculate the output produced if the 3×3 Sharpen filter kernel defined below were applied centred at coordinate (2,3). Enter the full value, rather than limiting to [0..255], where appropriate.",
@@ -609,7 +587,7 @@
    ],
    "opts": [],
    "pics": [],
-   "varies": "The pixel values change on each attempt.",
+   "varies": "The pixel values.",
    "check": "The answer must lie between −255 and 255. If your answer has the right size but the wrong sign, the kernel was not turned.",
    "example": {
     "working": [
@@ -620,10 +598,8 @@
     ],
     "answer": "146"
    },
-   "mine": "right",
    "gen": "w8-emboss",
    "same": null,
-   "unsure": "",
    "n": 12,
    "kind": "Formula",
    "q": "For the following 8-bit greyscale image matrix, calculate the output produced if the 3×3 Emboss filter kernel defined below were applied centred at coordinate (2,3). Round any answer ∈ ℝ/ℕ to be ∈ ℕ, and round .5 upwards.",
@@ -669,16 +645,14 @@
     ],
     "answer": "255"
    },
-   "mine": "right",
    "gen": "w8-maxout",
    "same": 5,
-   "unsure": "",
    "n": 13,
    "kind": "Numeric",
    "q": "What is the maximum possible output value at any given window position of the Emboss filter kernel defined below when applied to an 8-bit greyscale image? Enter the full-scale value, rather than limiting to [0..255], where applicable.",
    "ans": "255",
    "method": [
-    "Same rule as card 5: 255 × the sum of the positive coefficients.",
+    "Same rule as Question 5: 255 × the sum of the positive coefficients.",
     "Emboss has one positive coefficient, +1. Put 255 under the +1 and 0 under the −1. Output = 255 − 0 = 255.",
     "The flip moves the +1 to the other corner. The sum of the positive coefficients is still 1, so the maximum is the same."
    ],
@@ -718,20 +692,18 @@
     ],
     "answer": "1275"
    },
-   "mine": "wrong",
    "gen": "w8-maxout",
    "same": 5,
-   "unsure": "Canvas did not show the correct answer because his entry (255) was wrong. 1275 follows from the module rule (255 × sum of positive coefficients), the same rule Canvas accepted for the Laplacian in Quiz 09 question 4 (2,040).",
    "n": 14,
    "kind": "Numeric",
    "q": "What is the maximum possible output value at any given window position of the Sharpen filter kernel defined below when applied to an 8-bit greyscale image? Enter the full value, rather than limiting to [0..255], where applicable.",
    "ans": "1275",
    "method": [
-    "Same rule as card 5: 255 × the sum of the positive coefficients.",
+    "Same rule as Question 5: 255 × the sum of the positive coefficients.",
     "Sharpen has one positive coefficient, +5. Put 255 under the centre and 0 under the four −1 cells.",
     "Output = 5 × 255 − 0 = 1275."
    ],
-   "trap": "You entered 255. That is the largest pixel value, not the largest output. Adding all the coefficients (5 − 4 = 1) and multiplying by 255 gives the same wrong answer. Use the positive coefficients only."
+   "trap": "Answering 255. That is the largest pixel value, and the largest output is higher. Adding all the coefficients (5 − 4 = 1) and multiplying by 255 gives the same wrong answer. Use the positive coefficients only."
   },
   {
    "given": [
@@ -778,7 +750,7 @@
    ],
    "opts": [],
    "pics": [],
-   "varies": "The pixel values change on each attempt.",
+   "varies": "The pixel values.",
    "check": "A centre brighter than the mean is pushed further up, above the centre value. A centre darker than the mean is pushed further down. Here 249 is above the mean of 122, so the answer must be above 249.",
    "example": {
     "working": [
@@ -789,10 +761,8 @@
     ],
     "answer": "376"
    },
-   "mine": "right",
    "gen": "w8-usm",
    "same": null,
-   "unsure": "",
    "n": 15,
    "kind": "Formula",
    "q": "For the following 8-bit greyscale image matrix, calculate the output produced if it is subject to the unsharp mask (USM) process. Use a 3×3 mean filter kernel, defined below, for the blurring step. Show the output for the centre position of this 3×3 image matrix. Round any answer ∈ ℝ/ℤ to be ∈ ℤ, and round .5 upwards. Do not rescale or limit your answer to be ∈ [0..255] (i.e., show the raw output value of the process). Formula: usm(L) = L + (L − L∗k)",

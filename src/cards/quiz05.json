@@ -54,10 +54,8 @@
      ]
     ]
    },
-   "mine": "right",
    "gen": "w5-set",
-   "same": null,
-   "unsure": ""
+   "same": null
   },
   {
    "n": 2,
@@ -125,10 +123,8 @@
     ],
     "answer": "4, 5, 0, 9"
    },
-   "mine": "right",
    "gen": "w5-setops",
-   "same": null,
-   "unsure": ""
+   "same": null
   },
   {
    "n": 3,
@@ -213,10 +209,8 @@
      ]
     ]
    },
-   "mine": "right",
    "gen": "w5-setops",
-   "same": null,
-   "unsure": ""
+   "same": null
   },
   {
    "n": 4,
@@ -269,8 +263,9 @@
    "pics": [],
    "varies": "The matrices A and B.",
    "method": [
-    "Same position-by-position method as question 3, with a different rule.",
-    "Intersection is logical AND. Write 1 only where A is 1 and B is 1."
+    "Compare A and B position by position, as in Question 3.",
+    "Intersection is logical AND. Write 1 only where A is 1 and B is 1.",
+    "Count the ones in the result. That is the cardinality."
    ],
    "check": "The result cannot have more ones than the smaller of A and B. Every 1 in the result is also a 1 in A and in B.",
    "trap": "Using OR in place of AND. The symbol ∩ is intersection (both). The symbol ∪ is union (either).",
@@ -300,10 +295,8 @@
      ]
     ]
    },
-   "mine": "right",
    "gen": "w5-setops",
-   "same": 3,
-   "unsure": ""
+   "same": 3
   },
   {
    "n": 5,
@@ -356,11 +349,12 @@
    "pics": [],
    "varies": "The matrices A and B.",
    "method": [
-    "Same position-by-position method as question 3, with a different rule.",
-    "Difference A/B keeps the members of A that are not in B. Start from A and change a 1 to 0 wherever B is also 1."
+    "Start from a copy of A.",
+    "Change a 1 to 0 wherever B is also 1. A/B keeps the members of A that are not in B.",
+    "Count the ones in the result. That is the cardinality."
    ],
    "check": "|A/B| = |A| − |A∩B|. Here 4 − 2 = 2. Every 1 in the result is a 1 in A.",
-   "trap": "Doing B/A. The order matters. A/B starts from A. Do not treat the slash as a division.",
+   "trap": "Doing B/A. The order matters, and A/B starts from A. The slash is set difference, not division.",
    "example": {
     "working": [
      "A has ones at (1,2), (2,1), (2,3), (3,2).",
@@ -386,10 +380,8 @@
      ]
     ]
    },
-   "mine": "right",
    "gen": "w5-setops",
-   "same": 3,
-   "unsure": ""
+   "same": 3
   },
   {
    "n": 6,
@@ -442,8 +434,9 @@
    "pics": [],
    "varies": "The matrices A and B.",
    "method": [
-    "Same position-by-position method as question 3, with a different rule.",
-    "Symmetric difference keeps members that are in one set but not in both. Write 1 where A and B are different. Write 0 where they are the same."
+    "Compare A and B position by position, as in Question 3.",
+    "Write 1 where A and B are different. Write 0 where they are the same. The symmetric difference keeps the members that are in exactly one of the two sets.",
+    "Count the ones in the result. That is the cardinality."
    ],
    "check": "|A△B| = |A∪B| − |A∩B|. Here 7 − 2 = 5.",
    "trap": "Giving the union. Where A and B are both 1, the symmetric difference is 0.",
@@ -473,10 +466,8 @@
      ]
     ]
    },
-   "mine": "right",
    "gen": "w5-setops",
-   "same": 3,
-   "unsure": ""
+   "same": 3
   },
   {
    "n": 7,
@@ -509,8 +500,9 @@
    "pics": [],
    "varies": "The matrix A.",
    "method": [
-    "Only one matrix is used here.",
-    "Complement swaps every pixel. Each 0 becomes 1 and each 1 becomes 0."
+    "Complement uses only A.",
+    "Swap every pixel. Each 0 becomes 1 and each 1 becomes 0.",
+    "Count the ones in the result. That is the cardinality."
    ],
    "check": "|A′| = M × N − |A|. Here 9 − 4 = 5.",
    "trap": "Leaving some pixels unchanged. Every position changes.",
@@ -540,10 +532,8 @@
      ]
     ]
    },
-   "mine": "right",
    "gen": "w5-setops",
-   "same": 3,
-   "unsure": ""
+   "same": 3
   },
   {
    "n": 8,
@@ -584,10 +574,8 @@
     ],
     "answer": "51.49"
    },
-   "mine": "right",
    "gen": "w5-confusion",
-   "same": null,
-   "unsure": ""
+   "same": null
   },
   {
    "n": 9,
@@ -608,10 +596,8 @@
    "check": "Opening removes pixels, so it can only turn a positive into a negative. Closing adds pixels, so it can only turn a negative into a positive.",
    "trap": "Swapping the two. Opening opens gaps (removes). Closing closes holes (adds).",
    "example": null,
-   "mine": "right",
    "gen": "w5-facts",
-   "same": null,
-   "unsure": "The results page shows only the options that were matched. Any unused extra options in the drop-down were not captured."
+   "same": null
   },
   {
    "n": 10,
@@ -751,10 +737,8 @@
      ]
     ]
    },
-   "mine": "right",
    "gen": "w5-dilate",
-   "same": null,
-   "unsure": ""
+   "same": null
   },
   {
    "n": 11,
@@ -894,10 +878,8 @@
      ]
     ]
    },
-   "mine": "right",
    "gen": "w5-erode",
-   "same": null,
-   "unsure": "Reading 05 says that in erosion, structuring element positions outside the image are assumed to be 1. The accepted quiz answers fit outside = 0 (question 12 only works that way). In this question no border pixel is affected, so both rules give the same output."
+   "same": null
   },
   {
    "n": 12,
@@ -977,18 +959,20 @@
    "pics": [],
    "varies": "The image A.",
    "method": [
-    "Closing is dilation first, then erosion. Do it as two separate grids on paper.",
-    "Grid 1: dilate A (question 10 method).",
-    "Grid 2: erode grid 1 (question 11 method). Test the pixels of grid 1, not the pixels of A.",
-    "Outside the image counts as 0 in the erosion, so ones in the border rows and columns of grid 1 are removed."
+    "Closing is dilation first, then erosion. Draw two grids.",
+    "Grid 1: dilate A. Stamp the plus shape on every 1, as in Question 10.",
+    "Grid 2: erode grid 1. Every 1 of A that is not in a border row or column survives, so copy those first.",
+    "Then test only the pixels that the dilation added. An added pixel survives if its four neighbours in grid 1 are all 1.",
+    "An added pixel in a border row or column always fails, because outside the image counts as 0."
    ],
-   "check": "The output contains every 1 of A. Holes smaller than the plus shape are filled. Here the 2-pixel hole in the middle is filled.",
-   "trap": "Doing erosion first. That is opening. Also keeping the border ones from the dilation step.",
+   "check": "Eroding the whole of grid 1 as in Question 11 gives the same output. Holes smaller than the plus shape are filled. Here the 2-pixel hole in the middle is filled.",
+   "trap": "Doing erosion first. That is opening. Also keeping the ones that the dilation wrote in the border rows and columns.",
    "example": {
     "working": [
-     "Dilation of A: 0 1 1 1 0, then 1 1 1 1 1, then 1 1 1 1 1, then 1 1 1 1 1, then 1 1 1 1 1, then 0 1 1 1 0.",
-     "Erode that grid. Every pixel in a border row or column fails because one neighbour is outside the image.",
-     "Inside, rows 2 to 5 and columns 2 to 4 all have four neighbours equal to 1. They survive.",
+     "Grid 1, the dilation of A: 0 1 1 1 0, then 1 1 1 1 1, then 1 1 1 1 1, then 1 1 1 1 1, then 1 1 1 1 1, then 0 1 1 1 0.",
+     "Grid 2: copy the 10 ones of A. None is in a border row or column, so all 10 survive.",
+     "The dilation added (3,3) and (4,3) inside the border. Each has four neighbours equal to 1 in grid 1, so both survive.",
+     "Every other pixel that the dilation added is in a border row or column, so it is removed.",
      "The ring has become a solid block. The hole at (3,3) and (4,3) is filled."
     ],
     "answer": "See the matrix.",
@@ -1037,10 +1021,8 @@
      ]
     ]
    },
-   "mine": "right",
    "gen": "w5-close",
-   "same": null,
-   "unsure": "Reading 05 says that in erosion, positions outside the image are assumed to be 1. With that rule row 1 would contain ones, for example at (1,3). Canvas accepted row 1 as all zeros, so the quiz uses outside = 0."
+   "same": null
   },
   {
    "n": 13,
@@ -1120,11 +1102,12 @@
    "pics": [],
    "varies": "The image A.",
    "method": [
-    "Opening is erosion first, then dilation. Do it as two separate grids on paper.",
-    "Grid 1: erode A (question 11 method). Mark the centres of full plus shapes.",
-    "Grid 2: dilate grid 1 (question 10 method). Stamp a plus shape on each surviving 1."
+    "Opening is erosion first, then dilation. Draw two grids.",
+    "Grid 1: erode A, as in Question 11. Mark each 1 of A whose four neighbours are all 1.",
+    "Grid 2: dilate grid 1, as in Question 10. Stamp a plus shape on each marked pixel.",
+    "If grid 1 is all zeros, the answer is all zeros."
    ],
-   "check": "The output never has a 1 where A has a 0. The output is a set of whole plus shapes. If the erosion leaves nothing, the answer is all zeros.",
+   "check": "The output never has a 1 where A has a 0. The output is made of whole plus shapes.",
    "trap": "Doing dilation first. That is closing. Also keeping parts of A that cannot hold a full plus shape, such as the two single pixels in row 5.",
    "example": {
     "working": [
@@ -1179,10 +1162,8 @@
      ]
     ]
    },
-   "mine": "right",
    "gen": "w5-open",
-   "same": null,
-   "unsure": ""
+   "same": null
   },
   {
    "n": 14,
@@ -1262,12 +1243,12 @@
    "pics": [],
    "varies": "The image A.",
    "method": [
-    "Grid 1: dilate A (question 10 method).",
-    "Grid 2: erode A (question 11 method). Both grids start from the original A.",
-    "Subtract grid 2 from grid 1, position by position. The result is 1 where the dilation is 1 and the erosion is 0."
+    "Grid 1: dilate A, as in Question 10.",
+    "Grid 2: erode A, as in Question 11. Both grids start from the original A.",
+    "Copy grid 1. Change a 1 to 0 wherever grid 2 has a 1."
    ],
-   "check": "The result is the dilation with a hole where the erosion had ones. Number of ones = ones in dilation − ones in erosion. Here 18 − 2 = 16.",
-   "trap": "Eroding the dilated image. Both operations use the original A. Also subtracting in the wrong order.",
+   "check": "The result is the dilation with holes where the erosion has ones. Number of ones = ones in dilation − ones in erosion. Here 18 − 2 = 16.",
+   "trap": "Eroding the dilated image. That is closing. Both operations use the original A. Also subtracting the dilation from the erosion.",
    "example": {
     "working": [
      "Dilation of A: 0 0 1 0 0, then 0 1 1 1 0, then 1 1 1 1 1, then 1 1 1 1 1, then 0 1 1 1 0, then 0 0 1 0 0. That is 18 ones.",
@@ -1320,10 +1301,8 @@
      ]
     ]
    },
-   "mine": "right",
    "gen": "w5-gradient",
-   "same": null,
-   "unsure": ""
+   "same": null
   },
   {
    "n": 15,
@@ -1524,10 +1503,8 @@
      ]
     ]
    },
-   "mine": "right",
    "gen": "w5-hitmiss",
-   "same": null,
-   "unsure": "Blank cells of the structuring elements and patterns are stored as empty strings \"\" in \"given\". The LaTeX in the capture shows which cells are blank, so the layout is confirmed."
+   "same": null
   }
  ]
 }

@@ -22,10 +22,8 @@
    "check": "Think of an all-black image. Its only bar is at 0, on the far left.",
    "trap": "Thinking the bars move up or down. Bar height is the pixel count, and a brightness shift does not change counts.",
    "example": null,
-   "mine": "right",
    "gen": "w4-facts",
-   "same": null,
-   "unsure": "The results page shows only the options that were matched. Any unused extra options in the drop-down were not captured."
+   "same": null
   },
   {
    "n": 2,
@@ -46,10 +44,8 @@
    "check": "",
    "trap": "Swapping the two. The circle shows black next to white, and that difference is contrast.",
    "example": null,
-   "mine": "right",
    "gen": null,
-   "same": null,
-   "unsure": "The results page shows only the options that were matched. Any unused extra options in the drop-down were not captured."
+   "same": null
   },
   {
    "n": 3,
@@ -81,10 +77,8 @@
     ],
     "answer": "See the nine pairs in the answer."
    },
-   "mine": "right",
    "gen": "w4-effects",
-   "same": null,
-   "unsure": ""
+   "same": null
   },
   {
    "n": 4,
@@ -118,10 +112,8 @@
    "check": "Each histogram is used once. The histogram of A (2) and the histogram of C (3) have the same shape, because C is a stretch of the same kind of picture.",
    "trap": "Mixing up stretched and equalised. Both cover 0 to 255. Stretched keeps the shape. Equalised has gaps and looks flattened.",
    "example": null,
-   "mine": "right",
    "gen": "w4-histmatch",
-   "same": null,
-   "unsure": ""
+   "same": null
   },
   {
    "n": 5,
@@ -176,10 +168,8 @@
     ],
     "answer": "111"
    },
-   "mine": "right",
    "gen": "w4-stretchparts",
-   "same": null,
-   "unsure": ""
+   "same": null
   },
   {
    "n": 6,
@@ -221,26 +211,24 @@
    "pics": [],
    "varies": "The matrix values.",
    "method": [
-    "Find Lmin and Lmax by scanning every row. Write down the smallest and largest value of each row first.",
-    "Spread = Lmax − Lmin.",
-    "Coefficient = t ÷ spread = 255 ÷ (Lmax − Lmin).",
+    "Write down the smallest and the largest value of each row.",
+    "Lmin is the smallest of the row minimums. Lmax is the largest of the row maximums.",
+    "Coefficient = 255 ÷ (Lmax − Lmin).",
     "Round to 2 decimal places."
    ],
-   "check": "Multiply back: coefficient × (Lmax − Lmin) must give about 255. Here 2.71 × 94 = 254.7.",
-   "trap": "Missing the true Lmin. You entered 3.11, which is 255 ÷ 82. That is what you get if Lmin is read as 116. The smallest value is 104 (row 1), and 108 is also below 116. Use 255 on top, not 256.",
+   "check": "Multiply back. Coefficient × (Lmax − Lmin) must give about 255. Here 2.71 × 94 = 254.74.",
+   "trap": "Missing the true Lmin. Reading Lmin as 116 gives 255 ÷ 82 = 3.11. The smallest value is 104, in row 1. Also putting 256 on top. The top is t = 255.",
    "example": {
     "working": [
      "Row minimums: 104, 125, 108, 118. Lmin = 104.",
      "Row maximums: 190, 193, 196, 198. Lmax = 198.",
-     "Spread = 198 − 104 = 94.",
+     "Lmax − Lmin = 198 − 104 = 94.",
      "255 ÷ 94 = 2.7128, which rounds to 2.71."
     ],
     "answer": "2.71"
    },
-   "mine": "wrong",
    "gen": "w4-stretchparts",
-   "same": null,
-   "unsure": "Canvas did not show the correct answer. 2.71 is worked out from Eq. 4.2 in Reading 04. That 3.11 came from reading Lmin as 116 is an inference from the number (255 ÷ 82 = 3.11)."
+   "same": null
   },
   {
    "n": 7,
@@ -266,10 +254,8 @@
     ],
     "answer": "0, 255, 38"
    },
-   "mine": "right",
    "gen": "w4-stretchparts",
-   "same": null,
-   "unsure": ""
+   "same": null
   },
   {
    "n": 8,
@@ -302,15 +288,16 @@
    "pics": [],
    "varies": "The matrix values.",
    "method": [
-    "Find Lmin and Lmax. Work out the coefficient once: 255 ÷ (Lmax − Lmin). Keep 4 decimal places.",
-    "For each grey level: (level − Lmin) × coefficient.",
+    "Find Lmin and Lmax.",
+    "Work out the coefficient 255 ÷ (Lmax − Lmin) once. Store it in the calculator memory without rounding it.",
+    "For each grey level, work out (level − Lmin) × coefficient.",
     "Round each result to the nearest whole number. A decimal part of .5 or more rounds up."
    ],
-   "check": "The first level must become 0 and the last must become 255. The new values must rise in the same order as the old ones.",
-   "trap": "Chopping the decimals. You entered 215 for level 120. The value is 215.77, which rounds to 216.",
+   "check": "The first level must become 0 and the last must become 255. The new values rise in the same order as the old ones.",
+   "trap": "Chopping the decimals. 215.77 rounds to 216, not 215. Also rounding the coefficient before multiplying. A result that is exactly .5 can then fall just below .5 and round down.",
    "example": {
     "working": [
-     "Lmin = 10, Lmax = 140. Coefficient = 255 ÷ 130 = 1.9615.",
+     "Lmin = 10, Lmax = 140. Coefficient = 255 ÷ 130 = 1.9615 to 4 decimal places. Store the full value.",
      "10: 0 × 1.9615 = 0.",
      "14: 4 × 1.9615 = 7.85, rounds to 8.",
      "15: 5 × 1.9615 = 9.81, rounds to 10.",
@@ -322,10 +309,8 @@
     ],
     "answer": "0, 8, 10, 98, 161, 216, 243, 255"
    },
-   "mine": "partial",
    "gen": "w4-stretchmap",
-   "same": null,
-   "unsure": "Canvas marked 215 wrong for level 120 but did not show the correct value. 216 is worked out from the formula."
+   "same": null
   },
   {
    "n": 9,
@@ -367,25 +352,26 @@
    "pics": [],
    "varies": "The matrix values and the percentile.",
    "method": [
-    "Write all the pixels in one list, sorted from low to high. Count the list to confirm it has M × N entries.",
+    "Count the pixels. That is M × N.",
     "Position = p × (M × N + 1). The 90th percentile is p = 0.9.",
-    "Round the position to the nearest whole number. If it is below 1, use position 1. If it is above M × N, use the last position.",
-    "Count along the sorted list to that position. The value there is the answer."
+    "Round the position to the nearest whole number. If it is below 1, use position 1. If it is above M × N, use position M × N.",
+    "A position near the end of the sorted list is quicker to reach from the top. Its place from the top is M × N − position + 1.",
+    "Count down from the largest value to that place. Cross out each value as you count it, and count every copy of a repeated value. For a position near the start, count up from the smallest value in the same way."
    ],
-   "check": "The answer is a value from the matrix. For a high percentile it is near the top of the sorted list and below or equal to the true maximum.",
-   "trap": "Using M × N in place of M × N + 1. Also giving the position (15) as the answer. The answer is the pixel value at that position.",
+   "check": "The answer is a value from the matrix. Sorting all the pixels from low to high and counting along to the position gives the same value.",
+   "trap": "Using M × N in place of M × N + 1. Also giving the position 15 as the answer. The answer is the pixel value at that position.",
    "example": {
     "working": [
-     "Sorted: 14, 60, 67, 86, 88, 92, 92, 95, 99, 100, 101, 120, 134, 140, 150, 216. That is 16 values.",
+     "M × N = 16.",
      "Position = 0.9 × (16 + 1) = 15.3, which rounds to 15.",
-     "The 15th value is 150. The outlier 216 is excluded."
+     "Place from the top = 16 − 15 + 1 = 2.",
+     "The largest value is 216. The 2nd largest is 150, so the outlier 216 is excluded.",
+     "Check with the full sorted list: 14, 60, 67, 86, 88, 92, 92, 95, 99, 100, 101, 120, 134, 140, 150, 216. The 15th value is 150."
     ],
     "answer": "150"
    },
-   "mine": "right",
    "gen": "w4-alpha",
-   "same": null,
-   "unsure": ""
+   "same": null
   },
   {
    "n": 10,
@@ -431,10 +417,8 @@
     ],
     "answer": "3"
    },
-   "mine": "right",
    "gen": "w4-cumbars",
-   "same": null,
-   "unsure": ""
+   "same": null
   },
   {
    "n": 11,
@@ -454,14 +438,12 @@
    "trap": "Looking for pixel data or answering 255. The final bar is the total number of pixels. Enter the number without a comma.",
    "example": {
     "working": [
-     "129 × 127 = 129 × 100 + 129 × 27 = 12900 + 3483 = 16383."
+     "129 × 127 = 16383."
     ],
     "answer": "16383"
    },
-   "mine": "right",
    "gen": "w4-cumbars",
-   "same": null,
-   "unsure": ""
+   "same": null
   },
   {
    "n": 12,
@@ -480,13 +462,11 @@
     "No pixel is darker than Lmin. So the running total at Lmin is only the count of Lmin itself, which is H(Lmin).",
     "For every level above Lmin the cumulative bar is taller than the count bar, so the statement is true only at Lmin."
    ],
-   "check": "Question 10 shows it: the first cumulative bar was the count of the darkest level.",
+   "check": "Question 10 shows this. The first cumulative bar there is the count of the darkest level.",
    "trap": "Answering False because cumulative bars are usually taller than count bars. At the first occupied level they are equal.",
    "example": null,
-   "mine": "right",
    "gen": "w4-facts",
-   "same": null,
-   "unsure": ""
+   "same": null
   },
   {
    "n": 13,
@@ -519,33 +499,31 @@
    "pics": [],
    "varies": "The matrix values.",
    "method": [
-    "List the grey levels in order. Under each one write its count, then the running total Hcumul.",
-    "Work out the bottom of the fraction once: MN − Hcumul(Lmin).",
-    "For each level: (Hcumul of the level − Hcumul(Lmin)) ÷ bottom × 255.",
-    "Round each result to the nearest whole number."
+    "List the grey levels in order. Under each level write its count, then the running total Hcumul.",
+    "Work out the step once. Step = 255 ÷ (MN − Hcumul(Lmin)). Store it in the calculator memory without rounding it.",
+    "For each level, work out (Hcumul of the level − Hcumul(Lmin)) × step.",
+    "Round each result to the nearest whole number. A decimal part of .5 or more rounds up."
    ],
    "check": "The first level must become 0 and the last must become 255. The last running total must equal MN.",
-   "trap": "Using the plain count where the running total belongs. Also missing a repeated value: 92 appears twice, so the running total jumps from 4 to 6.",
+   "trap": "Using the plain count where the running total belongs. Also missing a repeated value. 92 appears twice, so the running total jumps from 4 to 6.",
    "example": {
     "working": [
      "Levels: 10, 14, 15, 60, 92, 120, 134, 140.",
      "Counts: 1, 1, 1, 1, 2, 1, 1, 1.",
      "Hcumul: 1, 2, 3, 4, 6, 7, 8, 9.",
-     "Bottom = 9 − 1 = 8.",
-     "14: (2 − 1) ÷ 8 × 255 = 31.875, rounds to 32.",
-     "15: 2 ÷ 8 × 255 = 63.75, rounds to 64.",
-     "60: 3 ÷ 8 × 255 = 95.625, rounds to 96.",
-     "92: 5 ÷ 8 × 255 = 159.375, rounds to 159.",
-     "120: 6 ÷ 8 × 255 = 191.25, rounds to 191.",
-     "134: 7 ÷ 8 × 255 = 223.125, rounds to 223.",
+     "Step = 255 ÷ (9 − 1) = 31.875.",
+     "14: (2 − 1) × 31.875 = 31.875, rounds to 32.",
+     "15: 2 × 31.875 = 63.75, rounds to 64.",
+     "60: 3 × 31.875 = 95.625, rounds to 96.",
+     "92: 5 × 31.875 = 159.375, rounds to 159.",
+     "120: 6 × 31.875 = 191.25, rounds to 191.",
+     "134: 7 × 31.875 = 223.125, rounds to 223.",
      "10 gives 0 and 140 gives 255."
     ],
     "answer": "0, 32, 64, 96, 159, 191, 223, 255"
    },
-   "mine": "right",
    "gen": "w4-equalise",
-   "same": null,
-   "unsure": ""
+   "same": null
   },
   {
    "n": 14,
@@ -567,10 +545,8 @@
    "check": "Only one of the four is bijective. If two are marked bijective, one is wrong.",
    "trap": "Marking alpha-trimmed stretch as bijective because it has stretch in the name. Reading 04 says the trimmed version merges grey values and is destructive.",
    "example": null,
-   "mine": "right",
    "gen": "w4-facts",
-   "same": null,
-   "unsure": "The results page shows only the options that were matched. Any unused extra options in the drop-down were not captured."
+   "same": null
   },
   {
    "n": 15,
@@ -594,10 +570,8 @@
    "check": "",
    "trap": "Choosing the option about boosting contrast. The words Contrast Limited in the name mean the contrast gain is held back.",
    "example": null,
-   "mine": "right",
    "gen": "w4-facts",
-   "same": null,
-   "unsure": ""
+   "same": null
   }
  ]
 }

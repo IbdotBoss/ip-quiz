@@ -15,10 +15,8 @@
    "varies": "",
    "check": "",
    "example": null,
-   "mine": "right",
    "gen": "w9-facts",
    "same": null,
-   "unsure": "",
    "n": 1,
    "kind": "Multiple choice",
    "q": "Which morphological operator has an effect that is most similar to convolution with an edge detection kernel?",
@@ -44,10 +42,8 @@
     ],
     "answer": "0"
    },
-   "mine": "right",
    "gen": "w9-facts",
    "same": null,
-   "unsure": "",
    "n": 2,
    "kind": "Numeric",
    "q": "The coefficients in a linear edge detection kernel typically sum to what number?",
@@ -113,7 +109,7 @@
    ],
    "opts": [],
    "pics": [],
-   "varies": "The pixel values change on each attempt.",
+   "varies": "The pixel values.",
    "check": "Centre darker than the average of its four neighbours gives a negative answer. Centre brighter gives a positive answer. The answer must lie between −1020 and 1020.",
    "example": {
     "working": [
@@ -125,10 +121,8 @@
     ],
     "answer": "−189"
    },
-   "mine": "right",
    "gen": "w9-laplace",
    "same": null,
-   "unsure": "",
    "n": 3,
    "kind": "Formula",
    "q": "For the following 8-bit greyscale image matrix, calculate the output produced if a 3×3 Laplacian kernel defined below was applied centred at coordinate (2,2). Note that your answer will be ∈ ℤ, but will not necessarily be ∈ ℕ or ∈ [0..255].",
@@ -175,10 +169,8 @@
     ],
     "answer": "2040"
    },
-   "mine": "right",
    "gen": "w8-maxout",
    "same": null,
-   "unsure": "",
    "n": 4,
    "kind": "Numeric",
    "q": "What is the maximum possible output of the following 2D Laplacian kernel for an 8-bit greyscale image? (note: provide the raw value; do not rescale).",
@@ -189,7 +181,7 @@
     "Output = 8 × 255 = 2040.",
     "The flip does not matter. The kernel looks the same after a 180° turn, and a turn never changes the sum of the positive coefficients."
    ],
-   "trap": "Answering 255, or adding all the coefficients (8 − 8 = 0) and answering 0. This is the same mistake as Quiz 08 question 14."
+   "trap": "Answering 255, or adding all the coefficients (8 − 8 = 0) and answering 0. Quiz 8 Question 14 has the same two mistakes."
   },
   {
    "given": [],
@@ -204,10 +196,8 @@
    "varies": "",
    "check": "",
    "example": null,
-   "mine": "right",
    "gen": "w9-facts",
    "same": null,
-   "unsure": "",
    "n": 5,
    "kind": "Multiple choice",
    "q": "Which linear filter is sometimes applied prior to a Laplacian filter to reduce noise?",
@@ -404,7 +394,7 @@
    ],
    "opts": [],
    "pics": [],
-   "varies": "The pixel values change on each attempt.",
+   "varies": "The pixel values.",
    "check": "The eight outputs always add up to 0, so the largest one is never negative. It can be at most 15 × 255 = 3825.",
    "example": {
     "working": [
@@ -415,10 +405,8 @@
     ],
     "answer": "1305"
    },
-   "mine": "right",
    "gen": "w9-kirsch",
    "same": null,
-   "unsure": "",
    "n": 6,
    "kind": "Formula",
    "q": "For the following 8-bit greyscale image matrix, calculate the final (combined) output value that would be produced if the Kirsch compass kernel bank were applied. Formula: C(i,j) = max over z = 1..8 of E(z)(i,j).",
@@ -475,7 +463,7 @@
    ],
    "opts": [],
    "pics": [],
-   "varies": "The pixel values change on each attempt.",
+   "varies": "The pixel values.",
    "check": "The answer is one of the two diagonal differences, so it is a whole number between 0 and 255.",
    "example": {
     "working": [
@@ -485,10 +473,8 @@
     ],
     "answer": "96"
    },
-   "mine": "right",
    "gen": "w9-roberts",
    "same": null,
-   "unsure": "",
    "n": 7,
    "kind": "Formula",
    "q": "For the following 8-bit greyscale image matrix, calculate edge gradient Gxy if the 2×2 Robert's cross operator pair is applied. Use the formula max(|Gx|, |Gy|) to determine edge gradient. Round any answer ∈ ℝ/ℕ to be ∈ ℕ, and round .5 upwards. Formula: ∇I(x,y) = Gxy = max(|Gx|, |Gy|)",
@@ -512,10 +498,8 @@
    "varies": "",
    "check": "",
    "example": null,
-   "mine": "right",
    "gen": "w9-facts",
    "same": null,
-   "unsure": "The capture dropped the square root sign from option C. It is restored here from the standard formula (Reading 09, Eq. 9.4c).",
    "n": 8,
    "kind": "Multiple choice",
    "q": "Which of the following is the most accurate method to calculate edge gradient (magnitude), given a pair of orthogonal filters, kx and ky, and outputs (Gx and Gy)? A. Absolute Sum: |Gx| + |Gy|. B. Absolute Max: max(|Gx|, |Gy|). C. Pythagorean: √(Gx² + Gy²).",
@@ -592,7 +576,7 @@
    ],
    "opts": [],
    "pics": [],
-   "varies": "The pixel values change on each attempt.",
+   "varies": "The pixel values.",
    "check": "The answer must be at least the larger of |Gx| and |Gy|, and at most |Gx| + |Gy|. Here it must be between 58 and 79.",
    "example": {
     "working": [
@@ -604,10 +588,8 @@
     ],
     "answer": "62"
    },
-   "mine": "right",
    "gen": "w9-gradient",
    "same": null,
-   "unsure": "The capture dropped the square root sign from the formula. It is restored here. The accepted answer 62 confirms it: √3805 = 61.68.",
    "n": 9,
    "kind": "Formula",
    "q": "For the following 8-bit greyscale image matrix, calculate edge gradient Gxy if the 3×3 Prewitt operator pair is applied centred at coordinate (2,2). Using the Pythagorean formula, provided below, rather than |Gx| + |Gy| or max(|Gx|, |Gy|). Round any answer ∈ ℝ/ℕ to be ∈ ℕ, and round .5 upwards. Formula: ∇I(x,y) = Gxy = √(Gx² + Gy²)",
@@ -685,7 +667,7 @@
    ],
    "opts": [],
    "pics": [],
-   "varies": "The pixel values change on each attempt.",
+   "varies": "The pixel values.",
    "check": "The angle is between −90° and 90°. It is positive when Gx and Gy have the same sign. It is below 45° in size when |Gy| is smaller than |Gx|. An answer below 1.6 in size means the calculator is in radians.",
    "example": {
     "working": [
@@ -697,21 +679,19 @@
     ],
     "answer": "25.33"
    },
-   "mine": "right",
    "gen": "w9-gradient",
    "same": 9,
-   "unsure": "Exact value is 25.33 (25.3251°). Canvas accepted his entry of 25.32, which is within its margin but is not the correctly rounded value.",
    "n": 10,
    "kind": "Formula",
    "q": "For the following 8-bit greyscale image matrix, calculate the gradient direction (angle) if the 3×3 Sobel operator pair is applied centred at coordinate (2,2). Express you answer in degrees (not radians). Write you answer to 2 d.p. Formula: θ = arctan(Gy ÷ Gx)",
    "ans": "25.33",
    "method": [
-    "Same column and row sums as card 9, but Sobel counts the middle pixel of each column or row twice (weights 1, 2, 1). Skip the zero middle column for Gx and the zero middle row for Gy.",
+    "Same column and row sums as Question 9, but Sobel counts the middle pixel of each column or row twice (weights 1, 2, 1). Skip the zero middle column for Gx and the zero middle row for Gy.",
     "Gx = weighted left column − weighted right column. Gy = weighted top row − weighted bottom row.",
     "θ = arctan(Gy ÷ Gx) with the calculator in degrees. Gy goes on top. Keep the signs of Gx and Gy when dividing.",
     "The flip changes the sign of both Gx and Gy. The two minus signs cancel in the division, so the angle is the same with or without the flip."
    ],
-   "trap": "Leaving the calculator in radians (0.44 here), dividing Gx by Gy, or forgetting the weight of 2. You entered 25.32. Canvas accepted it within its margin, but the exact value 25.3251 rounds to 25.33. Keep the full value on the calculator and round once at the end."
+   "trap": "Leaving the calculator in radians (0.44 here), dividing Gx by Gy, or forgetting the weight of 2. Also rounding the division first. arctan(0.4732) gives 25.32, but the exact value 25.3251 rounds to 25.33. Keep the full value on the calculator and round once at the end."
   },
   {
    "given": [],
@@ -730,10 +710,8 @@
    "varies": "",
    "check": "Three plots are slopes and one is a spike. The spike is the Laplacian.",
    "example": null,
-   "mine": "right",
    "gen": "w9-plots",
    "same": null,
-   "unsure": "The capture shows only the correct matches. Any extra options in the drop-down list are not visible.",
    "n": 11,
    "kind": "Matching",
    "q": "Match the following edge detection filter surface plots to the corresponding filter names.",
@@ -758,10 +736,8 @@
    "varies": "",
    "check": "",
    "example": null,
-   "mine": "right",
    "gen": "w9-facts",
    "same": null,
-   "unsure": "",
    "n": 12,
    "kind": "Multiple choice",
    "q": "What is the current de facto approach for effective edge detection?",
@@ -839,15 +815,14 @@
    "opts": [],
    "pics": [],
    "varies": "",
-   "check": "All nine kernel numbers appear once in each output. The centre is 5 in both. The two outputs are 180° turns of each other.",
+   "check": "Work out one corner in full. With the window at the top-left, the 1 is in the bottom-right cell of the window. Cross correlation uses the kernel as printed, so the 9 sits on the 1 and the top-left output is 9. Convolution uses the turned kernel, so the 1 sits on the 1 and the top-left output is 1. All nine kernel numbers appear once in each output, and the centre is 5 in both.",
    "example": {
     "working": [
-     "Window at the top-left (rows 1 to 3, columns 1 to 3): the 1 is in the bottom-right cell.",
-     "Cross correlation, kernel as printed: bottom-right number = 9. Top-left output = 9.",
-     "Convolution, kernel turned to 9 8 7 / 6 5 4 / 3 2 1: bottom-right number = 1. Top-left output = 1.",
-     "Repeat for the other eight positions, or copy the pattern.",
-     "Cross correlation: 9 8 7 / 6 5 4 / 3 2 1.",
-     "Convolution: 1 2 3 / 4 5 6 / 7 8 9."
+     "Convolution, kernel as printed: 1 2 3 / 4 5 6 / 7 8 9.",
+     "Cross correlation, kernel turned through 180°: 9 8 7 / 6 5 4 / 3 2 1.",
+     "Check the top-left cell. The window covers rows 1 to 3 and columns 1 to 3, and the 1 is in the bottom-right cell of the window.",
+     "Cross correlation, kernel as printed: the 9 sits on the 1. Top-left output = 9.",
+     "Convolution, kernel turned to 9 8 7 / 6 5 4 / 3 2 1: the 1 sits on the 1. Top-left output = 1."
     ],
     "answer": "Cross correlation: 9 8 7 / 6 5 4 / 3 2 1. Convolution: 1 2 3 / 4 5 6 / 7 8 9.",
     "m": [
@@ -885,21 +860,20 @@
      ]
     ]
    },
-   "mine": "partial",
    "gen": "w9-impulse",
    "same": null,
-   "unsure": "Canvas did not confirm this answer. His attempt scored 0.111 and Canvas showed only that the two centre cells (5) were right. The answer is worked from the definition and checked with S.validCorr and S.validConv. In example, m is the cross correlation output and m2 is the convolution output.",
    "n": 13,
    "kind": "Fill in the Blank",
    "q": "It was mentioned that we horizontally and vertically flip a kernel before using it when we perform 2D convolution, but forego these flip operations when performing cross correlation (which is otherwise an identical procedure). To illustrate the implications of the flip operations, perform convolution and cross correlation on the following image matrix. Use the \"valid convolution\" approach at the image boundaries. Enter the 3×3 output with cross correlation and the 3×3 output with convolution.",
    "ans": "Output with Cross Correlation: 9 8 7 / 6 5 4 / 3 2 1 (the kernel turned through 180°). Output with Convolution: 1 2 3 / 4 5 6 / 7 8 9 (the kernel as printed).",
    "method": [
     "Valid means the kernel must fit fully inside the image. A 5×5 image and a 3×3 kernel give a 3×3 output, one value for each of the nine window positions.",
-    "The image is a single 1 on zeros. In each window, only the cell that holds the 1 counts. The output is the kernel number that sits on the 1. Skip every other cell, because it is multiplied by 0.",
-    "Cross correlation uses the kernel as printed. When the window is at the top-left, the 1 is in the bottom-right cell of the window, under the 9. So 9 goes in the top-left of the output. The output is the kernel turned through 180°.",
-    "The flip matters here because the kernel 1 to 9 has no symmetry. Convolution turns the kernel first, and the slide turns it again. So convolution gives the kernel as printed."
+    "The image is a single 1 at the centre, on zeros. For that image no multiplication is needed. Each output is a copy of the kernel.",
+    "Convolution output: write the kernel as printed, 1 2 3 / 4 5 6 / 7 8 9.",
+    "Cross correlation output: write the kernel turned through 180°, 9 8 7 / 6 5 4 / 3 2 1.",
+    "The two outputs differ because the kernel 1 to 9 has no symmetry. A symmetric kernel would give the same output twice."
    ],
-   "trap": "You entered 5 in the centre and 0 everywhere else for both outputs, so only the two centre cells were marked right. The 1 is inside all nine windows, not only the centre window. No output cell is 0. The other common mistake is to swap the two outputs: convolution copies the kernel, cross correlation turns it."
+   "trap": "Entering 5 in the centre and 0 everywhere else for both outputs. The 1 is inside all nine windows, so no output cell is 0. The other common mistake is swapping the two outputs. Convolution copies the kernel and cross correlation turns it."
   },
   {
    "given": [
@@ -967,15 +941,16 @@
    "opts": [],
    "pics": [],
    "varies": "",
-   "check": "The centre cell of each output uses the whole 1 to 9 block. Cross correlation centre = 1² + 2² + ... + 9² = 285. Convolution centre = 1×9 + 2×8 + ... + 9×1 = 165. Corner and edge cells must be smaller than the centre of the cross correlation output, because their windows hold fewer non-zero pixels.",
+   "check": "The centre cell of each output uses the whole 1 to 9 block. Cross correlation centre = 1² + 2² + ... + 9² = 285. Convolution centre = 1×9 + 2×8 + ... + 9×1 = 165. In the cross correlation output every corner and edge cell must be smaller than 285, because those windows hold fewer non-zero pixels.",
    "example": {
     "working": [
      "Top-left window (rows 1 to 3, columns 1 to 3) is 0 0 0 / 0 1 2 / 0 4 5.",
      "Cross correlation, kernel as printed: 5×1 + 6×2 + 8×4 + 9×5 = 5 + 12 + 32 + 45 = 94.",
      "Convolution, turned kernel: 5×1 + 4×2 + 2×4 + 1×5 = 5 + 8 + 8 + 5 = 26.",
      "Centre window is 1 2 3 / 4 5 6 / 7 8 9. Cross correlation = 285. Convolution = 165.",
+     "Cross correlation, five cells worked out: top row 94, 154, 106, middle-left 186, centre 285. The other four are copies.",
      "Cross correlation: 94 154 106 / 186 285 186 / 106 154 94.",
-     "Convolution: 26 56 54 / 84 165 144 / 134 236 186."
+     "Convolution, all nine cells worked out: 26 56 54 / 84 165 144 / 134 236 186."
     ],
     "answer": "Cross correlation: 94 154 106 / 186 285 186 / 106 154 94. Convolution: 26 56 54 / 84 165 144 / 134 236 186.",
     "m": [
@@ -1013,21 +988,20 @@
      ]
     ]
    },
-   "mine": "wrong",
    "gen": "w9-convcorr",
    "same": null,
-   "unsure": "Canvas did not confirm this answer. All 18 of his cells were marked wrong and Canvas showed no correct values. The answer is worked from the definition and checked with S.validCorr and S.validConv. In example, m is the cross correlation output and m2 is the convolution output. The generator w9-convcorr uses a 4×4 image with a 2×2 output, so it practises the same method on a smaller size.",
    "n": 14,
    "kind": "Fill in the Blank",
    "q": "It was mentioned that we horizontally and vertically flip a kernel before using it when we perform 2D convolution, but forego these flip operations when performing cross correlation (which is otherwise an identical procedure). To illustrate the implications of the flip operations, perform convolution and cross correlation on the following image matrix. Use the \"valid convolution\" approach at the image boundaries. Enter the 3×3 output with cross correlation and the 3×3 output with convolution.",
    "ans": "Output with Cross Correlation: 94 154 106 / 186 285 186 / 106 154 94. Output with Convolution: 26 56 54 / 84 165 144 / 134 236 186.",
    "method": [
-    "Valid gives a 3×3 output. Each output cell is one whole window: multiply the nine matching pairs and add them into a single number.",
-    "Cross correlation: use the kernel as printed, 1 2 3 / 4 5 6 / 7 8 9.",
-    "Convolution: first write the kernel turned through 180°, 9 8 7 / 6 5 4 / 3 2 1. Then do the same nine windows with it. The flip matters because this kernel has no symmetry.",
-    "Skip the zero border cells of the image. A corner window has only four non-zero pixels. An edge window has six. Only the centre window uses all nine."
+    "Valid gives a 3×3 output. Each output cell is one whole window. Multiply the matching pairs and add them into a single number.",
+    "Skip the zero border cells of the image. A corner window has only four non-zero pixels. An edge window has six. Only the centre window uses all nine.",
+    "Cross correlation: use the kernel as printed, 1 2 3 / 4 5 6 / 7 8 9. Work out five cells only: the top row, the middle-left cell and the centre.",
+    "Copy those values through the centre to fill the other four cells. Top-left goes to bottom-right, top-middle to bottom-middle, top-right to bottom-left and middle-left to middle-right. The copy works because the image block and the kernel hold the same numbers.",
+    "Convolution: first write the kernel turned through 180°, 9 8 7 / 6 5 4 / 3 2 1. Then work out all nine windows with it. The convolution output has no such pattern, so no cell can be copied."
    ],
-   "trap": "You entered the nine separate products of the centre window (1, 4, 9, ... 81 for cross correlation and 9, 16, 21, ... 9 for convolution). Those nine products must be added together, and they make only the centre cell (285 and 165). The other eight cells come from moving the window."
+   "trap": "Entering the nine separate products of the centre window (1, 4, 9, ... 81 for cross correlation and 9, 16, 21, ... 9 for convolution). Add those nine products together. The sum fills only the centre cell (285 and 165). The other eight cells come from moving the window."
   },
   {
    "given": [
@@ -1074,32 +1048,29 @@
    ],
    "opts": [],
    "pics": [],
-   "varies": "The pixel values change on each attempt.",
-   "check": "The answer is never negative. It is at least (largest difference)² ÷ 9, which is 22500 ÷ 9 = 2500 here. It cannot be above 255² = 65025.",
+   "varies": "The pixel values.",
+   "check": "The answer is never negative. It is at least (largest difference)² ÷ 9, which is 22500 ÷ 9 = 2500 here. It cannot be above 255² = 65025. For a second route, enter the nine differences as data in the calculator's statistics mode and read Σx². Σx² must equal the sum of the squares, 54541 here.",
    "example": {
     "working": [
-     "Differences: 41, −24, −129 / 7, −150, 47 / −47, 90, −24.",
-     "Squares: 1681, 576, 16641 / 49, 22500, 2209 / 2209, 8100, 576.",
-     "Sum = 54541.",
+     "Differences without signs: 41, 24, 129 / 7, 150, 47 / 47, 90, 24.",
+     "41² + 24² + 129² + 7² + 150² + 47² + 47² + 90² + 24² = 54541.",
      "54541 ÷ 9 = 6060.111, which is 6060.11 to 2 d.p."
     ],
     "answer": "6060.11"
    },
-   "mine": "right",
    "gen": "w9-mse",
    "same": null,
-   "unsure": "",
    "n": 15,
    "kind": "Formula",
    "q": "Given an image patch, L, and a template of an object we are seeking, t, one way to measure their degree of similarity is to calculate MSE (Mean Square Error), where in this case w is the width of our 2D symmetric template. Give your answer to 2 d.p. Formula: MSE(L,t) = (1 ÷ w²) × Σᵢ Σⱼ (L(i,j) − t(i,j))², with i and j from 1 to w.",
    "ans": "6060.11",
    "method": [
-    "Subtract t from L cell by cell. This gives nine differences.",
-    "Square each difference. Every square is positive.",
-    "Add the nine squares and divide by w² = 9. Round to 2 decimal places.",
-    "There is no kernel and no flip here. Each cell of L is paired with the cell of t in the same place."
+    "Pair each cell of L with the cell of t in the same place. There is no kernel and no flip.",
+    "For each pair, take the larger value minus the smaller. Write the nine differences. The sign can be dropped because every difference is squared next.",
+    "Type the nine squares into the calculator as one sum, such as 41² + 24² + ..., and press =.",
+    "Divide the sum by w² = 9. Round to 2 decimal places."
    ],
-   "trap": "Adding the differences before squaring, so negatives cancel. Also dividing by w = 3 instead of w² = 9, or typing the comma that Canvas shows in 6,060.11."
+   "trap": "Adding the differences before squaring, so negatives cancel. Also dividing by w = 3 instead of w² = 9. Write the answer as 6060.11, with no thousands comma."
   }
  ]
 }

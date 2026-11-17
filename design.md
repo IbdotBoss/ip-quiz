@@ -16,7 +16,7 @@ The first build (16 Nov 2026) was a practice quiz with scores. Stage rejected it
 
 The page is the quiz, annotated. Each card puts what you see in the test on the left and what you do about it on the right.
 
-Signature: the question strip. Fifteen numbered squares per quiz, the same on the home page and stuck to the top of each quiz page. A yellow square is a question he lost marks on in his own attempt.
+Signature: the question strip. Fifteen numbered squares per quiz, the same on the home page and stuck to the top of each quiz page.
 
 ## Directions compared
 
@@ -39,7 +39,7 @@ Light uses Canvas's own ink (#2d3b45), rule (#c7cdd1) and green (#0b874b). Dark 
 
 ## Colour
 
-Yellow means one thing: look here. It marks the trap and the questions he lost marks on. Green marks the answer, as on Canvas. Red appears only when a practice answer is wrong.
+Yellow means one thing: look here. It marks the trap. Green marks the answer, as on Canvas. Red appears only when a practice answer is wrong.
 
 ## Type
 
@@ -69,3 +69,7 @@ None. Jumps between questions are instant.
 ## Stack
 
 One static HTML file built by `build.py` from `template.html`, `src/gens.js` and `src/cards/quizNN.json`, with fonts inlined. Pictures are separate files in `docs/img`. Hash routes (`#/q/8/3`) so the back button and links to a single question work.
+
+## Sharing (17 Nov 2026)
+
+The sheet is shared with the class, so nothing refers to one person's attempt. Traps describe the mistake in general. Answers Canvas never confirmed are listed privately, outside the repo. Every page ends with links to the previous and next quiz, all quizzes, Rules, Look-up and the top. Look-up (`#/ref`) names each quiz picture by what it shows, without the A to D letters the quiz uses.

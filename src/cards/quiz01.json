@@ -36,7 +36,7 @@
    "opts": [],
    "ans": "M = 4, N = 3, and the pixel value at the origin is 101.",
    "pics": [],
-   "varies": "Only one attempt was captured, so this is not confirmed. Expect a different matrix size and different values in the test.",
+   "varies": "Expect a different matrix size and different values in the test.",
    "method": [
     "Count the rows going down. That number is M.",
     "Count the columns going across. That number is N.",
@@ -52,10 +52,8 @@
     ],
     "answer": "M = 4, N = 3, origin = 101"
    },
-   "mine": "right",
    "gen": "w1-dims",
-   "same": null,
-   "unsure": ""
+   "same": null
   },
   {
    "n": 2,
@@ -106,14 +104,14 @@
    "opts": [],
    "ans": "1",
    "pics": [],
-   "varies": "Only one attempt was captured, so this is not confirmed. Expect a different coordinate or matrix in the test.",
+   "varies": "Expect a different coordinate or matrix in the test.",
    "method": [
     "Read (i,j) as row i, then column j. Count from 1 at the top-left.",
     "Go down to row i.",
     "Go across that row to entry j. Read the value."
    ],
-   "check": "Read the swapped coordinate (j,i) as well. If it gives a different value, make sure you entered the (i,j) one.",
-   "trap": "Reading (3,4) as (x,y), which means column 3, row 4. That gives 5 here, and the right answer is 1.",
+   "check": "Read the swapped coordinate (j,i) as well. If the two values differ, give the (i,j) one.",
+   "trap": "Reading (3,4) as (x,y), which means column 3, row 4. That gives 5 here. The right answer is 1.",
    "example": {
     "working": [
      "Row 3 is 6, 0, 8, 1, 4.",
@@ -121,10 +119,8 @@
     ],
     "answer": "1"
    },
-   "mine": "right",
    "gen": "w1-pixel",
-   "same": null,
-   "unsure": ""
+   "same": null
   },
   {
    "n": 3,
@@ -148,17 +144,16 @@
    ],
    "varies": "The five pictures look fixed. Canvas may change the order of the rows.",
    "method": [
-    "Find the picture with only pure black and pure white. That is binary. Find the wire mesh of triangles. That is vector, because a vector image is made of points and lines.",
+    "Find the picture with only pure black and pure white. That is binary.",
+    "Find the wire mesh of triangles. That is vector, because a vector image is made of points and lines.",
     "Find the picture with smooth greys and no colour. That is greyscale.",
-    "Two colour pictures are left. Look at the background. Flat bands of colour mean indexed, because an indexed image has few colours. A smooth fade means RGB."
+    "Two colour pictures are left. Look at the background of each. Flat bands of colour mean indexed, because an indexed image has few colours. A smooth fade means RGB."
    ],
    "check": "Each format is used once. If one format is used twice, one of the two colour pictures is wrong.",
    "trap": "Mixing up indexed and RGB. Both are colour. The banded background is the sign of indexed.",
    "example": null,
-   "mine": "right",
    "gen": "w1-formats",
-   "same": null,
-   "unsure": ""
+   "same": null
   },
   {
    "n": 4,
@@ -182,10 +177,8 @@
     ],
     "answer": "60"
    },
-   "mine": "right",
    "gen": "w1-count",
-   "same": null,
-   "unsure": ""
+   "same": null
   },
   {
    "n": 5,
@@ -211,10 +204,8 @@
     ],
     "answer": "17,321"
    },
-   "mine": "right",
    "gen": "w1-bytes",
-   "same": null,
-   "unsure": ""
+   "same": null
   },
   {
    "n": 6,
@@ -229,18 +220,16 @@
     "An 8-bit greyscale pixel needs 1 byte. Bytes = M × N.",
     "Ignore the number of unique shades. Every pixel takes 1 byte, whatever its value."
    ],
-   "check": "The answer is 8 times the binary size for the same M and N.",
-   "trap": "Using the 87 shades in the sum. The number of shades is extra information that the formula does not use.",
+   "check": "The answer is the pixel count M × N, with no other number in it.",
+   "trap": "Using the 87 shades in the calculation. The formula S = MN has no term for the number of shades.",
    "example": {
     "working": [
      "605 × 348 = 210,540."
     ],
     "answer": "210,540"
    },
-   "mine": "right",
    "gen": "w1-bytes",
-   "same": 5,
-   "unsure": ""
+   "same": 5
   },
   {
    "n": 7,
@@ -264,10 +253,8 @@
     ],
     "answer": "91,350"
    },
-   "mine": "right",
    "gen": "w1-bytes",
-   "same": 5,
-   "unsure": ""
+   "same": 5
   },
   {
    "n": 8,
@@ -293,10 +280,8 @@
     ],
     "answer": "157,992"
    },
-   "mine": "right",
    "gen": "w1-bytes",
-   "same": null,
-   "unsure": ""
+   "same": null
   },
   {
    "n": 9,
@@ -308,9 +293,9 @@
    "pics": [],
    "varies": "The number of bits-per-pixel, t.",
    "method": [
-    "Each extra bit doubles the number of shades. Work out 2 to the power t."
+    "Type 2, press the power key, type t and press =. Each extra bit doubles the number of shades."
    ],
-   "check": "The answer is an even number. 2¹⁰ = 1,024 is a useful anchor: 2¹⁷ = 1,024 × 128.",
+   "check": "The answer is an even number. 2¹⁰ = 1,024, so 2¹⁷ = 1,024 × 128 = 131,072.",
    "trap": "Subtracting 1. The number of shades is 2^t. The largest value is 2^t − 1.",
    "example": {
     "working": [
@@ -318,10 +303,8 @@
     ],
     "answer": "131,072"
    },
-   "mine": "right",
    "gen": "w1-bits",
-   "same": null,
-   "unsure": ""
+   "same": null
   },
   {
    "n": 10,
@@ -333,7 +316,7 @@
    "pics": [],
    "varies": "The number of bits-per-pixel, t.",
    "method": [
-    "Work out 2 to the power t, as in card 9.",
+    "Work out 2 to the power t, as in Question 9.",
     "Subtract 1, because pixel values start at 0."
    ],
    "check": "The answer is an odd number. For t = 8 the same rule gives 255.",
@@ -345,10 +328,8 @@
     ],
     "answer": "16,777,215"
    },
-   "mine": "right",
    "gen": "w1-bits",
-   "same": 9,
-   "unsure": ""
+   "same": 9
   },
   {
    "n": 11,
@@ -374,10 +355,8 @@
     ],
     "answer": "15"
    },
-   "mine": "right",
    "gen": "w1-bits",
-   "same": null,
-   "unsure": ""
+   "same": null
   },
   {
    "n": 12,
@@ -393,7 +372,7 @@
     "n is the number of pixels. n = M × N.",
     "Work out k to the power n."
    ],
-   "check": "The answer is a power of 2. Halve it n times and you reach 1.",
+   "check": "The answer is a power of 2, so it is even. 2¹⁰ = 1,024, so 2²¹ = 2 × 1,024 × 1,024.",
    "trap": "Using M or N alone as the power, or multiplying k by n. The power is the full pixel count M × N.",
    "example": {
     "working": [
@@ -403,10 +382,8 @@
     ],
     "answer": "2,097,152"
    },
-   "mine": "right",
    "gen": "w1-images",
-   "same": null,
-   "unsure": ""
+   "same": null
   },
   {
    "n": 13,
@@ -418,8 +395,9 @@
    "pics": [],
    "varies": "The image size.",
    "method": [
-    "Same method as card 12. The only change is k.",
-    "An 8-bit pixel can take 2⁸ = 256 values, so k = 256."
+    "An 8-bit pixel can take 2⁸ = 256 values, so k = 256.",
+    "n is the number of pixels. n = M × N.",
+    "Work out k to the power n."
    ],
    "check": "256⁴ = 2³². Type the full number with no rounding. A calculator that shows 4.294967296 × 10⁹ still gives every digit.",
    "trap": "Using k = 8 or k = 255. An 8-bit pixel has 256 possible values, 0 to 255.",
@@ -431,10 +409,8 @@
     ],
     "answer": "4,294,967,296"
    },
-   "mine": "right",
    "gen": "w1-images",
-   "same": 12,
-   "unsure": ""
+   "same": 12
   },
   {
    "n": 14,
@@ -444,13 +420,13 @@
    "opts": [],
    "ans": "16,777,216",
    "pics": [],
-   "varies": "Only one attempt was captured, so this is not confirmed. The question type is Numeric, not Formula, so the size may stay 1 × 1.",
+   "varies": "The question type is Numeric, not Formula, so the size may stay 1 × 1.",
    "method": [
-    "Same method as card 12. The only change is k.",
     "An RGB pixel has three 8-bit channels. Each channel has 256 values, so k = 256 × 256 × 256 = 16,777,216.",
-    "A 1 × 1 image has n = 1, so the answer is k itself."
+    "n is the number of pixels. A 1 × 1 image has n = 1.",
+    "Work out k to the power n. With n = 1 the answer is k."
    ],
-   "check": "The answer is 2²⁴, which is one more than the largest 24-bit value in card 10.",
+   "check": "The answer is 2²⁴, which is one more than the largest 24-bit value in Question 10.",
    "trap": "Answering 256 or 3 × 256 = 768. The three channels multiply, because every red value can go with every green value and every blue value.",
    "example": {
     "working": [
@@ -460,10 +436,8 @@
     ],
     "answer": "16,777,216"
    },
-   "mine": "right",
    "gen": "w1-images",
-   "same": 12,
-   "unsure": ""
+   "same": 12
   },
   {
    "n": 15,
@@ -490,12 +464,10 @@
     "Three equal channels give a grey. All 0 is black, all 255 is white, and all 128 is mid grey."
    ],
    "check": "Each secondary colour is missing one channel. Yellow has no blue. Cyan has no red. Magenta has no green.",
-   "trap": "Thinking of paint. In light, red + green makes yellow. Red + blue makes magenta, not purple or yellow.",
+   "trap": "Thinking of paint. In light, red + green makes yellow and red + blue makes magenta.",
    "example": null,
-   "mine": "right",
    "gen": "w1-rgb",
-   "same": null,
-   "unsure": ""
+   "same": null
   }
  ]
 }
