@@ -1,0 +1,603 @@
+{
+ "quiz": 4,
+ "title": "Contrast Manipulation",
+ "cards": [
+  {
+   "n": 1,
+   "kind": "Matching",
+   "q": "Match the statements concerning the effect of brightness manipulation on image histograms.",
+   "given": [],
+   "opts": [
+    "to the left",
+    "to the right"
+   ],
+   "ans": "If we make an image darker, the bars in its count histogram slide to the left. If we make an image brighter, the bars in its count histogram slide to the right.",
+   "pics": [],
+   "varies": "",
+   "method": [
+    "The horizontal axis of a histogram is the grey level. 0 (black) is on the left and 255 (white) is on the right.",
+    "Darker means smaller pixel values, so every bar moves towards 0, which is left. Brighter means larger values, so every bar moves right.",
+    "A brightness shift moves the bars sideways. It does not change their heights or their spacing, so contrast stays the same."
+   ],
+   "check": "Think of an all-black image. Its only bar is at 0, on the far left.",
+   "trap": "Thinking the bars move up or down. Bar height is the pixel count, and a brightness shift does not change counts.",
+   "example": null,
+   "mine": "right",
+   "gen": "w4-facts",
+   "same": null,
+   "unsure": "The results page shows only the options that were matched. Any unused extra options in the drop-down were not captured."
+  },
+  {
+   "n": 2,
+   "kind": "Matching",
+   "q": "Match these standard symbols to their meanings.",
+   "given": [],
+   "opts": [
+    "◑",
+    "☼"
+   ],
+   "ans": "contrast is ◑ (the half-filled circle). brightness is ☼ (the sun).",
+   "pics": [],
+   "varies": "",
+   "method": [
+    "Brightness is the sun symbol ☼, because a sun gives light.",
+    "Contrast is the half-black, half-white circle ◑, because contrast is the gap between dark and light."
+   ],
+   "check": "",
+   "trap": "Swapping the two. The circle shows black next to white, and that difference is contrast.",
+   "example": null,
+   "mine": "right",
+   "gen": null,
+   "same": null,
+   "unsure": "The results page shows only the options that were matched. Any unused extra options in the drop-down were not captured."
+  },
+  {
+   "n": 3,
+   "kind": "Matching",
+   "q": "Brightness adjustment is quite different from contrast adjustment, and can be accomplished with matrix arithmetic (either additive or multiplicative). Match the arithmetic operations on matrix L with a scalar S.",
+   "given": [],
+   "opts": [
+    "brighten",
+    "darken",
+    "no effect",
+    "annihilate"
+   ],
+   "ans": "L′ = L − S | S > 0: darken. L′ = L + S | S > 0: brighten. L′ = L × S | S < 0: annihilate. L′ = L × S | S > 1: brighten. L′ = L × S | S = 0: annihilate. L′ = L × S | S = 1: no effect. L′ = L − S | S < 0: brighten. L′ = L + S | S < 0: darken. L′ = L + S | S = 0: no effect.",
+   "pics": [],
+   "varies": "Which operations are listed, and their order.",
+   "method": [
+    "Put one test pixel through the operation, for example L = 100, with a simple S such as 20, −20, 2, 1, 0 or −2.",
+    "If the result is larger, the answer is brighten. If it is smaller but still above 0, the answer is darken. If it is the same, the answer is no effect.",
+    "If the result is 0 or negative for every pixel, the answer is annihilate. Negative values are clipped to 0, so the whole image becomes black."
+   ],
+   "check": "Subtracting a negative number is the same as adding. 100 − (−20) = 120, which is brighter.",
+   "trap": "Reading only the sign of the operation and not the sign of S. L − S with S < 0 brightens. L + S with S < 0 darkens. L × S with S < 0 is annihilate, not darken.",
+   "example": {
+    "working": [
+     "L − S, S < 0: 100 − (−20) = 120. Brighten.",
+     "L + S, S < 0: 100 + (−20) = 80. Darken.",
+     "L × S, S < 0: 100 × (−2) = −200, clipped to 0. Annihilate.",
+     "L × S, S = 1: 100 × 1 = 100. No effect."
+    ],
+    "answer": "See the nine pairs in the answer."
+   },
+   "mine": "right",
+   "gen": "w4-effects",
+   "same": null,
+   "unsure": ""
+  },
+  {
+   "n": 4,
+   "kind": "Matching",
+   "q": "Match the images of busy quiz-takers, A..D, to histograms 1..4.",
+   "given": [],
+   "opts": [
+    "1",
+    "2",
+    "3",
+    "4"
+   ],
+   "ans": "A matches 2. B matches 4. C matches 3. D matches 1.",
+   "pics": [
+    "q4-imgA",
+    "q4-imgB",
+    "q4-imgC",
+    "q4-imgD",
+    "q4-hist1",
+    "q4-hist2",
+    "q4-hist3",
+    "q4-hist4"
+   ],
+   "varies": "",
+   "method": [
+    "Find the dark picture first (D). Its histogram has every bar on the left and nothing above about 125. That is histogram 1.",
+    "Find the washed-out grey picture (A). It has no true black and no true white, so its histogram is a narrow clump from about 70 to 190. That is histogram 2.",
+    "Two pictures are left and both histograms reach from 0 to 255. The stretched picture (C) keeps the original histogram shape, pulled across the whole width. That is histogram 3.",
+    "The equalised picture (B) has the strongest contrast. Its histogram is separate spikes with gaps across the whole range. That is histogram 4."
+   ],
+   "check": "Each histogram is used once. The histogram of A (2) and the histogram of C (3) have the same shape, because C is a stretch of the same kind of picture.",
+   "trap": "Mixing up stretched and equalised. Both cover 0 to 255. Stretched keeps the shape. Equalised has gaps and looks flattened.",
+   "example": null,
+   "mine": "right",
+   "gen": "w4-histmatch",
+   "same": null,
+   "unsure": ""
+  },
+  {
+   "n": 5,
+   "kind": "Formula",
+   "q": "Below is a low-contrast 8-bit greyscale image matrix. When performing a histogram stretch, the first step is to identify Lmin prior to entry-wise subtracting it from the image. What is Lmin for this image? Formula: Lstretched = ⌈(L − Lmin) × (t ÷ (Lmax − Lmin))⌋",
+   "given": [
+    {
+     "cap": "L",
+     "m": [
+      [
+       194,
+       165,
+       142,
+       163
+      ],
+      [
+       195,
+       187,
+       118,
+       153
+      ],
+      [
+       130,
+       198,
+       166,
+       111
+      ],
+      [
+       169,
+       128,
+       159,
+       177
+      ]
+     ]
+    }
+   ],
+   "opts": [],
+   "ans": "111",
+   "pics": [],
+   "varies": "The matrix values.",
+   "method": [
+    "Lmin is the smallest pixel value in the matrix.",
+    "Scan the matrix row by row. Keep the smallest value seen so far and replace it each time you meet a smaller one.",
+    "Scan a second time to confirm that no value is smaller."
+   ],
+   "check": "Lmin must be a number that appears in the matrix. No other entry is below it.",
+   "trap": "Stopping at the first small number you see. Here 118 looks small, but 111 is in row 3.",
+   "example": {
+    "working": [
+     "Row 1 smallest: 142. Row 2 smallest: 118. Row 3 smallest: 111. Row 4 smallest: 128.",
+     "The smallest of these is 111."
+    ],
+    "answer": "111"
+   },
+   "mine": "right",
+   "gen": "w4-stretchparts",
+   "same": null,
+   "unsure": ""
+  },
+  {
+   "n": 6,
+   "kind": "Formula",
+   "q": "Below is a low-contrast 8-bit greyscale image matrix. When performing a histogram stretch, following the shift to make the darkest pixel = 0 by subtracting Lmin, the next step is to entry-wise mutliply the pixels. What coefficient would we multiply by to make the output image pixels span the entire integer interval [0..255]? Enter you answer to two decimal places (2 d.p.). Formula: Lstretched = ⌈(L − Lmin) × (t ÷ (Lmax − Lmin))⌋",
+   "given": [
+    {
+     "cap": "L",
+     "m": [
+      [
+       104,
+       116,
+       153,
+       190
+      ],
+      [
+       125,
+       165,
+       193,
+       175
+      ],
+      [
+       116,
+       196,
+       116,
+       108
+      ],
+      [
+       118,
+       127,
+       198,
+       128
+      ]
+     ]
+    }
+   ],
+   "opts": [],
+   "ans": "2.71",
+   "pics": [],
+   "varies": "The matrix values.",
+   "method": [
+    "Find Lmin and Lmax by scanning every row. Write down the smallest and largest value of each row first.",
+    "Spread = Lmax − Lmin.",
+    "Coefficient = t ÷ spread = 255 ÷ (Lmax − Lmin).",
+    "Round to 2 decimal places."
+   ],
+   "check": "Multiply back: coefficient × (Lmax − Lmin) must give about 255. Here 2.71 × 94 = 254.7.",
+   "trap": "Missing the true Lmin. You entered 3.11, which is 255 ÷ 82. That is what you get if Lmin is read as 116. The smallest value is 104 (row 1), and 108 is also below 116. Use 255 on top, not 256.",
+   "example": {
+    "working": [
+     "Row minimums: 104, 125, 108, 118. Lmin = 104.",
+     "Row maximums: 190, 193, 196, 198. Lmax = 198.",
+     "Spread = 198 − 104 = 94.",
+     "255 ÷ 94 = 2.7128, which rounds to 2.71."
+    ],
+    "answer": "2.71"
+   },
+   "mine": "wrong",
+   "gen": "w4-stretchparts",
+   "same": null,
+   "unsure": "Canvas did not show the correct answer. 2.71 is worked out from Eq. 4.2 in Reading 04. That 3.11 came from reading Lmin as 116 is an inference from the number (255 ÷ 82 = 3.11)."
+  },
+  {
+   "n": 7,
+   "kind": "Fill in the Blank",
+   "q": "Prior to histogram stretch, an 8-bit greyscale image matrix has Lmin = 32, Lmax = 116 and has 38 unique (different) shades of grey. Following histogram stretch where t = 255, the new Lmin would be ___, the new Lmax would be ___ and the number of unique shades of grey will be ___. Formula: Lstretched = ⌈(L − Lmin) × (t ÷ (Lmax − Lmin))⌋",
+   "given": [],
+   "opts": [],
+   "ans": "New Lmin = 0. New Lmax = 255. Number of unique shades of grey = 38.",
+   "pics": [],
+   "varies": "The starting Lmin, Lmax and number of shades.",
+   "method": [
+    "After a stretch the darkest pixel is always b, which is 0. So the new Lmin is 0.",
+    "After a stretch the brightest pixel is always t. So the new Lmax is 255.",
+    "A stretch is one-to-one. Each old grey level gets its own new grey level, so the number of unique shades stays the same. Copy it from the question."
+   ],
+   "check": "No calculation is needed. The old Lmin and Lmax do not appear in the answer.",
+   "trap": "Calculating a new number of shades, for example 256 or Lmax − Lmin. A stretch moves the bars apart. It does not create or merge bars.",
+   "example": {
+    "working": [
+     "New Lmin = 0.",
+     "New Lmax = t = 255.",
+     "Unique shades = 38, unchanged."
+    ],
+    "answer": "0, 255, 38"
+   },
+   "mine": "right",
+   "gen": "w4-stretchparts",
+   "same": null,
+   "unsure": ""
+  },
+  {
+   "n": 8,
+   "kind": "Fill in the Blank",
+   "q": "Below is a low-contrast 8-bit greyscale image matrix. Enter the new values for each of the original grey levels after histogram stretch has been applied, such that b = 0 and t = 255. Original grey levels: 10, 14, 15, 60, 92, 120, 134, 140. Formula: Lstretched = ⌈(L − Lmin) × (t ÷ (Lmax − Lmin))⌋",
+   "given": [
+    {
+     "cap": "L",
+     "m": [
+      [
+       134,
+       60,
+       92
+      ],
+      [
+       14,
+       140,
+       15
+      ],
+      [
+       92,
+       120,
+       10
+      ]
+     ]
+    }
+   ],
+   "opts": [],
+   "ans": "10 becomes 0. 14 becomes 8. 15 becomes 10. 60 becomes 98. 92 becomes 161. 120 becomes 216. 134 becomes 243. 140 becomes 255.",
+   "pics": [],
+   "varies": "The matrix values.",
+   "method": [
+    "Find Lmin and Lmax. Work out the coefficient once: 255 ÷ (Lmax − Lmin). Keep 4 decimal places.",
+    "For each grey level: (level − Lmin) × coefficient.",
+    "Round each result to the nearest whole number. A decimal part of .5 or more rounds up."
+   ],
+   "check": "The first level must become 0 and the last must become 255. The new values must rise in the same order as the old ones.",
+   "trap": "Chopping the decimals. You entered 215 for level 120. The value is 215.77, which rounds to 216.",
+   "example": {
+    "working": [
+     "Lmin = 10, Lmax = 140. Coefficient = 255 ÷ 130 = 1.9615.",
+     "10: 0 × 1.9615 = 0.",
+     "14: 4 × 1.9615 = 7.85, rounds to 8.",
+     "15: 5 × 1.9615 = 9.81, rounds to 10.",
+     "60: 50 × 1.9615 = 98.08, rounds to 98.",
+     "92: 82 × 1.9615 = 160.85, rounds to 161.",
+     "120: 110 × 1.9615 = 215.77, rounds to 216.",
+     "134: 124 × 1.9615 = 243.23, rounds to 243.",
+     "140: 130 × 1.9615 = 255."
+    ],
+    "answer": "0, 8, 10, 98, 161, 216, 243, 255"
+   },
+   "mine": "partial",
+   "gen": "w4-stretchmap",
+   "same": null,
+   "unsure": "Canvas marked 215 wrong for level 120 but did not show the correct value. 216 is worked out from the formula."
+  },
+  {
+   "n": 9,
+   "kind": "Numeric",
+   "q": "One limitation of regular histogram stretch is that it is ineffective when there exist infrequently occurring outlier pixels in the original image that are at the extrema. The alpha-trimmed variant of histogram stretch chooses values of Lmin and Lmax that are intended to exclude these extrema. This is usually accomplished using two percentiles at either end of the sorted pixel data. Our revised Lmin and Lmax pixel values, excluding the extrema, can be calculated using the following steps: First, sort pixel values from low to high, creating vector Lsorted. Select pixel value Lsorted(⌈p(M×N+1)⌋), where p is the desired percentile, such that 0 < p < 1. Note that: IF ⌈p(M×N+1)⌋ < 1 THEN select first pixel in Lsorted. ELSE IF ⌈p(M×N+1)⌋ > M×N THEN select last pixel in Lsorted. Determine the pixel value at the 90th percentile of 8-bit greyscale image matrix L, below, which will serve as Lmax instead of the true highest value. Note: to implement alpha-trimmed histogram stretch in code it is not necessary for the grey levels selected to serve as Lmin and Lmax to actually exist in the image, so a slightly different approach is sometimes used. Formula: pixel at percentile p = Lsorted(⌈p(M×N+1)⌋)",
+   "given": [
+    {
+     "cap": "L",
+     "m": [
+      [
+       134,
+       60,
+       92,
+       86
+      ],
+      [
+       14,
+       140,
+       150,
+       88
+      ],
+      [
+       92,
+       120,
+       100,
+       101
+      ],
+      [
+       216,
+       99,
+       95,
+       67
+      ]
+     ]
+    }
+   ],
+   "opts": [],
+   "ans": "150",
+   "pics": [],
+   "varies": "The matrix values and the percentile.",
+   "method": [
+    "Write all the pixels in one list, sorted from low to high. Count the list to confirm it has M × N entries.",
+    "Position = p × (M × N + 1). The 90th percentile is p = 0.9.",
+    "Round the position to the nearest whole number. If it is below 1, use position 1. If it is above M × N, use the last position.",
+    "Count along the sorted list to that position. The value there is the answer."
+   ],
+   "check": "The answer is a value from the matrix. For a high percentile it is near the top of the sorted list and below or equal to the true maximum.",
+   "trap": "Using M × N in place of M × N + 1. Also giving the position (15) as the answer. The answer is the pixel value at that position.",
+   "example": {
+    "working": [
+     "Sorted: 14, 60, 67, 86, 88, 92, 92, 95, 99, 100, 101, 120, 134, 140, 150, 216. That is 16 values.",
+     "Position = 0.9 × (16 + 1) = 15.3, which rounds to 15.",
+     "The 15th value is 150. The outlier 216 is excluded."
+    ],
+    "answer": "150"
+   },
+   "mine": "right",
+   "gen": "w4-alpha",
+   "same": null,
+   "unsure": ""
+  },
+  {
+   "n": 10,
+   "kind": "Numeric",
+   "q": "The histogram equalisation formula makes use of the cumulative histogram, Hcumul. Given the low-contrast 8-bit greyscale image matrix shown below: What will be the height of the first bar of the cumulative histogram? Formula: Lequalised(i,j) = ⌈(Hcumul(L(i,j)) − Hcumul(Lmin)) ÷ (MN − Hcumul(Lmin)) × t⌋",
+   "given": [
+    {
+     "cap": "L",
+     "m": [
+      [
+       64,
+       60,
+       10
+      ],
+      [
+       64,
+       14,
+       25
+      ],
+      [
+       10,
+       12,
+       10
+      ]
+     ]
+    }
+   ],
+   "opts": [],
+   "ans": "3",
+   "pics": [],
+   "varies": "The matrix values.",
+   "method": [
+    "Find the darkest grey level in the matrix (Lmin).",
+    "Count how many pixels have that value. That count is the height of the first bar.",
+    "Nothing comes before the first bar, so the running total there equals the plain count."
+   ],
+   "check": "The answer is between 1 and M × N. It is a count of pixels, not a grey level.",
+   "trap": "Entering the grey level (10) in place of how many times it appears (3).",
+   "example": {
+    "working": [
+     "The darkest level is 10.",
+     "10 appears at (1,3), (3,1) and (3,3). That is 3 pixels."
+    ],
+    "answer": "3"
+   },
+   "mine": "right",
+   "gen": "w4-cumbars",
+   "same": null,
+   "unsure": ""
+  },
+  {
+   "n": 11,
+   "kind": "Formula",
+   "q": "The histogram equalisation formula makes use of the cumulative histogram, Hcumul. Given a low-contrast 8-bit greyscale image matrix of order M = 129 and N = 127, what will be the height of the final bar in the cumulative histogram? Formula: Lequalised(i,j) = ⌈(Hcumul(L(i,j)) − Hcumul(Lmin)) ÷ (MN − Hcumul(Lmin)) × t⌋",
+   "given": [],
+   "opts": [],
+   "ans": "16383",
+   "pics": [],
+   "varies": "M and N.",
+   "method": [
+    "A cumulative histogram is a running total of pixel counts.",
+    "By the final bar every pixel has been counted. The height is M × N.",
+    "The pixel values do not matter."
+   ],
+   "check": "Estimate first: 130 × 130 = 16900, so the answer is a little below that.",
+   "trap": "Looking for pixel data or answering 255. The final bar is the total number of pixels. Enter the number without a comma.",
+   "example": {
+    "working": [
+     "129 × 127 = 129 × 100 + 129 × 27 = 12900 + 3483 = 16383."
+    ],
+    "answer": "16383"
+   },
+   "mine": "right",
+   "gen": "w4-cumbars",
+   "same": null,
+   "unsure": ""
+  },
+  {
+   "n": 12,
+   "kind": "True or False",
+   "q": "Hcumul(Lmin) = H(Lmin)",
+   "given": [],
+   "opts": [
+    "True",
+    "False"
+   ],
+   "ans": "True",
+   "pics": [],
+   "varies": "",
+   "method": [
+    "Hcumul at a grey level is the count of all pixels at that level or darker.",
+    "No pixel is darker than Lmin. So the running total at Lmin is only the count of Lmin itself, which is H(Lmin).",
+    "For every level above Lmin the cumulative bar is taller than the count bar, so the statement is true only at Lmin."
+   ],
+   "check": "Question 10 shows it: the first cumulative bar was the count of the darkest level.",
+   "trap": "Answering False because cumulative bars are usually taller than count bars. At the first occupied level they are equal.",
+   "example": null,
+   "mine": "right",
+   "gen": "w4-facts",
+   "same": null,
+   "unsure": ""
+  },
+  {
+   "n": 13,
+   "kind": "Fill in the Blank",
+   "q": "Below is a low-contrast 8-bit greyscale image matrix. Enter the new values for each of the original grey levels after histogram equalisation has been applied. Assume that t = 255 and b = 0. Original grey levels: 10, 14, 15, 60, 92, 120, 134, 140. Formula: Lequalised(i,j) = ⌈(Hcumul(L(i,j)) − Hcumul(Lmin)) ÷ (MN − Hcumul(Lmin)) × t⌋",
+   "given": [
+    {
+     "cap": "L",
+     "m": [
+      [
+       134,
+       60,
+       92
+      ],
+      [
+       14,
+       140,
+       15
+      ],
+      [
+       92,
+       120,
+       10
+      ]
+     ]
+    }
+   ],
+   "opts": [],
+   "ans": "10 becomes 0. 14 becomes 32. 15 becomes 64. 60 becomes 96. 92 becomes 159. 120 becomes 191. 134 becomes 223. 140 becomes 255.",
+   "pics": [],
+   "varies": "The matrix values.",
+   "method": [
+    "List the grey levels in order. Under each one write its count, then the running total Hcumul.",
+    "Work out the bottom of the fraction once: MN − Hcumul(Lmin).",
+    "For each level: (Hcumul of the level − Hcumul(Lmin)) ÷ bottom × 255.",
+    "Round each result to the nearest whole number."
+   ],
+   "check": "The first level must become 0 and the last must become 255. The last running total must equal MN.",
+   "trap": "Using the plain count where the running total belongs. Also missing a repeated value: 92 appears twice, so the running total jumps from 4 to 6.",
+   "example": {
+    "working": [
+     "Levels: 10, 14, 15, 60, 92, 120, 134, 140.",
+     "Counts: 1, 1, 1, 1, 2, 1, 1, 1.",
+     "Hcumul: 1, 2, 3, 4, 6, 7, 8, 9.",
+     "Bottom = 9 − 1 = 8.",
+     "14: (2 − 1) ÷ 8 × 255 = 31.875, rounds to 32.",
+     "15: 2 ÷ 8 × 255 = 63.75, rounds to 64.",
+     "60: 3 ÷ 8 × 255 = 95.625, rounds to 96.",
+     "92: 5 ÷ 8 × 255 = 159.375, rounds to 159.",
+     "120: 6 ÷ 8 × 255 = 191.25, rounds to 191.",
+     "134: 7 ÷ 8 × 255 = 223.125, rounds to 223.",
+     "10 gives 0 and 140 gives 255."
+    ],
+    "answer": "0, 32, 64, 96, 159, 191, 223, 255"
+   },
+   "mine": "right",
+   "gen": "w4-equalise",
+   "same": null,
+   "unsure": ""
+  },
+  {
+   "n": 14,
+   "kind": "Matching",
+   "q": "Identify the most appropriate function relationship between input and output pixel grey levels (palette) for each contrast manipulation procedure.",
+   "given": [],
+   "opts": [
+    "bijective",
+    "surjective"
+   ],
+   "ans": "histogram stretch: bijective. alpha-trimmed historgram stretch: surjective. histogram equalisation: surjective. contrast limited adaptive histogram equalisation: surjective.",
+   "pics": [],
+   "varies": "",
+   "method": [
+    "Bijective means one-to-one. Each old grey level gets its own new grey level, and nothing is merged.",
+    "Plain histogram stretch is the only bijective one. It keeps the same number of bars.",
+    "The other three can merge different old grey levels into one new level, so they are surjective. Alpha-trimmed stretch merges the trimmed extremes at 0 and 255. Equalisation and CLAHE merge rare levels."
+   ],
+   "check": "Only one of the four is bijective. If two are marked bijective, one is wrong.",
+   "trap": "Marking alpha-trimmed stretch as bijective because it has stretch in the name. Reading 04 says the trimmed version merges grey values and is destructive.",
+   "example": null,
+   "mine": "right",
+   "gen": "w4-facts",
+   "same": null,
+   "unsure": "The results page shows only the options that were matched. Any unused extra options in the drop-down were not captured."
+  },
+  {
+   "n": 15,
+   "kind": "Multiple choice",
+   "q": "What is the advantage of Contrast Limited Adaptive Histogram Equalisation (CLAHE) over regular Adaptive Histogram Equalisation (AHE)?",
+   "given": [],
+   "opts": [
+    "It boosts contrast to a greater degree",
+    "It uses less computational power",
+    "It reduces the amplification of noise",
+    "It is faster"
+   ],
+   "ans": "It reduces the amplification of noise",
+   "pics": [],
+   "varies": "",
+   "method": [
+    "AHE equalises a local area around each pixel. In flat areas this makes small noise very visible.",
+    "CLAHE adds a limit on the contrast. The limit keeps the noise from being amplified so much.",
+    "\"It boosts contrast to a greater degree\" is the opposite of the truth. CLAHE limits contrast. CLAHE also does more work than AHE, so it is not faster and it does not use less power."
+   ],
+   "check": "",
+   "trap": "Choosing the option about boosting contrast. The words Contrast Limited in the name mean the contrast gain is held back.",
+   "example": null,
+   "mine": "right",
+   "gen": "w4-facts",
+   "same": null,
+   "unsure": ""
+  }
+ ]
+}

@@ -1,0 +1,761 @@
+{
+ "quiz": 2,
+ "title": "Basic Image Statistics and Arithmetic",
+ "cards": [
+  {
+   "n": 1,
+   "kind": "Formula",
+   "q": "What is the city block distance between two pixels, a and b, one at (308,154) and one at (293,193), in a 2D image (i.e., where D = 2)? Formula: d_cityblock(a,b) = Σ |a_k − b_k|, summed for k = 1 to D",
+   "given": [],
+   "opts": [],
+   "ans": "54",
+   "pics": [],
+   "varies": "The two coordinates. The wording is the same in all three attempts. Attempts 2 and 3 showed the same pair, (127,24) and (273,133), so Canvas can repeat a pair.",
+   "method": [
+    "Subtract the two row numbers and drop the sign. This is |Δi|.",
+    "Subtract the two column numbers and drop the sign. This is |Δj|.",
+    "Add |Δi| and |Δj|."
+   ],
+   "check": "City block is the largest of the three distances. It must be at least as big as the larger of |Δi| and |Δj|, and no bigger than twice that.",
+   "trap": "You got this wrong twice. You entered 254 here, and 346 in attempt 2 where the answer was 255. Write |Δi| and |Δj| on paper first, then add only those two numbers.",
+   "example": {
+    "working": [
+     "|Δi| = |308 − 293| = 15.",
+     "|Δj| = |154 − 193| = 39.",
+     "15 + 39 = 54."
+    ],
+    "answer": "54"
+   },
+   "mine": "wrong",
+   "gen": "w2-dist",
+   "same": null,
+   "unsure": "Canvas did not show the correct answer. 54 comes from the formula. The capture does not show how 254 was reached."
+  },
+  {
+   "n": 2,
+   "kind": "Formula",
+   "q": "What is the chessboard distance between two pixels, a and b, one at (44,148) and one at (196,96), in a 2D image (i.e., where D = 2)? Formula: d_chessboard(a,b) = max(|a_i − b_i|, |a_j − b_j|)",
+   "given": [],
+   "opts": [],
+   "ans": "152",
+   "pics": [],
+   "varies": "The two coordinates. The wording is the same in all three attempts.",
+   "method": [
+    "Find |Δi| and |Δj| as in card 1.",
+    "Take the larger of the two. Do not add them."
+   ],
+   "check": "Chessboard is the smallest of the three distances. It equals one of the two differences exactly.",
+   "trap": "Adding the two differences. That gives the city block distance, 204 here.",
+   "example": {
+    "working": [
+     "|Δi| = |44 − 196| = 152.",
+     "|Δj| = |148 − 96| = 52.",
+     "The larger is 152."
+    ],
+    "answer": "152"
+   },
+   "mine": "right",
+   "gen": "w2-dist",
+   "same": 1,
+   "unsure": ""
+  },
+  {
+   "n": 3,
+   "kind": "Formula",
+   "q": "What is the Euclidean distance between two pixels, a and b, one at (105,141) and one at (119,85), in a 2D image (i.e., where D = 2)? Round your answer to 2 d.p. Formula: d_euclidean(a,b) = √((a_i − b_i)² + (a_j − b_j)²)",
+   "given": [],
+   "opts": [],
+   "ans": "57.72",
+   "pics": [],
+   "varies": "The two coordinates. The wording is the same in all three attempts.",
+   "method": [
+    "Find |Δi| and |Δj| as in card 1.",
+    "Square each one and add the squares.",
+    "Take the square root. Round to 2 decimal places."
+   ],
+   "check": "The order is always chessboard ≤ Euclidean ≤ city block. Here 56 ≤ 57.72 ≤ 70.",
+   "trap": "Rounding early, or cutting the decimals off. Keep the full calculator value until the last step, then round.",
+   "example": {
+    "working": [
+     "|Δi| = |105 − 119| = 14.",
+     "|Δj| = |141 − 85| = 56.",
+     "14² + 56² = 196 + 3,136 = 3,332.",
+     "√3,332 = 57.7235, which rounds to 57.72."
+    ],
+    "answer": "57.72"
+   },
+   "mine": "right",
+   "gen": "w2-dist",
+   "same": 1,
+   "unsure": ""
+  },
+  {
+   "n": 4,
+   "kind": "Formula",
+   "q": "For the 8-bit greyscale image matrix shown below: Calculate brightness as arithmetic mean luminance. Round your answer to be 2 d.p. Formula: L̄_arith = (1 ÷ MN) × Σ L(i,j), summed over all pixels",
+   "given": [
+    {
+     "cap": "L",
+     "m": [
+      [
+       166,
+       96,
+       73
+      ],
+      [
+       60,
+       183,
+       37
+      ],
+      [
+       180,
+       69,
+       14
+      ]
+     ]
+    }
+   ],
+   "opts": [],
+   "ans": "97.56",
+   "pics": [],
+   "varies": "The nine matrix values. The wording is the same in all three attempts.",
+   "method": [
+    "Add all the pixel values.",
+    "Divide by the number of pixels, MN.",
+    "Round to 2 decimal places."
+   ],
+   "check": "The mean lies between the smallest and the largest pixel value. It is the largest of the three means.",
+   "trap": "Cutting the decimals off. In attempt 2 the mean was 142.777… and you entered 142.7, which was marked wrong. The answer was 142.78. Always type two decimal places and round the second one.",
+   "example": {
+    "working": [
+     "Sum = 166 + 96 + 73 + 60 + 183 + 37 + 180 + 69 + 14 = 878.",
+     "878 ÷ 9 = 97.5556, which rounds to 97.56."
+    ],
+    "answer": "97.56"
+   },
+   "mine": "right",
+   "gen": "w2-bright",
+   "same": null,
+   "unsure": ""
+  },
+  {
+   "n": 5,
+   "kind": "Formula",
+   "q": "For the 8-bit greyscale image matrix shown below: Calculate brightness as harmonic mean luminance. Round your answer to 2 d.p. Formula: L̄_harm = MN ÷ Σ (1 ÷ L(i,j)), summed over all pixels",
+   "given": [
+    {
+     "cap": "L",
+     "m": [
+      [
+       121,
+       219,
+       12
+      ],
+      [
+       115,
+       162,
+       21
+      ],
+      [
+       76,
+       106,
+       255
+      ]
+     ]
+    }
+   ],
+   "opts": [],
+   "ans": "48.61",
+   "pics": [],
+   "varies": "The nine matrix values. The wording is the same in all three attempts.",
+   "method": [
+    "Work out 1 ÷ L for every pixel and add them all. Use the x⁻¹ key and keep the running total in the calculator.",
+    "Divide MN by that total.",
+    "Round to 2 decimal places."
+   ],
+   "check": "The harmonic mean is the smallest of the three means. Small pixel values pull it down hard. Here the arithmetic mean is 120.78 and the harmonic mean is 48.61.",
+   "trap": "Dividing the total by MN. That is upside down and gives a tiny number such as 0.02. MN goes on top.",
+   "example": {
+    "working": [
+     "Sum of 1 ÷ L = 0.00826 + 0.00457 + 0.08333 + 0.00870 + 0.00617 + 0.04762 + 0.01316 + 0.00943 + 0.00392 = 0.185165.",
+     "9 ÷ 0.185165 = 48.6053, which rounds to 48.61."
+    ],
+    "answer": "48.61"
+   },
+   "mine": "right",
+   "gen": "w2-bright",
+   "same": null,
+   "unsure": ""
+  },
+  {
+   "n": 6,
+   "kind": "Formula",
+   "q": "For the 8-bit greyscale image matrix shown below: Calculate brightness as geometric mean luminance. Round your answer to be ∈ ℕ. Formula: L̄_geom = (Π L(i,j))^(1 ÷ MN) = exp((1 ÷ MN) × Σ ln(L(i,j)))",
+   "given": [
+    {
+     "cap": "L",
+     "m": [
+      [
+       36,
+       33,
+       126
+      ],
+      [
+       142,
+       159,
+       110
+      ],
+      [
+       166,
+       90,
+       148
+      ]
+     ]
+    }
+   ],
+   "opts": [],
+   "ans": "98",
+   "pics": [],
+   "varies": "The nine matrix values. The wording is the same in all three attempts.",
+   "method": [
+    "Take ln of every pixel and add them all.",
+    "Divide the total by MN.",
+    "Press eˣ on that result.",
+    "Read the rounding line. ∈ ℕ means a whole number, so round to the nearest whole number."
+   ],
+   "check": "The order is always harmonic ≤ geometric ≤ arithmetic. Here 80.12 ≤ 97.85 ≤ 112.22. The typed answer has no decimal point.",
+   "trap": "You entered 97.85. The calculation was right, but the question asks for a whole number (∈ ℕ), so the answer is 98. This question rounds differently from cards 4 and 5.",
+   "example": {
+    "working": [
+     "Sum of ln(L) = 3.5835 + 3.4965 + 4.8363 + 4.9558 + 5.0689 + 4.7005 + 5.1120 + 4.4998 + 4.9972 = 41.2505.",
+     "41.2505 ÷ 9 = 4.5834.",
+     "e^4.5834 = 97.846, which rounds to 98."
+    ],
+    "answer": "98"
+   },
+   "mine": "wrong",
+   "gen": "w2-bright",
+   "same": null,
+   "unsure": "Canvas did not show the correct answer. 98 is the exact value 97.846 rounded to a whole number, as the question asks."
+  },
+  {
+   "n": 7,
+   "kind": "Formula",
+   "q": "For 8-bit greyscale image matrix shown below: Calculate contrast as statistical range. Formula: C_range(L) = L_max − L_min",
+   "given": [
+    {
+     "cap": "L",
+     "m": [
+      [
+       234,
+       133,
+       4,
+       162
+      ],
+      [
+       61,
+       249,
+       33,
+       74
+      ],
+      [
+       42,
+       109,
+       97,
+       85
+      ],
+      [
+       252,
+       73,
+       114,
+       10
+      ]
+     ]
+    }
+   ],
+   "opts": [],
+   "ans": "248",
+   "pics": [],
+   "varies": "The sixteen matrix values. The wording is the same in all three attempts.",
+   "method": [
+    "Scan every row and mark the largest value, L_max.",
+    "Scan every row again and mark the smallest value, L_min.",
+    "Subtract. Range = L_max − L_min."
+   ],
+   "check": "Look through the matrix once more for anything larger than L_max or smaller than L_min. The range is a whole number from 0 to 255.",
+   "trap": "Missing the true smallest value. A one-digit value such as 4 is easy to pass over next to 10.",
+   "example": {
+    "working": [
+     "L_max = 252.",
+     "L_min = 4.",
+     "252 − 4 = 248."
+    ],
+    "answer": "248"
+   },
+   "mine": "right",
+   "gen": "w2-contrast",
+   "same": null,
+   "unsure": ""
+  },
+  {
+   "n": 8,
+   "kind": "Formula",
+   "q": "For 8-bit (i.e, where bits-per-pixel b = 8) greyscale image matrix shown below: Calculate contrast as normalised range. Round your answer to 2 d.p. Formula: C_normRange(L) = (L_max − L_min) ÷ (2^b − 1)",
+   "given": [
+    {
+     "cap": "L",
+     "m": [
+      [
+       223,
+       161,
+       88,
+       27
+      ],
+      [
+       16,
+       80,
+       154,
+       117
+      ],
+      [
+       2,
+       77,
+       214,
+       211
+      ],
+      [
+       36,
+       81,
+       243,
+       211
+      ]
+     ]
+    }
+   ],
+   "opts": [],
+   "ans": "0.95",
+   "pics": [],
+   "varies": "The sixteen matrix values. The wording is the same in all three attempts.",
+   "method": [
+    "Find L_max and L_min as in card 7.",
+    "Divide the range by 2^b − 1. For 8-bit that is 255.",
+    "Round to 2 decimal places."
+   ],
+   "check": "The answer lies between 0 and 1.",
+   "trap": "Picking the wrong smallest value. In attempt 2 you entered 0.88, which is what you get from L_min = 23. The true L_min was 18, and the answer was 0.90. The other mistake is dividing by 256.",
+   "example": {
+    "working": [
+     "L_max = 243 and L_min = 2.",
+     "243 − 2 = 241.",
+     "241 ÷ 255 = 0.9451, which rounds to 0.95."
+    ],
+    "answer": "0.95"
+   },
+   "mine": "right",
+   "gen": "w2-contrast",
+   "same": 7,
+   "unsure": ""
+  },
+  {
+   "n": 9,
+   "kind": "Formula",
+   "q": "For 8-bit greyscale image matrix shown below: Calculate Michelson contrast. Round your answer to 2 d.p. Formula: C_mich(L) = (L_max − L_min) ÷ (L_max + L_min)",
+   "given": [
+    {
+     "cap": "L",
+     "m": [
+      [
+       247,
+       183,
+       252,
+       57
+      ],
+      [
+       154,
+       19,
+       167,
+       117
+      ],
+      [
+       124,
+       132,
+       99,
+       173
+      ],
+      [
+       123,
+       246,
+       46,
+       7
+      ]
+     ]
+    }
+   ],
+   "opts": [],
+   "ans": "0.95",
+   "pics": [],
+   "varies": "The sixteen matrix values. The wording is the same in all three attempts.",
+   "method": [
+    "Find L_max and L_min as in card 7.",
+    "Top: L_max − L_min. Bottom: L_max + L_min.",
+    "Divide top by bottom. Round to 2 decimal places."
+   ],
+   "check": "The answer lies between 0 and 1. It is close to 1 when L_min is small.",
+   "trap": "Dividing by 255. That is the normalised range in card 8. Michelson divides by the sum L_max + L_min.",
+   "example": {
+    "working": [
+     "L_max = 252 and L_min = 7.",
+     "252 − 7 = 245 and 252 + 7 = 259.",
+     "245 ÷ 259 = 0.9459, which rounds to 0.95."
+    ],
+    "answer": "0.95"
+   },
+   "mine": "right",
+   "gen": "w2-contrast",
+   "same": 7,
+   "unsure": ""
+  },
+  {
+   "n": 10,
+   "kind": "Formula",
+   "q": "For the 8-bit greyscale image matrix shown below: Calculate RMS contrast. Round your answer to 2 d.p. Formula: C_rms(L) = √((1 ÷ MN) × Σ (L − L̄)²), summed over all pixels",
+   "given": [
+    {
+     "cap": "L",
+     "m": [
+      [
+       204,
+       105,
+       157
+      ],
+      [
+       143,
+       60,
+       164
+      ],
+      [
+       125,
+       110,
+       127
+      ]
+     ]
+    }
+   ],
+   "opts": [],
+   "ans": "38.61",
+   "pics": [],
+   "varies": "The nine matrix values. The wording is the same in all three attempts.",
+   "method": [
+    "Find the arithmetic mean L̄.",
+    "For every pixel, subtract the mean and square the result. Add all the squares.",
+    "Divide that total by MN.",
+    "Take the square root. Round to 2 decimal places."
+   ],
+   "check": "RMS contrast is the population standard deviation. Enter the nine values in the calculator's statistics mode and read σx. It must match. The answer is also smaller than the range, which is 144 here.",
+   "trap": "You entered 115.84. That is √13,419.56, the square root of the total before dividing by MN. Divide by 9 first, then take the root. On the calculator use σx, not sx. sx divides by MN − 1 and gives 40.96 here.",
+   "example": {
+    "working": [
+     "Sum = 1,195, so L̄ = 1,195 ÷ 9 = 132.78.",
+     "Squared differences: 5,072.60 + 771.60 + 586.72 + 104.49 + 5,296.60 + 974.83 + 60.49 + 518.83 + 33.38 = 13,419.56.",
+     "13,419.56 ÷ 9 = 1,491.06.",
+     "√1,491.06 = 38.6143, which rounds to 38.61."
+    ],
+    "answer": "38.61"
+   },
+   "mine": "wrong",
+   "gen": "w2-contrast",
+   "same": null,
+   "unsure": "Canvas did not show the correct answer. 38.61 comes from the formula and from Reading 02, which says RMS contrast is a population standard deviation."
+  },
+  {
+   "n": 11,
+   "kind": "Fill in the Blank",
+   "q": "Given the 8-bit greyscale image matrix shown below and a scalar S = 5, enter the values of the output pixels at each coordinate following the operation: L + S",
+   "given": [
+    {
+     "cap": "L₁",
+     "m": [
+      [
+       99,
+       16,
+       0
+      ],
+      [
+       34,
+       32,
+       96
+      ],
+      [
+       10,
+       254,
+       33
+      ]
+     ]
+    }
+   ],
+   "opts": [],
+   "ans": "Row 1: 104, 21, 5. Row 2: 39, 37, 101. Row 3: 15, 255, 38.",
+   "pics": [],
+   "varies": "Nothing changed. The matrix and S were the same in all three attempts. The test may still use other numbers.",
+   "method": [
+    "Add S to every pixel.",
+    "Look for any result above 255. Write 255 there. This is called clamping to the upper limit.",
+    "If S is negative, look for any result below 0 and write 0 there."
+   ],
+   "check": "Every output value is between 0 and 255. Every value that was not clamped differs from the input by exactly S.",
+   "trap": "Writing 259 for 254 + 5. An 8-bit pixel cannot hold more than 255, so the answer in that cell is 255.",
+   "example": {
+    "working": [
+     "Row 1: 99 + 5 = 104, 16 + 5 = 21, 0 + 5 = 5.",
+     "Row 2: 34 + 5 = 39, 32 + 5 = 37, 96 + 5 = 101.",
+     "Row 3: 10 + 5 = 15, 254 + 5 = 259 which is clamped to 255, 33 + 5 = 38."
+    ],
+    "answer": "Row 1: 104, 21, 5. Row 2: 39, 37, 101. Row 3: 15, 255, 38."
+   },
+   "mine": "right",
+   "gen": "w2-arith",
+   "same": null,
+   "unsure": ""
+  },
+  {
+   "n": 12,
+   "kind": "Fill in the Blank",
+   "q": "Given the 8-bit greyscale image matrix shown below and a scalar S = 1.5, enter the values of the output pixels at each coordinate following the operation: L′ = S · L",
+   "given": [
+    {
+     "cap": "L₁",
+     "m": [
+      [
+       10,
+       20,
+       10
+      ],
+      [
+       20,
+       50,
+       20
+      ],
+      [
+       10,
+       30,
+       10
+      ]
+     ]
+    }
+   ],
+   "opts": [],
+   "ans": "Row 1: 15, 30, 15. Row 2: 30, 75, 30. Row 3: 15, 45, 15.",
+   "pics": [],
+   "varies": "Nothing changed. The matrix and S were the same in all three attempts. The test may still use other numbers.",
+   "method": [
+    "Multiply every pixel by S.",
+    "If a result is not a whole number, round it to the nearest whole number, with .5 going up.",
+    "Clamp any result above 255 to 255."
+   ],
+   "check": "S is more than 1, so every output is larger than its input. With S between 0 and 1 every output would be smaller.",
+   "trap": "In attempt 2 you entered 5, 10, 5, 10, 25, 10, 5, 15, 5. Those are the pixels times 0.5, which is only the extra half. S · L means the whole pixel times 1.5.",
+   "example": {
+    "working": [
+     "Row 1: 10 × 1.5 = 15, 20 × 1.5 = 30, 10 × 1.5 = 15.",
+     "Row 2: 20 × 1.5 = 30, 50 × 1.5 = 75, 20 × 1.5 = 30.",
+     "Row 3: 10 × 1.5 = 15, 30 × 1.5 = 45, 10 × 1.5 = 15."
+    ],
+    "answer": "Row 1: 15, 30, 15. Row 2: 30, 75, 30. Row 3: 15, 45, 15."
+   },
+   "mine": "right",
+   "gen": "w2-arith",
+   "same": 11,
+   "unsure": ""
+  },
+  {
+   "n": 13,
+   "kind": "Fill in the Blank",
+   "q": "Given the 8-bit greyscale image matrices shown below, enter the values of the output pixels at each coordinate following the operation: L₁ + L₂",
+   "given": [
+    {
+     "cap": "L₁",
+     "m": [
+      [
+       0,
+       16,
+       32
+      ],
+      [
+       64,
+       128,
+       224
+      ]
+     ]
+    },
+    {
+     "cap": "L₂",
+     "m": [
+      [
+       10,
+       20,
+       30
+      ],
+      [
+       40,
+       50,
+       60
+      ]
+     ]
+    }
+   ],
+   "opts": [],
+   "ans": "Row 1: 10, 36, 62. Row 2: 104, 178, 255.",
+   "pics": [],
+   "varies": "Nothing changed. Both matrices were the same in all three attempts. The test may still use other numbers.",
+   "method": [
+    "Add the two pixels that sit in the same place, one place at a time.",
+    "Clamp any result above 255 to 255."
+   ],
+   "check": "No output value is above 255. Find the largest pair first, because that is where an overflow happens.",
+   "trap": "You entered 284 for 224 + 60 and lost part of the mark. The sum overflows, so the stored value is 255.",
+   "example": {
+    "working": [
+     "Row 1: 0 + 10 = 10, 16 + 20 = 36, 32 + 30 = 62.",
+     "Row 2: 64 + 40 = 104, 128 + 50 = 178, 224 + 60 = 284 which is clamped to 255."
+    ],
+    "answer": "Row 1: 10, 36, 62. Row 2: 104, 178, 255."
+   },
+   "mine": "partial",
+   "gen": "w2-arith",
+   "same": null,
+   "unsure": "In this attempt Canvas did not show the right value for the last cell. 255 follows the clamping rule in Reading 02, and attempt 3 scored full marks on the same question."
+  },
+  {
+   "n": 14,
+   "kind": "Fill in the Blank",
+   "q": "Given the 8-bit greyscale image matrices shown below, enter the values of the output pixels at each coordinate following the image arithmetic operation: L₁ − L₂",
+   "given": [
+    {
+     "cap": "L₁",
+     "m": [
+      [
+       10,
+       20
+      ],
+      [
+       30,
+       40
+      ],
+      [
+       50,
+       60
+      ]
+     ]
+    },
+    {
+     "cap": "L₂",
+     "m": [
+      [
+       60,
+       50
+      ],
+      [
+       40,
+       30
+      ],
+      [
+       20,
+       10
+      ]
+     ]
+    }
+   ],
+   "opts": [],
+   "ans": "Row 1: 0, 0. Row 2: 0, 10. Row 3: 30, 50.",
+   "pics": [],
+   "varies": "Nothing changed. Both matrices were the same in all three attempts. The test may still use other numbers.",
+   "method": [
+    "Subtract the L₂ pixel from the L₁ pixel in the same place.",
+    "Clamp any result below 0 to 0. This is an underflow."
+   ],
+   "check": "No output value is negative. A cell is 0 wherever the L₂ pixel is larger than the L₁ pixel.",
+   "trap": "Writing −50, −30 and −10. An 8-bit pixel cannot be negative, so those three cells are 0. Keep the order L₁ − L₂.",
+   "example": {
+    "working": [
+     "Row 1: 10 − 60 = −50 which is clamped to 0, 20 − 50 = −30 which is clamped to 0.",
+     "Row 2: 30 − 40 = −10 which is clamped to 0, 40 − 30 = 10.",
+     "Row 3: 50 − 20 = 30, 60 − 10 = 50."
+    ],
+    "answer": "Row 1: 0, 0. Row 2: 0, 10. Row 3: 30, 50."
+   },
+   "mine": "right",
+   "gen": "w2-arith",
+   "same": 13,
+   "unsure": ""
+  },
+  {
+   "n": 15,
+   "kind": "Fill in the Blank",
+   "q": "Given the 8-bit greyscale image matrices shown below, enter the values of the output pixels at each coordinate following the operation: L₁ ∘ L₂",
+   "given": [
+    {
+     "cap": "L₁",
+     "m": [
+      [
+       50,
+       100,
+       255
+      ],
+      [
+       50,
+       128,
+       16
+      ],
+      [
+       50,
+       32,
+       0
+      ]
+     ]
+    },
+    {
+     "cap": "L₂",
+     "m": [
+      [
+       1,
+       0,
+       0
+      ],
+      [
+       0,
+       1,
+       0
+      ],
+      [
+       0,
+       0,
+       1
+      ]
+     ]
+    }
+   ],
+   "opts": [],
+   "ans": "Row 1: 50, 0, 0. Row 2: 0, 128, 0. Row 3: 0, 0, 0.",
+   "pics": [],
+   "varies": "Nothing changed. Both matrices were the same in all three attempts. The test may still use other numbers.",
+   "method": [
+    "The ∘ symbol is the Hadamard product. Multiply the two pixels that sit in the same place.",
+    "Here L₂ is a binary mask. Where L₂ is 1, copy the L₁ pixel. Where L₂ is 0, write 0."
+   ],
+   "check": "The output has a 0 in every place where the mask has a 0.",
+   "trap": "Doing normal matrix multiplication with rows times columns. Also, the last cell is 0 because L₁ is 0 there, even though the mask is 1.",
+   "example": {
+    "working": [
+     "Row 1: 50 × 1 = 50, 100 × 0 = 0, 255 × 0 = 0.",
+     "Row 2: 50 × 0 = 0, 128 × 1 = 128, 16 × 0 = 0.",
+     "Row 3: 50 × 0 = 0, 32 × 0 = 0, 0 × 1 = 0."
+    ],
+    "answer": "Row 1: 50, 0, 0. Row 2: 0, 128, 0. Row 3: 0, 0, 0."
+   },
+   "mine": "right",
+   "gen": "w2-arith",
+   "same": null,
+   "unsure": ""
+  }
+ ]
+}

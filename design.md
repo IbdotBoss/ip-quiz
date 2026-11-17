@@ -1,34 +1,71 @@
-# Design: Image Processing test practice
+# Design: Image Processing cheatsheet
 
 ## Brief
 
-- **Subject.** A 1.5 hour in-class test for MOD002643 Image Processing at ARU, worth 50%. The tutor says it draws quiz questions from each week. The quizzes are mostly calculations on small matrices, with new numbers on every attempt.
+- **Subject.** A 1.5 hour in-class test for MOD002643 Image Processing at ARU, worth 50%, on 7 Dec 2026. The tutor says it draws questions from the weekly Canvas quizzes. Most are calculations on small matrices with new numbers on every attempt. Some are picture recognition.
 - **Audience.** Stage, revising on a phone and a laptop.
-- **The one job.** Make the method for each question type fast and checked, by doing it again with new numbers.
-- **Material.** Nine captured quiz attempts, 22 lecture and reading PDFs. Quizzes 10 and 11 were locked.
-- **Absent.** No logo. The picture questions for weeks 1, 4, 6, 7, 8 and 9 use the tutor's own quiz pictures (captured 16 Nov 2026, in `docs/img`), because Stage needs to recognise the real ones. The week 11 filter masks are cropped from the Lecture 11 slide. The week 11 stripes and spectra are still drawn by the page until that quiz unlocks.
+- **The one job.** For any quiz question, show the method fast: what to do, how to check it, what goes wrong.
+- **Material.** His own attempts at quizzes 1 to 9 (135 questions as text), the tutor's 21 quiz pictures, 22 lecture and reading PDFs, and 78 tested question generators from the first build.
+- **Absent.** Quizzes 10 and 11 (locked on Canvas). No logo.
+
+## History
+
+The first build (16 Nov 2026) was a practice quiz with scores. Stage rejected it: the module already has a quiz, and he wanted a cheatsheet. He also rejected drawn pictures in favour of the tutor's real ones. This design replaces it. The generators stay, but only behind a "Try with new numbers" link on each card.
 
 ## Concept
 
-The page is made of pixels. A greyscale matrix is drawn with each cell shaded by its own value, so 12 looks dark and 240 looks light. Progress uses the same idea: one square per question type, shaded from black for no answers right to white for every answer right.
+The page is the quiz, annotated. Each card puts what you see in the test on the left and what you do about it on the right.
+
+Signature: the question strip. Fifteen numbered squares per quiz, the same on the home page and stuck to the top of each quiz page. A yellow square is a question he lost marks on in his own attempt.
+
+## Directions compared
+
+Two comps, in `comps/`. Both shown to Stage on 17 Nov 2026.
+
+- **A, Slide.** The black ground of the tutor's slides. Every quiz picture is white on black, so the pictures sit in the page without a frame. One yellow, used as a highlighter.
+- **B, Crib sheet.** Squared paper (the pixel grid), navy ink, the same yellow highlighter. Better in daylight and on paper.
+
+Built: A as the default, B as the "Light paper" switch, because they share one layout and differ only in tokens. Print always uses a white ground.
 
 ## Tokens
 
-    --paper #fff   --ink #17171c   --ink-2 #4a4a55   --hair #d9d9df   --tint #f1f1f4
-    --right #18794e   --wrong #b3261e   --focus #2f5fd0
+```css
+:root { --r: 2px; --t-s: .9375rem; --t-m: 1.0625rem; --t-l: 1.25rem; --t-xl: 1.75rem; }
+[data-theme="dark"]  { --paper:#000;    --panel:#111113; --ink:#f2f2f0; --ink-2:#b0b0ab; --hair:#3d3d41; --tint:#1a1a1d; --mark:#ffd84a; --mark-ink:#000;    --right:#7be0a4; --wrong:#ff9d94; --focus:#8ab4ff; }
+[data-theme="light"] { --paper:#fbfbf7; --panel:#fff;    --ink:#14213d; --ink-2:#4d5670; --hair:#b3c0d8; --tint:#edf1f7; --mark:#ffe45c; --mark-ink:#14213d; --right:#0c6b3d; --wrong:#b3261e; --focus:#2f5fd0; }
+```
 
-Colour is used for right, wrong and focus only. Everything else is a grey level, because the subject is 8-bit greyscale.
+Spacing is on a 4px base. One radius, 2px.
+
+## Colour
+
+Yellow means one thing: look here. It marks the trap, the final answer, and the questions he lost marks on. Green and red appear only when an answer is checked. Everything else is ink on ground.
 
 ## Type
 
-Atkinson Hyperlegible Next, embedded. Matrix numbers are bold at 1.17rem with tabular figures so they count as large text on mid greys.
+- Atkinson Hyperlegible Next for reading. Atkinson Hyperlegible Mono for every number, matrix and line of working, so digits line up in columns. Both OFL, both embedded.
+- Four sizes. The question text is the largest thing on a card, because finding the question is the first task.
 
-## Not done
+## Assets
 
-- No comps were shown to Stage before the build. The look reuses the layout rules of the AI quiz with a new concept.
-- White stays pure white, because a pixel of 255 is white.
-- Hallmark's stamp is left out. Its linter ran on 16 Nov 2026.
+- The tutor's own quiz pictures, captured from Canvas on 16 Nov 2026, in `docs/img`. Full-size copies are in the module folder under `Test Prep/quiz-images`.
+- Week 11 filter masks are crops of the Lecture 11 slide.
+
+## Motion
+
+None. Jumps between questions are instant.
+
+## Refused
+
+- Scores, streaks and progress squares. This is a reference sheet.
+- Hiding the answer behind a tap. A cheatsheet shows it.
+- Screenshots of whole Canvas questions. They show one set of numbers, cannot be searched and are hard to read on a phone.
+
+## Overrides
+
+- Hallmark's stamp is left out.
+- Pure black ground. It is the tutor's own, and the pictures need it.
 
 ## Stack
 
-One static HTML file built by `build.py`, with the generators and the font inlined. It works offline.
+One static HTML file built by `build.py` from `template.html`, `src/gens.js` and `src/cards/quizNN.json`, with fonts inlined. Pictures are separate files in `docs/img`. Hash routes (`#/q/8/3`) so the back button and links to a single question work.

@@ -1,0 +1,883 @@
+{
+ "quiz": 6,
+ "title": "Rotation and Scaling",
+ "cards": [
+  {
+   "n": 1,
+   "kind": "Matching",
+   "q": "Match rotated images A-G to the operation that has been applied to the original image.",
+   "given": [],
+   "opts": [
+    "flip left-right",
+    "flip up-down",
+    "flip left-right and up-down",
+    "transpose",
+    "rotate +90°",
+    "rotate -90°",
+    "anti-diagonal transpose"
+   ],
+   "ans": "A: flip left-right. B: flip up-down. C: flip left-right and up-down. D: transpose. E: rotate +90°. F: rotate -90°. G: anti-diagonal transpose.",
+   "pics": [
+    "q6-orig",
+    "q6-A",
+    "q6-B",
+    "q6-C",
+    "q6-D",
+    "q6-E",
+    "q6-F",
+    "q6-G"
+   ],
+   "varies": "",
+   "method": [
+    "The original is a wide picture with the white wings of the fly in the top-left. Make two checks on each picture.",
+    "Check 1, the shape. A picture that is still wide is a flip or both flips. A picture that became tall has rows and columns swapped, so it is a transpose or a 90° rotation.",
+    "Check 2, the corner where the wings are now. Wide: top-right is flip left-right, bottom-left is flip up-down, bottom-right is both flips (180°).",
+    "Tall: top-left is transpose, top-right is rotate +90° (clockwise), bottom-left is rotate −90°, bottom-right is anti-diagonal transpose."
+   ],
+   "check": "Three pictures are wide (A, B, C) and four are tall (D, E, F, G). Each operation is used once.",
+   "trap": "Flip left-right and rotate +90° both put the wings in the top-right. The shape of the picture separates them: wide is the flip, tall is the rotation.",
+   "example": null,
+   "mine": "right",
+   "gen": "w6-pictures",
+   "same": null,
+   "unsure": ""
+  },
+  {
+   "n": 2,
+   "kind": "Fill in the Blank",
+   "q": "Apply flip left-right to the following 8-bit greyscale image matrix:",
+   "given": [
+    {
+     "cap": "L",
+     "m": [
+      [
+       1,
+       2,
+       3
+      ],
+      [
+       4,
+       5,
+       6
+      ],
+      [
+       7,
+       8,
+       9
+      ]
+     ]
+    }
+   ],
+   "opts": [],
+   "ans": "Rows: 3 2 1, then 6 5 4, then 9 8 7.",
+   "pics": [],
+   "varies": "The operation is fixed. The matrix values may change.",
+   "method": [
+    "Follow the top row of L. Decide where it goes and in which direction it is written.",
+    "Flip left-right: each row stays in its own place and is written backwards.",
+    "Write the output row by row."
+   ],
+   "check": "The middle column (2, 5, 8) stays where it is. The first and last columns swap.",
+   "trap": "Reversing the order of the rows. That is flip up-down.",
+   "example": {
+    "working": [
+     "Row 1: 1 2 3 becomes 3 2 1.",
+     "Row 2: 4 5 6 becomes 6 5 4.",
+     "Row 3: 7 8 9 becomes 9 8 7."
+    ],
+    "answer": "See the matrix.",
+    "m": [
+     [
+      3,
+      2,
+      1
+     ],
+     [
+      6,
+      5,
+      4
+     ],
+     [
+      9,
+      8,
+      7
+     ]
+    ]
+   },
+   "mine": "right",
+   "gen": "w6-apply",
+   "same": null,
+   "unsure": ""
+  },
+  {
+   "n": 3,
+   "kind": "Fill in the Blank",
+   "q": "Apply flip up-down to the following 8-bit greyscale image matrix:",
+   "given": [
+    {
+     "cap": "L",
+     "m": [
+      [
+       1,
+       2,
+       3
+      ],
+      [
+       4,
+       5,
+       6
+      ],
+      [
+       7,
+       8,
+       9
+      ]
+     ]
+    }
+   ],
+   "opts": [],
+   "ans": "Rows: 7 8 9, then 4 5 6, then 1 2 3.",
+   "pics": [],
+   "varies": "The matrix values may change.",
+   "method": [
+    "Follow the top row, as in question 2.",
+    "Flip up-down: the rows are written in reverse order. Each row keeps its own left-to-right order. The top row becomes the bottom row."
+   ],
+   "check": "The middle row (4 5 6) stays where it is.",
+   "trap": "Also reversing each row. That gives the 180° rotation.",
+   "example": {
+    "working": [
+     "Row 3 goes to the top: 7 8 9.",
+     "Row 2 stays: 4 5 6.",
+     "Row 1 goes to the bottom: 1 2 3."
+    ],
+    "answer": "See the matrix.",
+    "m": [
+     [
+      7,
+      8,
+      9
+     ],
+     [
+      4,
+      5,
+      6
+     ],
+     [
+      1,
+      2,
+      3
+     ]
+    ]
+   },
+   "mine": "right",
+   "gen": "w6-apply",
+   "same": 2,
+   "unsure": ""
+  },
+  {
+   "n": 4,
+   "kind": "Fill in the Blank",
+   "q": "Apply flip up-down and flip left-right to the following 8-bit greyscale image matrix:",
+   "given": [
+    {
+     "cap": "L",
+     "m": [
+      [
+       1,
+       2,
+       3
+      ],
+      [
+       4,
+       5,
+       6
+      ],
+      [
+       7,
+       8,
+       9
+      ]
+     ]
+    }
+   ],
+   "opts": [],
+   "ans": "Rows: 9 8 7, then 6 5 4, then 3 2 1.",
+   "pics": [],
+   "varies": "The matrix values may change.",
+   "method": [
+    "Follow the top row, as in question 2.",
+    "Do both flips, in any order. The top row becomes the bottom row, written backwards. The result is the same as a 180° rotation."
+   ],
+   "check": "Read the output from the last entry back to the first. It gives the original matrix read forwards. The centre (5) stays.",
+   "trap": "Doing only one of the two flips.",
+   "example": {
+    "working": [
+     "Flip up-down: 7 8 9, then 4 5 6, then 1 2 3.",
+     "Then flip left-right: 9 8 7, then 6 5 4, then 3 2 1."
+    ],
+    "answer": "See the matrix.",
+    "m": [
+     [
+      9,
+      8,
+      7
+     ],
+     [
+      6,
+      5,
+      4
+     ],
+     [
+      3,
+      2,
+      1
+     ]
+    ]
+   },
+   "mine": "right",
+   "gen": "w6-apply",
+   "same": 2,
+   "unsure": ""
+  },
+  {
+   "n": 5,
+   "kind": "Fill in the Blank",
+   "q": "Apply rotate +90° to the following 8-bit greyscale image matrix:",
+   "given": [
+    {
+     "cap": "L",
+     "m": [
+      [
+       1,
+       2,
+       3
+      ],
+      [
+       4,
+       5,
+       6
+      ],
+      [
+       7,
+       8,
+       9
+      ]
+     ]
+    }
+   ],
+   "opts": [],
+   "ans": "Rows: 7 4 1, then 8 5 2, then 9 6 3.",
+   "pics": [],
+   "varies": "The matrix values may change.",
+   "method": [
+    "Follow the top row, as in question 2.",
+    "+90° is clockwise. The top row becomes the right column, read downwards.",
+    "The second row becomes the middle column. The bottom row becomes the left column."
+   ],
+   "check": "The top-left value (1) is now in the top-right. The centre (5) stays. A matrix with M rows and N columns becomes N rows and M columns.",
+   "trap": "Turning anticlockwise. In this module +90° is clockwise.",
+   "example": {
+    "working": [
+     "Row 1 (1 2 3) becomes the right column, top to bottom.",
+     "Row 2 (4 5 6) becomes the middle column.",
+     "Row 3 (7 8 9) becomes the left column."
+    ],
+    "answer": "See the matrix.",
+    "m": [
+     [
+      7,
+      4,
+      1
+     ],
+     [
+      8,
+      5,
+      2
+     ],
+     [
+      9,
+      6,
+      3
+     ]
+    ]
+   },
+   "mine": "right",
+   "gen": "w6-apply",
+   "same": 2,
+   "unsure": ""
+  },
+  {
+   "n": 6,
+   "kind": "Fill in the Blank",
+   "q": "Apply rotate -90° to the following 8-bit greyscale image matrix:",
+   "given": [
+    {
+     "cap": "L",
+     "m": [
+      [
+       1,
+       2,
+       3
+      ],
+      [
+       4,
+       5,
+       6
+      ],
+      [
+       7,
+       8,
+       9
+      ]
+     ]
+    }
+   ],
+   "opts": [],
+   "ans": "Rows: 3 6 9, then 2 5 8, then 1 4 7.",
+   "pics": [],
+   "varies": "The matrix values may change.",
+   "method": [
+    "Follow the top row, as in question 2.",
+    "−90° is anticlockwise. The top row becomes the left column, read upwards.",
+    "The second row becomes the middle column. The bottom row becomes the right column."
+   ],
+   "check": "The top-left value (1) is now in the bottom-left. The centre (5) stays.",
+   "trap": "Writing the top row down the left column from the top. That is transpose. For −90° the top row is read upwards.",
+   "example": {
+    "working": [
+     "Row 1 (1 2 3) becomes the left column, bottom to top: 1 at the bottom, 3 at the top.",
+     "Row 2 (4 5 6) becomes the middle column, 4 at the bottom.",
+     "Row 3 (7 8 9) becomes the right column, 7 at the bottom."
+    ],
+    "answer": "See the matrix.",
+    "m": [
+     [
+      3,
+      6,
+      9
+     ],
+     [
+      2,
+      5,
+      8
+     ],
+     [
+      1,
+      4,
+      7
+     ]
+    ]
+   },
+   "mine": "right",
+   "gen": "w6-apply",
+   "same": 2,
+   "unsure": ""
+  },
+  {
+   "n": 7,
+   "kind": "Fill in the Blank",
+   "q": "Apply transpose, L⊺, to the following 8-bit greyscale image matrix:",
+   "given": [
+    {
+     "cap": "L",
+     "m": [
+      [
+       1,
+       2,
+       3
+      ],
+      [
+       4,
+       5,
+       6
+      ],
+      [
+       7,
+       8,
+       9
+      ]
+     ]
+    }
+   ],
+   "opts": [],
+   "ans": "Rows: 1 4 7, then 2 5 8, then 3 6 9.",
+   "pics": [],
+   "varies": "The matrix values may change.",
+   "method": [
+    "Follow the top row, as in question 2.",
+    "Transpose turns rows into columns. The top row becomes the left column, read downwards. Row 2 becomes column 2. Row 3 becomes column 3."
+   ],
+   "check": "The main diagonal (1, 5, 9) stays where it is. The top-left value does not move.",
+   "trap": "Confusing transpose with a rotation. In a transpose the top-left corner stays in the top-left.",
+   "example": {
+    "working": [
+     "Row 1 (1 2 3) becomes column 1.",
+     "Row 2 (4 5 6) becomes column 2.",
+     "Row 3 (7 8 9) becomes column 3."
+    ],
+    "answer": "See the matrix.",
+    "m": [
+     [
+      1,
+      4,
+      7
+     ],
+     [
+      2,
+      5,
+      8
+     ],
+     [
+      3,
+      6,
+      9
+     ]
+    ]
+   },
+   "mine": "right",
+   "gen": "w6-apply",
+   "same": 2,
+   "unsure": ""
+  },
+  {
+   "n": 8,
+   "kind": "Fill in the Blank",
+   "q": "Apply anti-diagonal transpose to the following 8-bit greyscale image matrix:",
+   "given": [
+    {
+     "cap": "L",
+     "m": [
+      [
+       1,
+       2,
+       3
+      ],
+      [
+       4,
+       5,
+       6
+      ],
+      [
+       7,
+       8,
+       9
+      ]
+     ]
+    }
+   ],
+   "opts": [],
+   "ans": "Rows: 9 6 3, then 8 5 2, then 7 4 1.",
+   "pics": [],
+   "varies": "The matrix values may change.",
+   "method": [
+    "Follow the top row, as in question 2.",
+    "Anti-diagonal transpose mirrors the matrix across the other diagonal, the one from top-right to bottom-left. The top row becomes the right column, read upwards.",
+    "Row 2 becomes the middle column, read upwards. Row 3 becomes the left column, read upwards."
+   ],
+   "check": "The anti-diagonal (3, 5, 7) stays where it is. The top-left value (1) is now in the bottom-right.",
+   "trap": "Giving the 180° rotation. Both move 1 to the bottom-right, but the 180° rotation keeps 1 2 3 together as a row and the anti-diagonal transpose makes it a column.",
+   "example": {
+    "working": [
+     "Row 1 (1 2 3) becomes the right column, bottom to top: 1 at the bottom, 3 at the top.",
+     "Row 2 (4 5 6) becomes the middle column, 4 at the bottom.",
+     "Row 3 (7 8 9) becomes the left column, 7 at the bottom."
+    ],
+    "answer": "See the matrix.",
+    "m": [
+     [
+      9,
+      6,
+      3
+     ],
+     [
+      8,
+      5,
+      2
+     ],
+     [
+      7,
+      4,
+      1
+     ]
+    ]
+   },
+   "mine": "right",
+   "gen": "w6-apply",
+   "same": 2,
+   "unsure": ""
+  },
+  {
+   "n": 9,
+   "kind": "Multiple answer",
+   "q": "Which of the following rotation operations are involutory?",
+   "given": [],
+   "opts": [
+    "flip left-right",
+    "flip up-down",
+    "anti-diagonal transpose",
+    "transpose",
+    "rotate 180°",
+    "rotate -90°",
+    "rotate +90°"
+   ],
+   "ans": "Five options are correct: flip left-right, flip up-down, transpose, anti-diagonal transpose, rotate 180°.",
+   "pics": [],
+   "varies": "",
+   "method": [
+    "Involutory means that applying the operation twice gives back the original.",
+    "Test each option on a small matrix such as [1 2 / 3 4]. Apply it twice and compare with the start.",
+    "Every mirror is involutory: flip left-right, flip up-down, transpose, anti-diagonal transpose. Rotate 180° is too, because 180° + 180° = 360°.",
+    "Rotate +90° and rotate −90° are not. Two of them give 180°, not the original."
+   ],
+   "check": "Tick five boxes. The only two left empty are the 90° rotations.",
+   "trap": "Ticking only the two flips. You did that and scored 0.4, which is 2 out of 5. The two transposes and rotate 180° also undo themselves.",
+   "example": {
+    "working": [
+     "Transpose twice: 1 2 / 3 4 becomes 1 3 / 2 4, then 1 2 / 3 4. Involutory.",
+     "Rotate +90° twice: 1 2 / 3 4 becomes 3 1 / 4 2, then 4 3 / 2 1. Not the original, so not involutory."
+    ],
+    "answer": "flip left-right, flip up-down, transpose, anti-diagonal transpose, rotate 180°"
+   },
+   "mine": "partial",
+   "gen": "w6-invol",
+   "same": null,
+   "unsure": "Canvas confirmed only flip left-right and flip up-down (the two he ticked). The other three are worked out by applying each operation twice. The score 0.4 = 2 out of 5 agrees with five correct options."
+  },
+  {
+   "n": 10,
+   "kind": "Matching",
+   "q": "Match the rotation operations that achieve the same outcome.",
+   "given": [],
+   "opts": [
+    "rotate +90° then flip left-right",
+    "flip left-right then rotate +90°",
+    "flip left-right then flip up-down",
+    "flip left-right then flip left-right"
+   ],
+   "ans": "transpose: rotate +90° then flip left-right. anti-diagonal transpose: flip left-right then rotate +90°. rotate 180°: flip left-right then flip up-down. flip up-down then flip up-down: flip left-right then flip left-right.",
+   "pics": [],
+   "varies": "",
+   "method": [
+    "Write a small test matrix, 1 2 / 3 4. Apply the two steps of each option in the order given.",
+    "Apply each single operation on the left to the same test matrix.",
+    "Match the equal results.",
+    "The same flip done twice gives back the original. So flip up-down twice equals flip left-right twice. Both do nothing."
+   ],
+   "check": "Two options use the same two steps in opposite order. They must go to different answers: one is transpose and one is anti-diagonal transpose.",
+   "trap": "Ignoring the order. Rotate then flip gives transpose. Flip then rotate gives anti-diagonal transpose.",
+   "example": {
+    "working": [
+     "Start: 1 2 / 3 4.",
+     "Rotate +90°: 3 1 / 4 2. Then flip left-right: 1 3 / 2 4. That is the transpose.",
+     "Flip left-right: 2 1 / 4 3. Then rotate +90°: 4 2 / 3 1. That is the anti-diagonal transpose.",
+     "Flip left-right: 2 1 / 4 3. Then flip up-down: 4 3 / 2 1. That is rotate 180°."
+    ],
+    "answer": "See the four pairs in the answer."
+   },
+   "mine": "right",
+   "gen": "w6-combo",
+   "same": null,
+   "unsure": "The results page shows only the options that were matched. Any unused extra options in the drop-down were not captured."
+  },
+  {
+   "n": 11,
+   "kind": "Matching",
+   "q": "Match rotated images A-G to their direct formulas relative to the original image. To help decide, use pen and paper to work out where points in the original image would be relocated using each formula. It makes sense to focus on the corner pixels of an imaginary rectangular image for this.",
+   "given": [],
+   "opts": [
+    "L′(i,N+1−j) = L(i,j)",
+    "L′(M+1−i,j) = L(i,j)",
+    "L′(M+1−i,N+1−j) = L(i,j)",
+    "L′(j,i) = L(i,j)",
+    "L′(j,M+1−i) = L(i,j)",
+    "L′(N+1−j,i) = L(i,j)",
+    "L′(N+1−j,M+1−i) = L(i,j)"
+   ],
+   "ans": "A: L′(i,N+1−j) = L(i,j). B: L′(M+1−i,j) = L(i,j). C: L′(M+1−i,N+1−j) = L(i,j). D: L′(j,i) = L(i,j). E: L′(j,M+1−i) = L(i,j). F: L′(N+1−j,i) = L(i,j). G: L′(N+1−j,M+1−i) = L(i,j).",
+   "pics": [
+    "q6-orig",
+    "q6-A",
+    "q6-B",
+    "q6-C",
+    "q6-D",
+    "q6-E",
+    "q6-F",
+    "q6-G"
+   ],
+   "varies": "",
+   "method": [
+    "Name each picture first with the two checks from question 1 (shape, then the corner with the wings).",
+    "Read the formula as L′(new row, new column). If the new row uses i, the picture stays wide. If the new row uses j, rows and columns are swapped and the picture becomes tall.",
+    "M+1−i or N+1−j means that direction is reversed. Plain i or j means it is kept.",
+    "Confirm with the top-left pixel. Put i = 1 and j = 1 into the formula and see which corner it lands in. That must be the corner where the wings are."
+   ],
+   "check": "Wide pictures A, B, C get the three formulas that start with i or M+1−i. Tall pictures D, E, F, G get the four formulas that start with j or N+1−j. L′(j,i) is used once, for D only.",
+   "trap": "You gave A the formula L′(j,i), which is the transpose (picture D). A is still wide, so i and j are not swapped. Flip left-right keeps the row and reverses the column: L′(i,N+1−j).",
+   "example": {
+    "working": [
+     "A is wide with the wings in the top-right. It is flip left-right.",
+     "Flip left-right keeps the row i and reverses the column, so the formula is L′(i,N+1−j) = L(i,j).",
+     "Test: i = 1, j = 1 gives L′(1,N). That is the top-right corner, where the wings are.",
+     "E is tall with the wings in the top-right. L′(j,M+1−i) with i = 1, j = 1 gives L′(1,M), the top-right of the tall picture."
+    ],
+    "answer": "A: L′(i,N+1−j) = L(i,j)"
+   },
+   "mine": "partial",
+   "gen": "w6-picformula",
+   "same": 1,
+   "unsure": "Canvas marked A wrong and did not show the right formula or list it. L′(i,N+1−j) = L(i,j) comes from the definition of flip left-right (Reading 06, Eq. 6.1a). The other six formulas are as Canvas showed them."
+  },
+  {
+   "n": 12,
+   "kind": "Fill in the Blank",
+   "q": "Apply downsampling by decimation to the following 8-bit greyscale image matrix that has order 4×4 to make it 2×2.",
+   "given": [
+    {
+     "cap": "L",
+     "m": [
+      [
+       128,
+       62,
+       97,
+       234
+      ],
+      [
+       19,
+       46,
+       4,
+       2
+      ],
+      [
+       87,
+       78,
+       96,
+       59
+      ],
+      [
+       65,
+       42,
+       14,
+       124
+      ]
+     ]
+    }
+   ],
+   "opts": [],
+   "ans": "Any one pixel from each 2 × 2 block is accepted. Taking the top-left of each block gives rows 128 97, then 87 96. Your accepted entry was 19 2, then 42 59.",
+   "pics": [],
+   "varies": "The matrix values.",
+   "method": [
+    "Draw one vertical and one horizontal line to split the 4 × 4 matrix into four 2 × 2 blocks.",
+    "Keep one pixel from each block and delete the other three. The usual choice is the top-left pixel of each block, which is rows 1 and 3 and columns 1 and 3.",
+    "Write the kept pixels in the same layout: top-left block to top-left of the output, and so on."
+   ],
+   "check": "Every output value appears in the original matrix, inside the matching block. No arithmetic is needed.",
+   "trap": "Averaging the block. That is region averaging (question 13). Also taking two pixels from the same block.",
+   "example": {
+    "working": [
+     "Blocks: top-left 128 62 / 19 46. Top-right 97 234 / 4 2. Bottom-left 87 78 / 65 42. Bottom-right 96 59 / 14 124.",
+     "Top-left pixel of each block: 128, 97, 87, 96."
+    ],
+    "answer": "128 97 / 87 96 (top-left convention)",
+    "m": [
+     [
+      128,
+      97
+     ],
+     [
+      87,
+      96
+     ]
+    ]
+   },
+   "mine": "right",
+   "gen": "w6-down",
+   "same": null,
+   "unsure": "Canvas showed his own entry (19, 2 / 42, 59) as correct. Those are the bottom-left or bottom-right pixels of each block, so the question accepts any pixel of the block. The example uses the top-left pixel, as Reading 06 does."
+  },
+  {
+   "n": 13,
+   "kind": "Fill in the Blank",
+   "q": "Apply downsampling by region averaging to the following 8-bit greyscale image matrix that has order 4×4 to make it 2×2. Round your pixel values to be ∈ℕ.",
+   "given": [
+    {
+     "cap": "L",
+     "m": [
+      [
+       128,
+       62,
+       97,
+       234
+      ],
+      [
+       19,
+       46,
+       4,
+       2
+      ],
+      [
+       87,
+       78,
+       96,
+       59
+      ],
+      [
+       65,
+       42,
+       14,
+       124
+      ]
+     ]
+    }
+   ],
+   "opts": [],
+   "ans": "Rows: 64 84, then 68 73.",
+   "pics": [],
+   "varies": "The matrix values.",
+   "method": [
+    "Split the 4 × 4 matrix into four 2 × 2 blocks, as in question 12.",
+    "For each block, add its four pixels and divide by 4.",
+    "Round to the nearest whole number. A decimal part of .5 or more rounds up."
+   ],
+   "check": "Each output value lies between the smallest and largest pixel of its block.",
+   "trap": "Chopping the decimals. 63.75 rounds to 64, not 63. Also adding the wrong four pixels, for example a whole row.",
+   "example": {
+    "working": [
+     "Top-left: (128 + 62 + 19 + 46) ÷ 4 = 255 ÷ 4 = 63.75, rounds to 64.",
+     "Top-right: (97 + 234 + 4 + 2) ÷ 4 = 337 ÷ 4 = 84.25, rounds to 84.",
+     "Bottom-left: (87 + 78 + 65 + 42) ÷ 4 = 272 ÷ 4 = 68.",
+     "Bottom-right: (96 + 59 + 14 + 124) ÷ 4 = 293 ÷ 4 = 73.25, rounds to 73."
+    ],
+    "answer": "64 84 / 68 73",
+    "m": [
+     [
+      64,
+      84
+     ],
+     [
+      68,
+      73
+     ]
+    ]
+   },
+   "mine": "right",
+   "gen": "w6-down",
+   "same": null,
+   "unsure": ""
+  },
+  {
+   "n": 14,
+   "kind": "Fill in the Blank",
+   "q": "Apply upsample by nearest neighbour replication to the following 8-bit greyscale image matrix that has order 2×2 to make it 4×4.",
+   "given": [
+    {
+     "cap": "L",
+     "m": [
+      [
+       34,
+       11
+      ],
+      [
+       97,
+       128
+      ]
+     ]
+    }
+   ],
+   "opts": [],
+   "ans": "Rows: 34 34 11 11, then 34 34 11 11, then 97 97 128 128, then 97 97 128 128.",
+   "pics": [],
+   "varies": "The matrix values.",
+   "method": [
+    "Each pixel becomes a 2 × 2 block of the same value.",
+    "Write every value of row 1 twice along the row. Then write that whole row a second time.",
+    "Do the same for row 2."
+   ],
+   "check": "The output contains only the original numbers. Each number appears exactly 4 times.",
+   "trap": "Alternating the values (34 11 34 11). Copies of the same pixel stay next to each other.",
+   "example": {
+    "working": [
+     "Row 1 (34 11) becomes 34 34 11 11, written twice.",
+     "Row 2 (97 128) becomes 97 97 128 128, written twice."
+    ],
+    "answer": "See the matrix.",
+    "m": [
+     [
+      34,
+      34,
+      11,
+      11
+     ],
+     [
+      34,
+      34,
+      11,
+      11
+     ],
+     [
+      97,
+      97,
+      128,
+      128
+     ],
+     [
+      97,
+      97,
+      128,
+      128
+     ]
+    ]
+   },
+   "mine": "right",
+   "gen": "w6-up",
+   "same": null,
+   "unsure": ""
+  },
+  {
+   "n": 15,
+   "kind": "Formula",
+   "q": "In an 8-bit greyscale image, the 2×2 image region below is to be rescaled to occupy an area of 8×8 pixels using bilinear interpolation. In this new area, what's the value of the pixel at position (6,4)? Round your answer to be ∈ℕ, rounding 0.5 upwards. Formula: L(i,j) = (L(1,1) × (M−i)(N−j) ÷ MN) + (L(1,N) × (M−i)j ÷ MN) + (L(M,1) × i(N−j) ÷ MN) + (L(M,N) × ij ÷ MN)",
+   "given": [
+    {
+     "cap": "2×2 region",
+     "m": [
+      [
+       215,
+       225
+      ],
+      [
+       148,
+       234
+      ]
+     ]
+    }
+   ],
+   "opts": [],
+   "ans": "198",
+   "pics": [],
+   "varies": "The four corner values and the position (i,j). The size of the new area may also change.",
+   "method": [
+    "Write M, N, i and j. Here M and N are the size of the new area, and (i,j) is row then column.",
+    "Work out the four weights: top-left (M−i)(N−j), top-right (M−i)j, bottom-left i(N−j), bottom-right ij. They must add up to M × N.",
+    "Multiply each corner value by its weight, add the four products, then divide by M × N.",
+    "Round to the nearest whole number, with .5 rounding up."
+   ],
+   "check": "The four weights add up to M × N (here 64). The answer lies between the smallest and largest corner value (148 and 234).",
+   "trap": "Giving a corner the weight of its own distances. Each corner uses the distances to the opposite sides, so the nearest corner gets the largest weight. Also swapping i and j: (6,4) is row 6, column 4.",
+   "example": {
+    "working": [
+     "M = N = 8, i = 6, j = 4. So M−i = 2 and N−j = 4.",
+     "Weights: top-left 2 × 4 = 8. Top-right 2 × 4 = 8. Bottom-left 6 × 4 = 24. Bottom-right 6 × 4 = 24. Sum = 64.",
+     "215 × 8 + 225 × 8 + 148 × 24 + 234 × 24 = 1720 + 1800 + 3552 + 5616 = 12688.",
+     "12688 ÷ 64 = 198.25, which rounds to 198."
+    ],
+    "answer": "198"
+   },
+   "mine": "right",
+   "gen": "w6-bilinear",
+   "same": null,
+   "unsure": ""
+  }
+ ]
+}

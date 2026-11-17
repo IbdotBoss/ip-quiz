@@ -1,117 +1,151 @@
 <!doctype html>
-<html lang="en-GB">
+<html lang="en-GB" data-theme="dark">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Image Processing test practice</title>
-<meta name="description" content="Practice questions with fresh numbers and a method cheatsheet for the MOD002643 Image Processing in-class test.">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Image Processing cheatsheet</title>
+<meta name="description" content="A cheatsheet for every question in the weekly Image Processing quizzes: the method, a quick check, the trap and a worked example.">
 <link rel="canonical" href="https://ibdotboss.github.io/ip-quiz/">
-<meta property="og:title" content="Image Processing test practice">
-<meta property="og:description" content="Practice questions with fresh numbers and a method cheatsheet for each week.">
+<meta property="og:title" content="Image Processing cheatsheet">
+<meta property="og:description" content="A cheatsheet for every question in the weekly quizzes: the method, a quick check, the trap and a worked example.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://ibdotboss.github.io/ip-quiz/">
+<meta name="color-scheme" content="dark light">
+<script>try { document.documentElement.dataset.theme = localStorage.getItem("ip-sheet-theme") || "dark"; } catch (e) {}</script>
 <style>
 @font-face{font-family:"Atkinson Next";src:url(data:font/woff2;base64,/*FONT*/) format("woff2");font-weight:200 800;font-display:swap}
+@font-face{font-family:"Atkinson Mono";src:url(data:font/woff2;base64,/*MONO*/) format("woff2");font-weight:200 800;font-display:swap}
 :root{
-  --paper:#fff;--ink:#17171c;--ink-2:#4a4a55;--hair:#d9d9df;--tint:#f1f1f4;
-  --k0:#191919;--k1:#8c8c8c;--right:#18794e;--wrong:#b3261e;--focus:#2f5fd0;--off:#767680;
-  --t-xs:.84rem;--t-s:.94rem;--t-m:1.0625rem;--t-l:1.375rem;--t-xl:2.25rem;--r:6px;
+  --body:"Atkinson Next",Verdana,Arial,sans-serif;--mono:"Atkinson Mono",ui-monospace,Consolas,monospace;
+  --t-s:.9375rem;--t-m:1.0625rem;--t-l:1.25rem;--t-xl:1.75rem;--r:2px;--strip:57px;
 }
+/* Slide: the black ground of the tutor's slides and pictures. */
+html[data-theme="dark"]{--paper:#000;--panel:#111113;--ink:#f2f2f0;--ink-2:#b0b0ab;--hair:#3d3d41;--tint:#1a1a1d;--mark:#ffd84a;--mark-ink:#000;--right:#7be0a4;--wrong:#ff9d94;--focus:#8ab4ff;--grid:none}
+/* Paper: squared paper and a highlighter, for daylight and for printing. */
+html[data-theme="light"]{--paper:#fbfbf7;--panel:#fff;--ink:#14213d;--ink-2:#4d5670;--hair:#b3c0d8;--tint:#edf1f7;--mark:#ffe45c;--mark-ink:#14213d;--right:#0c6b3d;--wrong:#b3261e;--focus:#2f5fd0;
+  --grid:linear-gradient(#e1e8f3 1px,transparent 1px),linear-gradient(90deg,#e1e8f3 1px,transparent 1px)}
 *{box-sizing:border-box}
+html{scroll-padding-top:calc(var(--strip) + 16px)}
 html,body{overflow-x:clip}
-body{margin:0;background:var(--paper);color:var(--ink);font:400 var(--t-m)/1.5 "Atkinson Next",Verdana,Arial,sans-serif}
-main{max-width:760px;margin:0 auto;padding:24px 20px 72px;min-height:100dvh}
-@media (min-width:800px){main{padding:48px 20px 96px}}
+body{margin:0;background:var(--paper);background-image:var(--grid);background-size:16px 16px;color:var(--ink);font:400 var(--t-m)/1.5 var(--body)}
+main{max-width:1180px;margin:0 auto;padding:16px 16px 64px;min-height:100dvh}
+main.narrow{max-width:760px}
 h1,h2,h3{text-wrap:balance;margin:0}
-h1{font-size:var(--t-xl);font-weight:800;line-height:1.05}
-h2{font-size:var(--t-l);font-weight:700;line-height:1.25;margin-top:36px}
-h3{font-size:var(--t-m);font-weight:700;margin-top:24px}
+h1{font-size:var(--t-xl);font-weight:700;line-height:1.15}
+h1 span,h2 span{color:var(--ink-2);font-weight:400}
+h2{font-size:var(--t-l);font-weight:700;line-height:1.25;margin-top:32px}
+h3{font-size:var(--t-m);font-weight:700;margin:0 0 4px}
 h1:focus,h2:focus{outline:none}
 p{margin:8px 0;text-wrap:pretty}
 .s{font-size:var(--t-s);color:var(--ink-2)}
 a{color:var(--ink)}
 svg{display:block}
-button,select,input{font:400 1rem/1.2 "Atkinson Next",Verdana,sans-serif;color:var(--ink)}
-button,select{font-weight:700;background:var(--paper);border:1.5px solid var(--ink);border-radius:var(--r);padding:12px 20px;min-height:44px;cursor:pointer}
-select{font-weight:400;padding:8px 12px;max-width:100%}
+button,select,input{font:400 1rem/1.2 var(--body);color:var(--ink)}
+button,select,a.btn{font-weight:700;background:transparent;border:1px solid var(--ink);border-radius:var(--r);padding:12px 16px;min-height:44px;cursor:pointer}
+a.btn{display:inline-flex;align-items:center;text-decoration:none}
+select{font-weight:400;padding:8px 12px;max-width:100%;background:var(--panel)}
 button.p{background:var(--ink);color:var(--paper)}
-button.l{border:0;padding:12px 0;text-decoration:underline;font-weight:400;font-size:var(--t-s)}
-button:active{transform:translateY(1px)}
+:is(button,a.btn):hover{background:var(--tint)}
+button.p:hover{background:var(--ink-2)}
 :is(input,select):disabled{background:var(--tint);color:var(--ink);cursor:default}
-.k0{background:var(--k0)}.k1{background:var(--k1)}.k2{background:var(--paper)}
 :is(button,a,select,input,summary):focus-visible{outline:3px solid var(--focus);outline-offset:2px}
-.top{display:flex;justify-content:space-between;align-items:center;gap:12px;border-bottom:1.5px solid var(--ink);font-size:var(--t-s)}
-.acts{display:flex;flex-wrap:wrap;gap:12px;margin-top:20px}
+.top{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px 24px;padding:8px 0}
+.top nav{display:flex;flex-wrap:wrap;gap:8px 24px;align-items:center;font-size:var(--t-s)}
+.top button{padding:8px 12px;min-height:40px;font-size:var(--t-s)}
+.acts{display:flex;flex-wrap:wrap;gap:12px;margin-top:16px;align-items:center}
 
-/* home: one row per week, one square per question type */
-.wk{border-top:1px solid var(--hair);padding:12px 0;display:grid;grid-template-columns:minmax(0,1fr);gap:8px}
-.wk:first-of-type{border-top:1.5px solid var(--ink);margin-top:12px}
-.wk>button{border:0;border-radius:0;padding:4px 0;min-height:32px;text-align:left;font-weight:400;display:flex;gap:12px}
-.wk>button b{font-weight:800;font-variant-numeric:tabular-nums;flex:0 0 1.6em}
-.wk>button:hover span{text-decoration:underline}
-.sq{display:flex;flex-wrap:wrap;gap:4px;padding-left:calc(1.6em + 12px)}
-.sq button{width:36px;height:36px;min-height:0;padding:0;border:1px solid var(--ink);border-radius:0}
-.sq button.new,.key .nw{background:repeating-linear-gradient(135deg,var(--paper) 0 5px,var(--hair) 5px 6.5px)}
-.sq button:hover{outline:2px solid var(--ink);outline-offset:1px}
-.key{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:16px;font-size:var(--t-xs);color:var(--ink-2)}
-.key i{width:16px;height:16px;border:1px solid var(--ink);display:block}
+/* the question strip: one square per quiz question */
+.strip{display:flex;gap:4px;overflow-x:auto;padding:8px 0;scrollbar-width:thin}
+.strip.stick{position:sticky;top:0;z-index:2;background:var(--paper);border-bottom:1px solid var(--hair)}
+.strip a{flex:0 0 auto;min-width:40px;height:40px;display:grid;place-items:center;font:700 1rem var(--mono);color:var(--ink);text-decoration:none;border:1px solid var(--hair);border-radius:var(--r);background:var(--panel)}
+.strip a:hover{border-color:var(--ink)}
+.strip a.lost{background:var(--mark);color:var(--mark-ink);border-color:var(--mark)}
+.strip a[aria-current]{box-shadow:0 0 0 2px var(--paper),0 0 0 4px var(--ink)}
+.key{font-size:var(--t-s);color:var(--ink-2);margin:8px 0 0}
+.key i{display:inline-block;width:12px;height:12px;background:var(--mark);vertical-align:-1px;margin-right:8px}
+.wk{padding:16px 0 12px;border-top:1px solid var(--hair)}
+.wk h2{margin:0;font-size:var(--t-m)}
+.wk h2 a{text-decoration:none;display:inline-block;padding:4px 0}
+.wk h2 a:hover{text-decoration:underline}
 
-/* matrices drawn as pixels */
-.figs{display:flex;flex-wrap:wrap;gap:16px 24px;align-items:flex-end;margin:16px 0}
+/* one card per quiz question: what you see on the left, what you do on the right */
+.card{display:grid;grid-template-columns:minmax(0,1fr);gap:16px 40px;padding:32px 0;border-bottom:1px solid var(--hair)}
+@media(min-width:900px){.card{grid-template-columns:minmax(0,5fr) minmax(0,6fr)}}
+.num{font:700 1rem var(--mono);color:var(--ink-2);margin:0 0 4px;display:flex;flex-wrap:wrap;gap:4px 16px;align-items:center}
+.lost{background:var(--mark);color:var(--mark-ink);padding:0 8px;border-radius:var(--r);font-family:var(--body);font-size:var(--t-s)}
+.qt{font-size:var(--t-l);line-height:1.4;font-weight:600;white-space:pre-line;overflow-wrap:break-word;margin:0 0 12px}
+.opts{margin:8px 0;padding-left:1.2em}
+.opts li{margin:4px 0}
+.pics{display:grid;grid-template-columns:repeat(auto-fill,minmax(132px,1fr));gap:8px;margin:12px 0}
+.pics.p4{grid-template-columns:repeat(2,minmax(0,1fr));align-items:end}
+@media(min-width:600px){.pics.p4{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.do>section{margin:0 0 16px}
+.do ol{margin:0;padding-left:1.4em}
+.do li{margin:4px 0}
+.trap{background:var(--mark);color:var(--mark-ink);padding:8px 12px;border-radius:var(--r)}
+.check h3{color:var(--right)}
+.work{font:400 1rem/1.6 var(--mono);background:var(--panel);border:1px solid var(--hair);padding:12px;border-radius:var(--r);white-space:pre-wrap;overflow-wrap:break-word}
+.work div{padding-left:1.5em;text-indent:-1.5em}
+.ansr{margin:8px 0 0}
+.ansr b{background:var(--mark);color:var(--mark-ink);padding:0 8px;border-radius:var(--r);font-family:var(--mono)}
+
+/* matrices and pictures */
+.figs{display:flex;flex-wrap:wrap;gap:12px 24px;align-items:flex-end;margin:12px 0}
 figure{margin:0;max-width:100%}
-figcaption{font-size:var(--t-s);font-weight:700;margin-bottom:4px}
-.mx{border-collapse:collapse;font-variant-numeric:tabular-nums}
-.mx td{border:1px solid var(--ink);min-width:44px;height:40px;padding:0 8px;text-align:center;font-weight:700;font-size:1.17rem}
-.mx.k td{background:var(--tint);font-weight:400;font-size:var(--t-m)}
+figcaption{font:700 var(--t-s) var(--mono);color:var(--ink-2);margin-bottom:4px}
+.mx{border-collapse:collapse;font:700 1.0625rem var(--mono);font-variant-numeric:tabular-nums}
+.mx td{border:1px solid var(--hair);min-width:44px;height:40px;padding:0 8px;text-align:center;background:var(--panel)}
 .mx td.in{box-shadow:inset 0 0 0 3px var(--focus)}
-.mx input{width:52px;height:40px;border:0;text-align:center;background:var(--paper);font-size:var(--t-m);font-variant-numeric:tabular-nums}
+.mx input{width:52px;height:40px;border:0;text-align:center;background:var(--panel);font:400 1rem var(--mono)}
 .mx td.io{padding:0;min-width:52px}
 .mx td.bad{box-shadow:inset 0 0 0 3px var(--wrong)}
 .mx td.ok{box-shadow:inset 0 0 0 3px var(--right)}
 .scroll{overflow-x:auto;max-width:100%}
-img.px{image-rendering:pixelated;display:block;border:1px solid var(--ink)}
-img.real{display:block;max-width:100%;height:auto;border:1px solid var(--ink);background:var(--ink)}
-.formula{font-size:var(--t-s);background:var(--tint);padding:8px 12px;border-radius:var(--r);overflow-wrap:break-word}
-.meta{font-size:var(--t-s);color:var(--ink-2);margin-top:24px}
-.stem{font-size:var(--t-l);font-weight:700;line-height:1.3;margin:4px 0 0;white-space:pre-wrap}
-.in1{border:1.5px solid var(--ink);border-radius:var(--r);padding:8px 12px;min-height:44px;width:min(100%,260px);font-variant-numeric:tabular-nums}
+img.px{image-rendering:pixelated;display:block;border:1px solid var(--hair)}
+img.real{display:block;width:100%;max-width:100%;height:auto;border:1px solid var(--hair);background:#000}
+.mrow img.real{width:auto}
+
+/* trying a question with new numbers */
+.formula{font:400 var(--t-s) var(--mono);background:var(--tint);padding:8px 12px;border-radius:var(--r);overflow-wrap:break-word}
+.stem{font-size:var(--t-l);font-weight:700;line-height:1.35;margin:8px 0 0;white-space:pre-wrap}
+.in1{border:1px solid var(--ink);border-radius:var(--r);background:var(--panel);padding:8px 12px;min-height:44px;width:min(100%,260px);font-family:var(--mono)}
 .fl{display:grid;grid-template-columns:minmax(0,auto) 120px auto;gap:8px 12px;align-items:center;margin-top:12px;justify-content:start}
 .fl .in1{width:120px}
 fieldset{border:0;margin:16px 0 0;padding:0;min-width:0}legend{padding:0;font-weight:700;font-size:var(--t-s)}
-.o{display:grid;grid-template-columns:22px minmax(0,1fr);gap:0 12px;padding:12px 0;border-top:1px solid var(--hair);cursor:pointer}
-.o input{width:22px;height:22px;margin:2px 0 0;accent-color:var(--ink)}
-.o small,.mk{display:block;font-weight:700;font-size:var(--t-xs)}
+.o{display:grid;grid-template-columns:24px minmax(0,1fr);gap:0 12px;padding:12px 0;border-top:1px solid var(--hair);cursor:pointer}
+.o input{width:24px;height:24px;margin:0;accent-color:var(--ink)}
+.o small,.mk{display:block;font-weight:700;font-size:var(--t-s)}
 .good{color:var(--right)}.poor{color:var(--wrong)}
 .mrow{display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px;padding:12px 0;border-top:1px solid var(--hair)}
-.mrow b{min-width:1.2em}
-.fb{margin-top:24px;border-top:1.5px solid var(--ink);padding-top:8px}
-.verdict{display:flex;align-items:center;gap:8px;font-size:var(--t-l);font-weight:800}
-.card{border-top:1px solid var(--hair);padding:16px 0}
-.card h3{margin-top:0}
-.card .acts{margin-top:8px;align-items:center}
-.card button{padding:8px 16px}
-.tag{font-weight:700}
+.mrow b{min-width:1.2em;font-family:var(--mono)}
+.fb{margin-top:24px;border-top:1px solid var(--ink);padding-top:8px}
+.verdict{display:flex;align-items:center;gap:8px;font-size:var(--t-l);font-weight:700}
 .note{background:var(--tint);padding:12px;border-radius:var(--r);font-size:var(--t-s);margin-top:12px}
-.rules table{font-variant-numeric:tabular-nums;border-collapse:collapse;font-size:var(--t-s);margin:12px 0;display:block;overflow-x:auto}
+.rules table{border-collapse:collapse;font-size:var(--t-s);margin:12px 0;display:block;overflow-x:auto}
 .rules td,.rules th{border-bottom:1px solid var(--hair);padding:8px 16px 8px 0;text-align:left;vertical-align:top}
-.rules th{border-bottom:1.5px solid var(--ink)}
+.rules th{border-bottom:1px solid var(--ink)}
 .rules li{margin:8px 0}
-.total{font-size:var(--t-xl);font-weight:800;margin:16px 0 4px;font-variant-numeric:tabular-nums}
-.foot{margin-top:64px;border-top:1px solid var(--hair);padding-top:16px;font-size:var(--t-s);color:var(--ink-2)}
+.foot{margin-top:64px;padding-top:16px;font-size:var(--t-s);color:var(--ink-2)}
+.foot a{color:var(--ink-2)}
 .foot .gh{display:inline-flex;align-items:center;gap:8px;vertical-align:bottom}
-@media print{button,.foot,.top{display:none}main{max-width:none}}
+@media print{
+  html{--paper:#fff;--panel:#fff;--ink:#000;--ink-2:#333;--hair:#999;--tint:#eee;--mark:#ffe45c;--mark-ink:#000;--right:#0c6b3d;--grid:none}
+  button,a.btn,.foot,.top nav,.strip,.key{display:none}
+  main{max-width:none;padding:0}
+  .card{break-inside:avoid;padding:16px 0}
+}
 </style>
 </head>
 <body>
 <main id="app"></main>
-<noscript><p style="padding:20px">This page builds its questions with JavaScript. Turn JavaScript on to use it.</p></noscript>
+<noscript><p style="padding:20px">This page is built with JavaScript. Turn JavaScript on to use it.</p></noscript>
 <script>
 /*GENS*/
 </script>
 <script>
 "use strict";
 const WEEKS = { 1: "Basic Image Representation", 2: "Basic Image Statistics", 3: "Histograms and Thresholding", 4: "Contrast Manipulation", 5: "Morphological Operators", 6: "Rotation and Scaling", 7: "Non-linear Filters", 8: "Linear Filters", 9: "Edge Detection and Cross Correlation", 10: "Steganography", 11: "Spatial Frequency Domain Operations" };
-const UNSEEN = { 10: "Quiz 10 was still locked on Canvas when this page was built. These question types come from the Week 10 reading, so the real quiz may ask things that are not here.", 11: "Quiz 11 was still locked on Canvas when this page was built. These question types come from the Week 11 reading, so the real quiz may ask things that are not here." };
+const CARDS = /*CARDS*/;
 const RULES = `
 <h2>Read the last line of the question first</h2>
 <ul>
@@ -160,13 +194,21 @@ const RULES = `
 <li>Set degrees, not radians, before any arctan.</li>
 <li>Store a coefficient such as 255 ÷ (Lmax − Lmin) once and reuse it for every grey level.</li>
 </ul>`;
+// The tutor's own quiz pictures in docs/img: caption, width, height.
+const PIC = {
+  "q1-anuA": ["A", 250, 379], "q1-anuB": ["B", 250, 379], "q1-anuC": ["C", 250, 379], "q1-anuD": ["D", 250, 379], "q1-anuE": ["E", 250, 379],
+  "q4-imgA": ["Image A", 367, 276], "q4-imgB": ["Image B", 367, 276], "q4-imgC": ["Image C", 367, 276], "q4-imgD": ["Image D", 367, 276],
+  "q4-hist1": ["Histogram 1", 280, 264], "q4-hist2": ["Histogram 2", 280, 264], "q4-hist3": ["Histogram 3", 280, 266], "q4-hist4": ["Histogram 4", 280, 266],
+  "q6-orig": ["Original", 216, 144], "q6-A": ["A", 216, 144], "q6-B": ["B", 216, 144], "q6-C": ["C", 216, 144], "q6-D": ["D", 144, 216], "q6-E": ["E", 144, 216], "q6-F": ["F", 144, 216], "q6-G": ["G", 144, 216],
+  "q7-xRayThumbsUp": ["Original", 438, 329], "q7-xGaussian": ["A", 438, 329], "q7-xSalt": ["B", 438, 329], "q7-xPepper": ["C", 438, 329], "q7-xSaltPepper": ["D", 438, 329],
+  "q8-sharpenKernel": ["A", 560, 421], "q8-gaussianKernel": ["B", 560, 421], "q8-embossKernel": ["C", 560, 421], "q8-meanKernel": ["D", 560, 421],
+  "q9-robKernel": ["A", 560, 421], "q9-lapKernel": ["B", 560, 421], "q9-sobKernel": ["C", 560, 421], "q9-prewKernel": ["D", 560, 421],
+};
 
-const LS = "ip-quiz-1", $ = s => document.querySelector(s), app = $("#app");
-let st = { t: {} };
-try { st = JSON.parse(localStorage.getItem(LS)) || st; } catch (e) {}
-const save = () => { try { localStorage.setItem(LS, JSON.stringify(st)); } catch (e) {} };
+const $ = s => document.querySelector(s), app = $("#app"), root = document.documentElement;
 const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 const gen = id => GENS.find(g => g.id === id);
+const two = n => String(n).padStart(2, "0");
 const TICK = `<svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5" fill="none" stroke="currentColor" stroke-width="3"/></svg>`;
 const CROSS = `<svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19" fill="none" stroke="currentColor" stroke-width="3"/></svg>`;
 const FOOT = `<footer class="foot"><p>Created by <a href="https://www.ibrahimuthman.me/">Ibrahim Uthman</a>. If it helped, <a class="gh" href="https://github.com/IbdotBoss/ip-quiz">star it on GitHub<svg viewBox="0 0 16 16" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg></a></p></footer>`;
@@ -177,9 +219,9 @@ const cellStyle = (v, kind) => {
   if (kind === "bin" && typeof v === "number") return v ? "background:#fff;color:#17171c" : "background:#17171c;color:#fff";
   return "";
 };
-const matHTML = (m, kind = "plain", mark, half = 1) => `<div class="scroll"><table class="mx ${kind === "k" ? "k" : ""}"><tbody>` + m.map((r, i) => "<tr>" + r.map((v, j) => {
+const matHTML = (m, kind = "plain", mark, half = 1) => `<div class="scroll"><table class="mx"><tbody>` + m.map((r, i) => "<tr>" + [].concat(r).map((v, j) => {
   const inside = mark && Math.abs(i + 1 - mark[0]) <= half && Math.abs(j + 1 - mark[1]) <= half;
-  return `<td${inside ? ' class="in"' : ""} style="${cellStyle(v, kind)}">${esc(typeof v === "number" && !Number.isInteger(v) ? Math.round(v * 1000) / 1000 : v)}</td>`;
+  return `<td${inside ? ' class="in"' : ""} style="${cellStyle(v, kind)}">${esc(typeof v === "number" && !Number.isInteger(v) ? Math.round(v * 10000) / 10000 : v)}</td>`;
 }).join("") + "</tr>").join("") + "</tbody></table></div>";
 const pxImg = (px, label) => {
   const h = px.length, w = px[0].length, c = document.createElement("canvas"); c.width = w; c.height = h;
@@ -195,46 +237,97 @@ const vis = (it, label) => it.img ? realImg(it, label) : it.px ? pxImg(it.px, la
 const figs = show => !show || !show.length ? "" : `<div class="figs">` + show.map(it => `<figure>${it.cap ? `<figcaption>${esc(it.cap)}</figcaption>` : ""}${vis(it, it.cap)}</figure>`).join("") + `</div>`;
 
 /* ---------- pages ---------- */
-function page(html, focus = "h1") { app.innerHTML = html + FOOT; window.scrollTo(0, 0); const h = app.querySelector(focus); if (h) { h.tabIndex = -1; h.focus({ preventScroll: true }); } }
-const shade = id => { const t = st.t[id]; if (!t) return null; const v = Math.round(25 + 230 * t[0] / t[1]); return `rgb(${v},${v},${v})`; };
-const scoreText = id => { const t = st.t[id]; return t ? `${t[0]} right out of ${t[1]} tried` : "not tried yet"; };
+let here = "";
+const themeBtn = () => `<button type="button" data-theme-toggle>${root.dataset.theme === "dark" ? "Light paper" : "Dark slide"}</button>`;
+const head = (h1, links) => `<div class="top"><h1>${h1}</h1><nav aria-label="Site">${links}${themeBtn()}</nav></div>`;
+function page(html, narrow, focus = "h1") {
+  app.className = narrow ? "narrow" : ""; app.innerHTML = html + FOOT; window.scrollTo(0, 0);
+  const h = app.querySelector(focus); if (h) { h.tabIndex = -1; h.focus({ preventScroll: true }); }
+}
+const strip = (w, stick) => `<nav class="strip${stick ? " stick" : ""}" aria-label="Quiz ${two(w)} questions">` + CARDS[w].cards.map(c => {
+  const lost = c.mine && c.mine !== "right";
+  return `<a href="#/q/${w}/${c.n}" data-n="${c.n}"${lost ? ' class="lost"' : ""} aria-label="Question ${c.n}${lost ? ", you lost marks here" : ""}">${c.n}</a>`;
+}).join("") + `</nav>`;
 
 function home() {
-  const rows = Object.keys(WEEKS).map(w => {
-    const gs = GENS.filter(g => g.w == w);
-    return `<div class="wk"><button data-week="${w}"><b>${w}</b><span>${WEEKS[w]}</span></button><div class="sq">` + gs.map(g => {
-      const c = shade(g.id);
-      return `<button data-one="${g.id}" ${c ? `style="background:${c}"` : 'class="new"'} title="${esc(g.name)}: ${scoreText(g.id)}" aria-label="Week ${w}, ${esc(g.name)}, ${scoreText(g.id)}. Practise this type."></button>`;
-    }).join("") + `</div></div>`;
-  }).join("");
-  page(`<h1>Image Processing test practice</h1>
-<p>MOD002643 in-class test. The weekly quizzes change their numbers on every attempt, so this page does too. Each question shows the quick method, a way to check the answer, and the mistake to avoid.</p>
-<div class="acts"><button class="p" data-mixed>Mixed paper, 22 questions</button><button data-rules>Rules for every week</button></div>
-<h2>Weeks</h2>
-<p class="s">Each square is one type of question, shaded by how many of your answers were right. Select a square to practise that type, or a week name for its cheatsheet.</p>
-${rows}
-<div class="key"><i class="nw"></i> not tried yet <i class="k0"></i> no answers right <i class="k1"></i> half the answers right <i class="k2"></i> every answer right</div>
-<div class="acts"><button class="l" data-reset>Clear my scores</button></div>`);
+  here = "home";
+  const rows = Object.keys(WEEKS).map(w => `<section class="wk"><h2><a href="#/q/${w}">Quiz ${two(w)} <span>${WEEKS[w]}</span></a></h2>${CARDS[w] ? strip(w) : `<p class="s">This quiz was still locked on Canvas. The page for it is built from the Week ${w} reading.</p>`}</section>`).join("");
+  page(head("Image Processing cheatsheet", `<a href="#/rules">Rules for every week</a>`) + `
+<p>One card for every question in the weekly quizzes. Each card has the question as the tutor words it, the method, a quick check, the trap and a worked example.</p>
+<p class="key"><i></i>You lost marks on this question in your own attempt.</p>
+${rows}`);
 }
 
-function week(w) {
-  const gs = GENS.filter(g => g.w == w);
-  page(`<div class="top"><button class="l" data-home>Home</button><span>Week ${w} of 11</span></div>
-<h1>Week ${w}: ${WEEKS[w]}</h1>
-${UNSEEN[w] ? `<p class="note">${UNSEEN[w]}</p>` : ""}
-<div class="acts"><button class="p" data-weekrun="${w}">Practise this week, ${gs.length} questions</button><button data-rules>Rules for every week</button></div>
-<h2>Cheatsheet</h2>` + gs.map(g => `<section class="card"><h3>${esc(g.name)}</h3><p><span class="tag">Quick method.</span> ${esc(g.rule)}</p><p><span class="tag">Watch for.</span> ${esc(g.trap)}</p><div class="acts"><button data-one="${g.id}">Try one</button><span class="s">${scoreText(g.id)}</span></div></section>`).join("") +
-    `<div class="acts">${w > 1 ? `<button data-week="${w - 1}">Week ${w - 1}</button>` : ""}${w < 11 ? `<button data-week="${+w + 1}">Week ${+w + 1}</button>` : ""}</div>`);
+const SHUFFLED = ["w1-formats", "w4-histmatch", "w6-pictures", "w6-picformula", "w7-noise", "w8-plots", "w9-plots"];
+const picHTML = (c) => {
+  const ps = (c.pics || []).filter(p => PIC[p]); if (!ps.length) return "";
+  return `<div class="pics${ps.length === 8 ? " p4" : ""}">` + ps.map(p => `<figure><figcaption>${PIC[p][0]}</figcaption><img class="real" src="${IMG}${p}.jpg" width="${PIC[p][1]}" height="${PIC[p][2]}" alt="${PIC[p][0]}, picture for question ${c.n}" loading="lazy"></figure>`).join("") + `</div>`;
+};
+function cardHTML(w, c) {
+  const lost = c.mine && c.mine !== "right", ex = c.example;
+  const sec = (h, body, cls) => body ? `<section${cls ? ` class="${cls}"` : ""}><h3>${h}</h3>${body}</section>` : "";
+  return `<article class="card" id="c${c.n}" data-n="${c.n}">
+<div class="q">
+<p class="num"><span>Question ${c.n}</span><span>${esc(c.kind || "")}</span>${lost ? `<span class="lost">You lost marks here</span>` : ""}</p>
+<p class="qt">${esc(c.q)}</p>
+${figs((c.given || []).filter(g => g.m && g.m.length))}
+${picHTML(c)}
+${c.opts && c.opts.length ? `<ul class="opts">${c.opts.map(o => `<li>${esc(o)}</li>`).join("")}</ul>` : ""}
+${c.varies ? `<p class="s">Changes each attempt: ${esc(c.varies)}</p>` : ""}
+</div>
+<div class="do">
+${c.same ? `<p class="s">Same method as <a href="#/q/${w}/${c.same}">Question ${c.same}</a>.</p>` : ""}
+${sec("Method", c.method && c.method.length ? (c.method.length === 1 ? `<p>${esc(c.method[0])}</p>` : `<ol>${c.method.map(m => `<li>${esc(m)}</li>`).join("")}</ol>`) : "")}
+${sec("Check", c.check ? `<p>${esc(c.check)}</p>` : "", "check")}
+${sec("Trap", c.trap ? `<div class="trap">${esc(c.trap)}</div>` : "")}
+${ex ? sec("Worked example", `<div class="work">${(ex.working || []).map(l => `<div>${esc(l)}</div>`).join("")}</div>${ex.m ? figs([{ cap: ex.m2 ? "Cross correlation" : "", m: ex.m }].concat(ex.m2 ? [{ cap: "Convolution", m: ex.m2 }] : [])) : ""}<p class="ansr">Answer <b>${esc(ex.answer)}</b></p>`) : sec("Answer", c.ans ? `<p>${esc(c.ans)}</p>` : "")}
+${/Canvas (did not|showed no|marked)/.test(c.unsure || "") && lost ? `<p class="s">Canvas did not show the right answer for this question. The answer here is worked out from the reading and checked by calculation.</p>` : ""}
+${c.gen && gen(c.gen) ? `<a class="btn" href="#/try/${c.gen}/${w}-${c.n}">${SHUFFLED.includes(c.gen) ? "Try with shuffled letters" : "Try with new numbers"}</a>` : ""}
+</div>
+</article>`;
+}
+function typeCardHTML(w, g) {
+  return `<article class="card"><div class="q"><p class="num"><span>From the reading</span></p><p class="qt">${esc(g.name)}</p></div>
+<div class="do"><section><h3>Method</h3><p>${esc(g.rule)}</p></section><section><h3>Trap</h3><div class="trap">${esc(g.trap)}</div></section><a class="btn" href="#/try/${g.id}/${w}">Try with new numbers</a></div></article>`;
+}
+
+let spy = null;
+function quiz(w, n) {
+  const jump = () => { const el = n && $("#c" + n); if (el) el.scrollIntoView(); };
+  if (here === "q" + w) return jump();
+  here = "q" + w;
+  const nav = `<a href="#/">All quizzes</a>${w > 1 ? `<a href="#/q/${w - 1}">Quiz ${two(w - 1)}</a>` : ""}${w < 11 ? `<a href="#/q/${w + 1}">Quiz ${two(w + 1)}</a>` : ""}<a href="#/rules">Rules</a>`;
+  const body = CARDS[w]
+    ? strip(w, true) + `<p class="key"><i></i>You lost marks on this question in your own attempt.</p>` + CARDS[w].cards.map(c => cardHTML(w, c)).join("")
+    : `<p class="note">Quiz ${two(w)} was still locked on Canvas when this page was built. These cards come from the Week ${w} reading, so the real quiz may ask things that are not here.</p>` + GENS.filter(g => g.w === w).map(g => typeCardHTML(w, g)).join("");
+  page(head(`Quiz ${two(w)} <span>${WEEKS[w]}</span>`, nav) + body + `<div class="acts"><button type="button" data-print>Print this quiz</button></div>`);
+  jump();
+  if (spy) spy.disconnect();
+  const bar = $(".strip.stick"); if (!bar || !("IntersectionObserver" in window)) return;
+  spy = new IntersectionObserver(es => es.forEach(e => {
+    if (!e.isIntersecting) return;
+    bar.querySelectorAll("[aria-current]").forEach(a => a.removeAttribute("aria-current"));
+    const a = bar.querySelector(`[data-n="${e.target.dataset.n}"]`); if (!a) return;
+    a.setAttribute("aria-current", "true");
+    bar.scrollLeft = a.offsetLeft - bar.clientWidth / 2 + a.offsetWidth / 2;
+  }), { rootMargin: "-90px 0px -65% 0px" });
+  app.querySelectorAll(".card[data-n]").forEach(c => spy.observe(c));
 }
 
 function rules() {
-  page(`<div class="top"><button class="l" data-home>Home</button><span>All weeks</span></div><h1>Rules for every week</h1><div class="rules">${RULES}</div><div class="acts"><button data-home>Home</button><button data-print>Print this page</button></div>`);
+  here = "rules";
+  page(head("Rules for every week", `<a href="#/">All quizzes</a>`) + `<div class="rules">${RULES}</div><div class="acts"><button type="button" data-print>Print this page</button></div>`, true);
 }
 
-/* ---------- a run of questions ---------- */
-let run = null, q = null;
-function start(ids, title, back) { run = { ids, title, back, i: 0, right: 0, done: [] }; ask(); }
-function ask() { const g = gen(run.ids[run.i]); q = { g, ...g.make(), checked: false }; q.inputs = [].concat(q.input); drawQ(); }
+/* ---------- one question with new numbers ---------- */
+let q = null, from = null;
+function tryOne(id, ref) {
+  here = "try"; const [w, n] = String(ref || "").split("-"); from = { w: +w || gen(id).w, n: +n || 0 };
+  ask(id);
+}
+function ask(id) { const g = gen(id); q = { g, ...g.make(), checked: false }; q.inputs = [].concat(q.input); drawQ(); }
+const backHref = () => `#/q/${from.w}${from.n ? "/" + from.n : ""}`;
+const backText = () => from.n ? `Back to Question ${from.n}` : `Back to Quiz ${two(from.w)}`;
 
 const inputHTML = (inp, n) => {
   const cap = inp.cap ? `<legend>${esc(inp.cap)}</legend>` : `<legend class="s">${{ num: "Your answer", text: "Your answer", grid: "Enter the output", fields: "Fill in each box", mc: "Choose one", multi: "Choose every one that applies", match: "Choose a match for each" }[inp.k]}</legend>`;
@@ -249,15 +342,13 @@ const inputHTML = (inp, n) => {
 
 function drawQ() {
   const g = q.g;
-  page(`<div class="top"><button class="l" data-back>${run.back === "home" ? "Home" : "Week " + g.w}</button><span>${esc(run.title)}${run.ids.length > 1 ? `, question ${run.i + 1} of ${run.ids.length}` : ""}</span></div>
-<p class="meta">Week ${g.w}. ${esc(g.name)}</p>
-<h1 class="stem">${esc(q.stem)}</h1>
+  page(head(`${from.n ? `Question ${from.n}` : esc(g.name)} <span>${SHUFFLED.includes(g.id) ? "with shuffled letters" : "with new numbers"}</span>`, `<a href="${backHref()}">${backText()}</a>`) + `
+<p class="stem">${esc(q.stem)}</p>
 ${figs(q.show)}
 ${q.formula ? `<p class="formula">${esc(q.formula)}</p>` : ""}
 <form id="f" novalidate>${q.inputs.map(inputHTML).join("")}
-<div class="acts"><button class="p" type="submit">Check answer</button><button type="button" data-hint>Show the quick method</button></div></form>
-<div id="hint" class="note" hidden><b>Quick method.</b> ${esc(g.rule)}</div>
-<div id="fb" class="fb" aria-live="polite" hidden></div>`, "h1");
+<div class="acts"><button class="p" type="submit">Check answer</button></div></form>
+<div id="fb" class="fb" aria-live="polite" hidden></div>`, true);
 }
 
 const parse = s => { s = String(s).replace(/[,\s]/g, "").replace("−", "-"); return s === "" || isNaN(s) ? null : Number(s); };
@@ -282,24 +373,22 @@ function check() {
       out.push(`${inp.cap ? esc(inp.cap) + ". " : ""}${bad ? bad + " of " + els.length + " boxes are wrong. " : ""}The ${inp.any ? "usual " : ""}answer is:${matHTML(inp.ans, "plain")}`);
     }
     if (inp.k === "fields") els.forEach(e => { const f = +e.dataset.f, v = parse(e.value), ok = v !== null && Math.abs(v - inp.ans[f]) <= (inp.tol || 0) + 1e-9; all = all && ok; mark(f, ok, show(inp.ans[f])); });
-    if (inp.k === "mc") { const pick = els.find(e => e.checked), ok = !!pick && +pick.value === inp.ans; all = all && ok; if (pick && !ok) mark(pick.value, false, "not this one"); const m = app.querySelector(`[data-m="${n}-${inp.ans}"]`); m.className = "good"; m.textContent = ok ? "Right" : "This is the right answer"; if (pick && !ok) app.querySelector(`[data-m="${n}-${pick.value}"]`).textContent = "Wrong"; }
+    if (inp.k === "mc") { const pick = els.find(e => e.checked), ok = !!pick && +pick.value === inp.ans; all = all && ok; const m = app.querySelector(`[data-m="${n}-${inp.ans}"]`); m.className = "good"; m.textContent = ok ? "Right" : "This is the right answer"; if (pick && !ok) { const p = app.querySelector(`[data-m="${n}-${pick.value}"]`); p.className = "poor"; p.textContent = "Wrong"; } }
     if (inp.k === "multi") els.forEach(e => { const k = +e.value, want = inp.ans[k], ok = e.checked === want; all = all && ok; const m = app.querySelector(`[data-m="${n}-${k}"]`); if (want) { m.className = "good"; m.textContent = e.checked ? "Right" : "This is a right answer"; } else if (e.checked) { m.className = "poor"; m.textContent = "Wrong"; } });
     if (inp.k === "match") els.forEach(e => { const f = +e.dataset.f, ok = e.value !== "" && +e.value === inp.ans[f]; all = all && ok; mark(f, ok, inp.opts[inp.ans[f]]); });
     els.forEach(e => e.disabled = true);
   });
   q.checked = true;
-  const t = st.t[q.g.id] || [0, 0]; t[1]++; if (all) t[0]++; st.t[q.g.id] = t; save();
-  if (all) run.right++;
-  const last = run.i === run.ids.length - 1, prompt = encodeURIComponent(aiPrompt());
-  const fb = $("#fb"); fb.hidden = false; $("#hint").hidden = true; app.querySelector("[type=submit]").hidden = true; app.querySelector("[data-hint]").hidden = true;
+  const prompt = encodeURIComponent(aiPrompt());
+  const fb = $("#fb"); fb.hidden = false; app.querySelector("[type=submit]").hidden = true;
   fb.innerHTML = `<p class="verdict ${all ? "good" : "poor"}">${all ? TICK + "Right" : CROSS + "Not right"}</p>
 ${out.map(o => `<div>${o}</div>`).join("")}
 ${q.steps.length ? `<h2>Working</h2><ol>${q.steps.map(s => `<li>${esc(s)}</li>`).join("")}</ol>` : ""}
-<p><span class="tag">Quick method.</span> ${esc(q.g.rule)}</p>
-<p><span class="tag">Watch for.</span> ${esc(q.g.trap)}</p>
-<div class="acts"><button class="p" data-next>${run.ids.length === 1 ? "Another like this" : last ? "See my score" : "Next question"}</button>${run.ids.length > 1 ? `<button data-again>Another like this</button>` : ""}</div>
+<p><b>Method.</b> ${esc(q.g.rule)}</p>
+<p><b>Trap.</b> ${esc(q.g.trap)}</p>
+<div class="acts"><button class="p" type="button" data-again>Another like this</button><a class="btn" href="${backHref()}">${backText()}</a></div>
 <p class="s">Still unclear? Ask an assistant about this question: <a href="https://claude.ai/new?q=${prompt}" target="_blank" rel="noopener">Claude</a> or <a href="https://chatgpt.com/?q=${prompt}" target="_blank" rel="noopener">ChatGPT</a>. Both open in a new tab with the question filled in.</p>`;
-  fb.querySelector("[data-next]").focus();
+  fb.querySelector("[data-again]").focus();
 }
 const aiPrompt = () => {
   const mats = (q.show || []).filter(s => s.m).map(s => (s.cap ? s.cap + " = " : "") + "[" + s.m.map(r => r.join(" ")).join("; ") + "]").join("\n");
@@ -307,37 +396,27 @@ const aiPrompt = () => {
   return `I am revising for a university image processing test. Coordinates are (row, column) from 1, and ".5 rounds upwards". Explain step by step how to answer this, and why the method works.\n\nQuestion: ${q.stem}\n${mats}\n${q.formula || ""}\nGiven answer: ${ans}`.slice(0, 1800);
 };
 
-function summary() {
-  page(`<div class="top"><button class="l" data-home>Home</button><span>${esc(run.title)}</span></div><h1>${esc(run.title)}: your score</h1>
-<p class="total">${run.right} right out of ${run.ids.length}</p>
-<h2>Question types to look at again</h2>` + (run.done.some(d => !d.ok) ? run.done.filter(d => !d.ok).map(d => `<section class="card"><h3>Week ${gen(d.id).w}. ${esc(gen(d.id).name)}</h3><p>${esc(gen(d.id).rule)}</p><div class="acts"><button data-one="${d.id}">Try one</button></div></section>`).join("") : `<p>None. Every answer was right.</p>`) +
-    `<div class="acts"><button class="p" data-home>Home</button><button data-mixed>Another mixed paper</button></div>`);
+/* ---------- routing ---------- */
+function route() {
+  const p = decodeURIComponent(location.hash).replace(/^#\/?/, "").split("/");
+  if (p[0] === "q" && WEEKS[p[1]]) quiz(+p[1], p[2]);
+  else if (p[0] === "rules") rules();
+  else if (p[0] === "try" && gen(p[1])) tryOne(p[1], p[2]);
+  else home();
 }
-
-const mixed = () => start(Object.keys(WEEKS).flatMap(w => shuffleA(GENS.filter(g => g.w == w)).slice(0, 2).map(g => g.id)), "Mixed paper", "home");
-const shuffleA = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
-
+addEventListener("hashchange", route);
 app.addEventListener("submit", e => { e.preventDefault(); check(); });
 app.addEventListener("click", e => {
   const b = e.target.closest("button"); if (!b) return; const d = b.dataset;
-  if ("home" in d) home();
-  else if ("rules" in d) rules();
-  else if ("print" in d) window.print();
-  else if (d.week) week(d.week);
-  else if (d.one) start([d.one], "Practising one question type", gen(d.one).w);
-  else if (d.weekrun) start(GENS.filter(g => g.w == d.weekrun).map(g => g.id), "Week " + d.weekrun, d.weekrun);
-  else if ("mixed" in d) mixed();
-  else if ("hint" in d) { $("#hint").hidden = false; b.hidden = true; }
-  else if ("back" in d) run.back === "home" ? home() : week(run.back);
-  else if ("again" in d) ask();
-  else if ("next" in d) {
-    if (run.ids.length === 1) return ask();
-    run.done.push({ id: q.g.id, ok: st.t[q.g.id] && q.checked && app.querySelector(".verdict").classList.contains("good") });
-    run.i++; run.i < run.ids.length ? ask() : summary();
+  if ("print" in d) window.print();
+  else if ("again" in d) ask(q.g.id);
+  else if ("themeToggle" in d) {
+    root.dataset.theme = root.dataset.theme === "dark" ? "light" : "dark";
+    try { localStorage.setItem("ip-sheet-theme", root.dataset.theme); } catch (err) {}
+    b.textContent = root.dataset.theme === "dark" ? "Light paper" : "Dark slide";
   }
-  else if ("reset" in d) { const dlg = document.createElement("dialog"); dlg.innerHTML = `<p>Clear every score on this device?</p><div class="acts"><button class="p" value="yes">Clear scores</button><button value="no">Keep them</button></div>`; document.body.append(dlg); dlg.addEventListener("click", ev => { const v = ev.target.value; if (!v) return; if (v === "yes") { st = { t: {} }; save(); } dlg.close(); dlg.remove(); home(); }); dlg.showModal(); }
 });
-home();
+route();
 </script>
 </body>
 </html>

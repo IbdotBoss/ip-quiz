@@ -1,0 +1,501 @@
+{
+ "quiz": 1,
+ "title": "Basic Image Representation",
+ "cards": [
+  {
+   "n": 1,
+   "kind": "Fill in the Blank",
+   "q": "For the image matrix shown below, the value of M is ___, the value of N is ___, and the pixel value at the origin is ___.",
+   "given": [
+    {
+     "cap": "",
+     "m": [
+      [
+       101,
+       152,
+       196
+      ],
+      [
+       102,
+       150,
+       124
+      ],
+      [
+       103,
+       155,
+       112
+      ],
+      [
+       104,
+       255,
+       190
+      ]
+     ]
+    }
+   ],
+   "opts": [],
+   "ans": "M = 4, N = 3, and the pixel value at the origin is 101.",
+   "pics": [],
+   "varies": "Only one attempt was captured, so this is not confirmed. Expect a different matrix size and different values in the test.",
+   "method": [
+    "Count the rows going down. That number is M.",
+    "Count the columns going across. That number is N.",
+    "The origin is coordinate (1,1), the top-left entry. Read that value."
+   ],
+   "check": "M × N must equal the number of entries in the matrix. Here 4 × 3 = 12 entries.",
+   "trap": "Swapping M and N. M is rows and comes first. A tall, narrow matrix has M larger than N.",
+   "example": {
+    "working": [
+     "4 rows, so M = 4.",
+     "3 columns, so N = 3.",
+     "The top-left entry is 101."
+    ],
+    "answer": "M = 4, N = 3, origin = 101"
+   },
+   "mine": "right",
+   "gen": "w1-dims",
+   "same": null,
+   "unsure": ""
+  },
+  {
+   "n": 2,
+   "kind": "Numeric",
+   "q": "In image processing, we use the (i,j) coordinate system. Given the image matrix below, what is the value of the pixel at coordinate (3,4)?",
+   "given": [
+    {
+     "cap": "",
+     "m": [
+      [
+       3,
+       2,
+       4,
+       3,
+       2
+      ],
+      [
+       5,
+       7,
+       9,
+       2,
+       3
+      ],
+      [
+       6,
+       0,
+       8,
+       1,
+       4
+      ],
+      [
+       7,
+       9,
+       5,
+       0,
+       5
+      ],
+      [
+       5,
+       7,
+       9,
+       2,
+       6
+      ]
+     ]
+    }
+   ],
+   "opts": [],
+   "ans": "1",
+   "pics": [],
+   "varies": "Only one attempt was captured, so this is not confirmed. Expect a different coordinate or matrix in the test.",
+   "method": [
+    "Read (i,j) as row i, then column j. Count from 1 at the top-left.",
+    "Go down to row i.",
+    "Go across that row to entry j. Read the value."
+   ],
+   "check": "Read the swapped coordinate (j,i) as well. If it gives a different value, make sure you entered the (i,j) one.",
+   "trap": "Reading (3,4) as (x,y), which means column 3, row 4. That gives 5 here, and the right answer is 1.",
+   "example": {
+    "working": [
+     "Row 3 is 6, 0, 8, 1, 4.",
+     "Entry 4 of that row is 1."
+    ],
+    "answer": "1"
+   },
+   "mine": "right",
+   "gen": "w1-pixel",
+   "same": null,
+   "unsure": ""
+  },
+  {
+   "n": 3,
+   "kind": "Matching",
+   "q": "Match the images to their image formats.",
+   "given": [],
+   "opts": [
+    "indexed",
+    "vector",
+    "RGB",
+    "greyscale",
+    "binary"
+   ],
+   "ans": "A is greyscale. B is indexed. C is vector. D is RGB. E is binary.",
+   "pics": [
+    "q1-anuA",
+    "q1-anuB",
+    "q1-anuC",
+    "q1-anuD",
+    "q1-anuE"
+   ],
+   "varies": "The five pictures look fixed. Canvas may change the order of the rows.",
+   "method": [
+    "Find the picture with only pure black and pure white. That is binary. Find the wire mesh of triangles. That is vector, because a vector image is made of points and lines.",
+    "Find the picture with smooth greys and no colour. That is greyscale.",
+    "Two colour pictures are left. Look at the background. Flat bands of colour mean indexed, because an indexed image has few colours. A smooth fade means RGB."
+   ],
+   "check": "Each format is used once. If one format is used twice, one of the two colour pictures is wrong.",
+   "trap": "Mixing up indexed and RGB. Both are colour. The banded background is the sign of indexed.",
+   "example": null,
+   "mine": "right",
+   "gen": "w1-formats",
+   "same": null,
+   "unsure": ""
+  },
+  {
+   "n": 4,
+   "kind": "Formula",
+   "q": "What is the total number of pixels in an image with 3 rows and 20 columns that has 4 colour channels?",
+   "given": [],
+   "opts": [],
+   "ans": "60",
+   "pics": [],
+   "varies": "The number of rows, the number of columns and the number of colour channels.",
+   "method": [
+    "Multiply rows by columns. Pixels = M × N.",
+    "Ignore the number of colour channels. Channels add values to each pixel. They do not add pixels."
+   ],
+   "check": "The answer must be M × N exactly, with no other number in it.",
+   "trap": "Multiplying by the channel count. 3 × 20 × 4 = 240 is wrong.",
+   "example": {
+    "working": [
+     "3 × 20 = 60 pixels.",
+     "Each pixel holds 4 values, but it is still one pixel."
+    ],
+    "answer": "60"
+   },
+   "mine": "right",
+   "gen": "w1-count",
+   "same": null,
+   "unsure": ""
+  },
+  {
+   "n": 5,
+   "kind": "Formula",
+   "q": "How many bytes of memory are needed to store an image with 323 rows and 429 columns in binary format? (note: consider pixel values only, ignoring any possible header/footer information). Formula: S_binary = ⌈MN ÷ 8⌉",
+   "given": [],
+   "opts": [],
+   "ans": "17,321 bytes",
+   "pics": [],
+   "varies": "The number of rows and the number of columns.",
+   "method": [
+    "A binary pixel needs 1 bit. Work out MN to get the number of bits.",
+    "Divide by 8 to change bits to bytes.",
+    "If the result is not a whole number, round it up to the next whole number. The ⌈ ⌉ brackets mean round up."
+   ],
+   "check": "Multiply the answer by 8. It must be equal to MN or up to 7 more than MN.",
+   "trap": "Rounding to the nearest whole number. A part of a byte still needs a whole byte, so 17,320.125 would also become 17,321.",
+   "example": {
+    "working": [
+     "323 × 429 = 138,567 bits.",
+     "138,567 ÷ 8 = 17,320.875.",
+     "Round up to 17,321."
+    ],
+    "answer": "17,321"
+   },
+   "mine": "right",
+   "gen": "w1-bytes",
+   "same": null,
+   "unsure": ""
+  },
+  {
+   "n": 6,
+   "kind": "Formula",
+   "q": "How many bytes of memory are needed to store an image with 605 rows and 348 columns that contains 87 unique shades of grey in 8-bit greyscale format? (note: consider pixel values only, ignoring any possible header/footer information). Formula: S_greyscale = MN",
+   "given": [],
+   "opts": [],
+   "ans": "210,540 bytes",
+   "pics": [],
+   "varies": "The number of rows, the number of columns and the number of unique shades of grey.",
+   "method": [
+    "An 8-bit greyscale pixel needs 1 byte. Bytes = M × N.",
+    "Ignore the number of unique shades. Every pixel takes 1 byte, whatever its value."
+   ],
+   "check": "The answer is 8 times the binary size for the same M and N.",
+   "trap": "Using the 87 shades in the sum. The number of shades is extra information that the formula does not use.",
+   "example": {
+    "working": [
+     "605 × 348 = 210,540."
+    ],
+    "answer": "210,540"
+   },
+   "mine": "right",
+   "gen": "w1-bytes",
+   "same": 5,
+   "unsure": ""
+  },
+  {
+   "n": 7,
+   "kind": "Formula",
+   "q": "How many bytes of memory are needed to store an RGB image with 210 rows and 145 columns that has 13 unique colours in RGB colour format? (note: consider pixel values only, ignoring any other possible header/footer information). Formula: S_rgb = 3MN",
+   "given": [],
+   "opts": [],
+   "ans": "91,350 bytes",
+   "pics": [],
+   "varies": "The number of rows, the number of columns and the number of unique colours.",
+   "method": [
+    "An RGB pixel needs 3 bytes, one each for red, green and blue. Bytes = 3 × M × N.",
+    "Ignore the number of unique colours. RGB format has no colour table."
+   ],
+   "check": "The answer divides exactly by 3, and answer ÷ 3 = MN.",
+   "trap": "Using the indexed formula MN + 3C because the question gives a colour count. The format named in the question decides the formula. Here it says RGB colour format.",
+   "example": {
+    "working": [
+     "210 × 145 = 30,450 pixels.",
+     "3 × 30,450 = 91,350."
+    ],
+    "answer": "91,350"
+   },
+   "mine": "right",
+   "gen": "w1-bytes",
+   "same": 5,
+   "unsure": ""
+  },
+  {
+   "n": 8,
+   "kind": "Formula",
+   "q": "How many bytes of memory are needed to store an image with 248 colours that has 504 rows and 312 columns in indexed colour format? (note: consider pixel values and the CLUT only, ignoring any other possible header/footer information). Formula: S_indexed = MN + 3C",
+   "given": [],
+   "opts": [],
+   "ans": "157,992 bytes",
+   "pics": [],
+   "varies": "The number of colours, the number of rows and the number of columns.",
+   "method": [
+    "Each pixel stores one index, which takes 1 byte. That part is M × N.",
+    "The colour look-up table (CLUT) stores C colours at 3 bytes each. That part is 3 × C.",
+    "Add the two parts."
+   ],
+   "check": "The answer is a little more than MN and much less than 3MN.",
+   "trap": "Leaving out the table, or multiplying MN by 3. Only the table entries take 3 bytes each. This is the one format where the colour count matters.",
+   "example": {
+    "working": [
+     "504 × 312 = 157,248.",
+     "3 × 248 = 744.",
+     "157,248 + 744 = 157,992."
+    ],
+    "answer": "157,992"
+   },
+   "mine": "right",
+   "gen": "w1-bytes",
+   "same": null,
+   "unsure": ""
+  },
+  {
+   "n": 9,
+   "kind": "Formula",
+   "q": "How many different shades of grey are possible (v) in a greyscale image that uses 17 bits-per-pixel (t)? Formula: v = 2^t",
+   "given": [],
+   "opts": [],
+   "ans": "131,072",
+   "pics": [],
+   "varies": "The number of bits-per-pixel, t.",
+   "method": [
+    "Each extra bit doubles the number of shades. Work out 2 to the power t."
+   ],
+   "check": "The answer is an even number. 2¹⁰ = 1,024 is a useful anchor: 2¹⁷ = 1,024 × 128.",
+   "trap": "Subtracting 1. The number of shades is 2^t. The largest value is 2^t − 1.",
+   "example": {
+    "working": [
+     "2¹⁷ = 131,072."
+    ],
+    "answer": "131,072"
+   },
+   "mine": "right",
+   "gen": "w1-bits",
+   "same": null,
+   "unsure": ""
+  },
+  {
+   "n": 10,
+   "kind": "Formula",
+   "q": "What is the maximum possible pixel value (v_max) in a greyscale image that uses 24 bits-per-pixel (t)? Formula: v_max = 2^t − 1",
+   "given": [],
+   "opts": [],
+   "ans": "16,777,215",
+   "pics": [],
+   "varies": "The number of bits-per-pixel, t.",
+   "method": [
+    "Work out 2 to the power t, as in card 9.",
+    "Subtract 1, because pixel values start at 0."
+   ],
+   "check": "The answer is an odd number. For t = 8 the same rule gives 255.",
+   "trap": "Giving 2^t. That is the number of shades, which is one more than the largest value.",
+   "example": {
+    "working": [
+     "2²⁴ = 16,777,216.",
+     "16,777,216 − 1 = 16,777,215."
+    ],
+    "answer": "16,777,215"
+   },
+   "mine": "right",
+   "gen": "w1-bits",
+   "same": 9,
+   "unsure": ""
+  },
+  {
+   "n": 11,
+   "kind": "Formula",
+   "q": "What is the minimum number of bits-per-pixel (t) that would be needed to store a greyscale medical image of size 530 × 716 pixels that needs to be able to represent up to 20825 shades of grey (v)? Formula: t = ⌈log₂(v)⌉, such that log₂(x) = log_a(x) ÷ log_a(2), e.g., log₂(x) = log₁₀(x) ÷ log₁₀(2) = ln(x) ÷ ln(2)",
+   "given": [],
+   "opts": [],
+   "ans": "15 bits-per-pixel",
+   "pics": [],
+   "varies": "The image size and the number of shades of grey, v.",
+   "method": [
+    "Ignore the image size. Only the number of shades v matters.",
+    "On the calculator, work out log(v) ÷ log(2).",
+    "Round the result up to the next whole number."
+   ],
+   "check": "2^t must be at least v, and 2^(t−1) must be less than v. Here 2¹⁵ = 32,768 is enough and 2¹⁴ = 16,384 is not.",
+   "trap": "Rounding 14.35 to the nearest whole number, which gives 14. With 14 bits there are only 16,384 shades. Always round up.",
+   "example": {
+    "working": [
+     "log(20825) ÷ log(2) = 14.346.",
+     "Round up to 15.",
+     "Check: 2¹⁴ = 16,384 < 20,825 ≤ 32,768 = 2¹⁵."
+    ],
+    "answer": "15"
+   },
+   "mine": "right",
+   "gen": "w1-bits",
+   "same": null,
+   "unsure": ""
+  },
+  {
+   "n": 12,
+   "kind": "Formula",
+   "q": "How many different binary images of size 7 × 3 pixels are possible? Formula: kⁿ",
+   "given": [],
+   "opts": [],
+   "ans": "2,097,152",
+   "pics": [],
+   "varies": "The image size.",
+   "method": [
+    "k is the number of values one pixel can take. For binary, k = 2.",
+    "n is the number of pixels. n = M × N.",
+    "Work out k to the power n."
+   ],
+   "check": "The answer is a power of 2. Halve it n times and you reach 1.",
+   "trap": "Using M or N alone as the power, or multiplying k by n. The power is the full pixel count M × N.",
+   "example": {
+    "working": [
+     "k = 2.",
+     "n = 7 × 3 = 21.",
+     "2²¹ = 2,097,152."
+    ],
+    "answer": "2,097,152"
+   },
+   "mine": "right",
+   "gen": "w1-images",
+   "same": null,
+   "unsure": ""
+  },
+  {
+   "n": 13,
+   "kind": "Formula",
+   "q": "How many different 8-bit greyscale images of size 2 × 2 pixels are possible? Formula: kⁿ",
+   "given": [],
+   "opts": [],
+   "ans": "4,294,967,296",
+   "pics": [],
+   "varies": "The image size.",
+   "method": [
+    "Same method as card 12. The only change is k.",
+    "An 8-bit pixel can take 2⁸ = 256 values, so k = 256."
+   ],
+   "check": "256⁴ = 2³². Type the full number with no rounding. A calculator that shows 4.294967296 × 10⁹ still gives every digit.",
+   "trap": "Using k = 8 or k = 255. An 8-bit pixel has 256 possible values, 0 to 255.",
+   "example": {
+    "working": [
+     "k = 256.",
+     "n = 2 × 2 = 4.",
+     "256⁴ = 4,294,967,296."
+    ],
+    "answer": "4,294,967,296"
+   },
+   "mine": "right",
+   "gen": "w1-images",
+   "same": 12,
+   "unsure": ""
+  },
+  {
+   "n": 14,
+   "kind": "Numeric",
+   "q": "How many different RGB images of size 1 × 1 pixel are possible?",
+   "given": [],
+   "opts": [],
+   "ans": "16,777,216",
+   "pics": [],
+   "varies": "Only one attempt was captured, so this is not confirmed. The question type is Numeric, not Formula, so the size may stay 1 × 1.",
+   "method": [
+    "Same method as card 12. The only change is k.",
+    "An RGB pixel has three 8-bit channels. Each channel has 256 values, so k = 256 × 256 × 256 = 16,777,216.",
+    "A 1 × 1 image has n = 1, so the answer is k itself."
+   ],
+   "check": "The answer is 2²⁴, which is one more than the largest 24-bit value in card 10.",
+   "trap": "Answering 256 or 3 × 256 = 768. The three channels multiply, because every red value can go with every green value and every blue value.",
+   "example": {
+    "working": [
+     "k = 256³ = 16,777,216.",
+     "n = 1 × 1 = 1.",
+     "16,777,216¹ = 16,777,216."
+    ],
+    "answer": "16,777,216"
+   },
+   "mine": "right",
+   "gen": "w1-images",
+   "same": 12,
+   "unsure": ""
+  },
+  {
+   "n": 15,
+   "kind": "Matching",
+   "q": "The RGB colourspace mixes the red, green and blue primary colours of light in different proportions to produce a range of other colours (called the gamut of the colourspace). It is usually represented as cubic coordinate system. Match the RGB triplets to the corresponding colours.",
+   "given": [],
+   "opts": [
+    "red",
+    "green",
+    "white",
+    "yellow",
+    "cyan",
+    "grey",
+    "blue",
+    "magenta",
+    "black"
+   ],
+   "ans": "(255,0,0) is red. (0,255,0) is green. (0,0,255) is blue. (255,255,0) is yellow. (0,255,255) is cyan. (255,0,255) is magenta. (255,255,255) is white. (128,128,128) is grey. (0,0,0) is black.",
+   "pics": [],
+   "varies": "The nine triplets look fixed. Canvas may change the order of the rows.",
+   "method": [
+    "The triplet order is (red, green, blue). One channel at 255 and the others at 0 gives that primary colour.",
+    "Two channels at 255 give a secondary colour. Red + green is yellow. Green + blue is cyan. Red + blue is magenta.",
+    "Three equal channels give a grey. All 0 is black, all 255 is white, and all 128 is mid grey."
+   ],
+   "check": "Each secondary colour is missing one channel. Yellow has no blue. Cyan has no red. Magenta has no green.",
+   "trap": "Thinking of paint. In light, red + green makes yellow. Red + blue makes magenta, not purple or yellow.",
+   "example": null,
+   "mine": "right",
+   "gen": "w1-rgb",
+   "same": null,
+   "unsure": ""
+  }
+ ]
+}

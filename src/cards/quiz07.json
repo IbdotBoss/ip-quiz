@@ -1,0 +1,604 @@
+{
+ "quiz": 7,
+ "title": "Non-linear Filters",
+ "cards": [
+  {
+   "given": [],
+   "opts": [
+    "uniform",
+    "gaussian",
+    "spike (impulse)",
+    "bloody loud",
+    "pink"
+   ],
+   "pics": [],
+   "varies": "",
+   "check": "",
+   "example": null,
+   "mine": "right",
+   "gen": "w7-facts",
+   "same": null,
+   "unsure": "",
+   "n": 1,
+   "kind": "Multiple choice",
+   "q": "Non-linear filters are commonly used to remove which class of noise?",
+   "ans": "spike (impulse)",
+   "method": [
+    "Spike noise is a few pixels that are far from their neighbours: salt at 255 and pepper at 0.",
+    "A rank filter sorts the window and picks one value by position. The spike sits at the end of the sorted list, so it is never picked.",
+    "Gaussian is the tempting wrong option. Gaussian noise changes every pixel a little, so there is no single bad value to throw away. Linear blur filters (mean, Gaussian) are the usual tool for it."
+   ],
+   "trap": "Choosing gaussian because the word is familiar. Spike, impulse, and salt and pepper all name the same noise."
+  },
+  {
+   "given": [],
+   "opts": [
+    "rank",
+    "randon",
+    "radon",
+    "raw",
+    "raclette"
+   ],
+   "pics": [],
+   "varies": "",
+   "check": "",
+   "example": null,
+   "mine": "right",
+   "gen": "w7-facts",
+   "same": null,
+   "unsure": "",
+   "n": 2,
+   "kind": "Multiple choice",
+   "q": "The min, max and median filters are collectively known as what kind of filter?",
+   "ans": "rank",
+   "method": [
+    "All three sort the pixels in the window and pick by rank. Min picks the lowest rank, max the highest rank, median the middle rank.",
+    "Radon is a real transform used in CT scanning. It has nothing to do with sorting a window."
+   ],
+   "trap": "Picking radon because it sounds technical."
+  },
+  {
+   "given": [],
+   "opts": [],
+   "pics": [],
+   "varies": "",
+   "check": "Salt on food is white and pepper is black.",
+   "example": null,
+   "mine": "right",
+   "gen": "w7-facts",
+   "same": null,
+   "unsure": "",
+   "n": 3,
+   "kind": "Fill in the Blank",
+   "q": "In an 8-bit greyscale image, salt noise pixels tend towards a limit of ____ and pepper noise pixels tend towards a limit of ____.",
+   "ans": "Salt: 255. Pepper: 0.",
+   "method": [
+    "Salt is white, so it is the largest 8-bit value, 255.",
+    "Pepper is black, so it is the smallest value, 0."
+   ],
+   "trap": "Writing 256 for salt. The largest 8-bit value is 2⁸ − 1 = 255."
+  },
+  {
+   "given": [],
+   "opts": [
+    "Only apply the filter window where it fully fits in the input image, making the output image smaller.",
+    "Duplicate rows and columns at the border of the image to ensure that the filter window has a full complement of inputs.",
+    "Pad with zeros around the border of the input image to ensure that the filter window has a full complement of inputs.",
+    "Duplicate pixels from the opposite side of the input image to ensure that the filter window has a full complement of inputs.",
+    "Duplicate rows and columns around the outside of the input image by mirroring to ensure that the filter window has a full complement of inputs.",
+    "Truncate the window, adjusting the calculation so that it considers only values that are inside the image boundary."
+   ],
+   "pics": [],
+   "varies": "",
+   "check": "Each ticked option leaves the pixels inside the image unchanged before filtering.",
+   "example": null,
+   "mine": "right",
+   "gen": "w7-border",
+   "same": null,
+   "unsure": "",
+   "n": 4,
+   "kind": "Multiple answer",
+   "q": "Which of the following are possible ways of dealing with the image boundary when applying a sliding window operation, such as a nonlinear filter?",
+   "ans": "All six options are correct: only where the window fully fits (smaller output), duplicate the border rows and columns, pad with zeros, copy from the opposite side (wrap around), mirror, and truncate the window.",
+   "method": [
+    "A window that hangs over the edge has missing inputs. Every option here is a rule that fills the gap or avoids it.",
+    "Tick an option if it does one of three things: makes the output smaller, invents border pixels (zeros, copies, mirror, wrap), or shrinks the window.",
+    "In this attempt all six were correct, so every box was ticked."
+   ],
+   "trap": "Leaving one out because it sounds strange, such as copying from the opposite side. Wrap-around is a real method."
+  },
+  {
+   "given": [
+    {
+     "cap": "L",
+     "m": [
+      [
+       84,
+       134,
+       172,
+       111
+      ],
+      [
+       31,
+       30,
+       213,
+       40
+      ],
+      [
+       84,
+       236,
+       187,
+       146
+      ],
+      [
+       36,
+       163,
+       117,
+       128
+      ]
+     ]
+    }
+   ],
+   "opts": [],
+   "pics": [],
+   "varies": "The pixel values change on each attempt.",
+   "check": "The answer must be one of the nine numbers in the window. No calculation is needed.",
+   "example": {
+    "working": [
+     "Window: 84 134 172 / 31 30 213 / 84 236 187.",
+     "Smallest value = 30."
+    ],
+    "answer": "30"
+   },
+   "mine": "right",
+   "gen": "w7-rank",
+   "same": null,
+   "unsure": "",
+   "n": 5,
+   "kind": "Formula",
+   "q": "For the following 8-bit greyscale image matrix, calculate the output produced if a 3×3 min filter were applied to a window, w, centred at coordinate (2,2).",
+   "ans": "30",
+   "method": [
+    "(2,2) means row 2, column 2. The 3×3 window covers rows 1 to 3 and columns 1 to 3.",
+    "Cross out row 4 and column 4. They are outside the window.",
+    "Min filter: the answer is the smallest of the nine pixels left."
+   ],
+   "trap": "Using all 16 pixels. A smaller value in row 4 or column 4 does not count."
+  },
+  {
+   "given": [
+    {
+     "cap": "L",
+     "m": [
+      [
+       13,
+       72,
+       223,
+       146
+      ],
+      [
+       112,
+       21,
+       75,
+       4
+      ],
+      [
+       5,
+       79,
+       73,
+       43
+      ],
+      [
+       138,
+       118,
+       182,
+       24
+      ]
+     ]
+    }
+   ],
+   "opts": [],
+   "pics": [],
+   "varies": "The pixel values change on each attempt.",
+   "check": "The answer must be one of the nine numbers in the window.",
+   "example": {
+    "working": [
+     "Window: 13 72 223 / 112 21 75 / 5 79 73.",
+     "Largest value = 223."
+    ],
+    "answer": "223"
+   },
+   "mine": "right",
+   "gen": "w7-rank",
+   "same": 5,
+   "unsure": "",
+   "n": 6,
+   "kind": "Formula",
+   "q": "For the following 8-bit greyscale image matrix, calculate the output produced if a 3×3 max filter were applied to a window, w, centred at coordinate (2,2).",
+   "ans": "223",
+   "method": [
+    "Same window as card 5: rows 1 to 3, columns 1 to 3.",
+    "Max filter: the answer is the largest of the nine pixels."
+   ],
+   "trap": "Taking a larger value from row 4 or column 4, which are outside the window."
+  },
+  {
+   "given": [
+    {
+     "cap": "L",
+     "m": [
+      [
+       83,
+       212,
+       172,
+       108
+      ],
+      [
+       28,
+       133,
+       80,
+       106
+      ],
+      [
+       194,
+       228,
+       147,
+       246
+      ],
+      [
+       163,
+       26,
+       227,
+       111
+      ]
+     ]
+    }
+   ],
+   "opts": [],
+   "pics": [],
+   "varies": "The pixel values change on each attempt.",
+   "check": "Four numbers in the window are smaller than the answer and four are larger.",
+   "example": {
+    "working": [
+     "Window: 83 212 172 / 28 133 80 / 194 228 147.",
+     "Sorted: 28, 80, 83, 133, 147, 172, 194, 212, 228.",
+     "Fifth value = 147."
+    ],
+    "answer": "147"
+   },
+   "mine": "right",
+   "gen": "w7-rank",
+   "same": 5,
+   "unsure": "",
+   "n": 7,
+   "kind": "Formula",
+   "q": "For the following 8-bit greyscale image matrix, calculate the output produced if a 3×3 median filter were applied to a window, w, centred at coordinate (2,2). Formula: the median is the value at position (n+1)/2 of the sorted list if mod(n,2) = 1, otherwise ½ × (value at position n/2 + value at position n/2 + 1).",
+   "ans": "147",
+   "method": [
+    "Same window as card 5: rows 1 to 3, columns 1 to 3.",
+    "Write the nine pixels in order from low to high.",
+    "n = 9 is odd, so the median is at position (9+1)/2 = 5. Take the fifth number."
+   ],
+   "trap": "Taking the centre pixel of the window (133 here) without sorting. The median is the middle of the sorted list, not the middle of the window."
+  },
+  {
+   "given": [
+    {
+     "cap": "L",
+     "m": [
+      [
+       97,
+       32,
+       54,
+       152
+      ],
+      [
+       195,
+       177,
+       21,
+       117
+      ],
+      [
+       198,
+       184,
+       187,
+       208
+      ],
+      [
+       237,
+       174,
+       10,
+       111
+      ]
+     ]
+    }
+   ],
+   "opts": [],
+   "pics": [],
+   "varies": "The pixel values change on each attempt.",
+   "check": "The answer sits exactly half way between the smallest and the largest window value.",
+   "example": {
+    "working": [
+     "Window: 97 32 54 / 195 177 21 / 198 184 187.",
+     "min = 21, max = 198.",
+     "(198 + 21) ÷ 2 = 109.5, which rounds up to 110."
+    ],
+    "answer": "110"
+   },
+   "mine": "right",
+   "gen": "w7-rank",
+   "same": 5,
+   "unsure": "",
+   "n": 8,
+   "kind": "Formula",
+   "q": "For the following 8-bit greyscale image matrix, calculate the output produced if a 3×3 midpoint filter were applied to a window, w, centred at coordinate (2,2). Round any answer ∈ ℝ/ℕ to be ∈ ℕ, and round .5 upwards. Formula: midpoint(w) = ⌊(max(w) + min(w)) ÷ 2⌉",
+   "ans": "110",
+   "method": [
+    "Same window as card 5: rows 1 to 3, columns 1 to 3.",
+    "Find the smallest and the largest pixel in the window.",
+    "Add them and divide by 2. If the result ends in .5, round it up."
+   ],
+   "trap": "Using the median or the mean of all nine. Midpoint uses only two pixels, the min and the max. Also 109.5 becomes 110, not 109."
+  },
+  {
+   "given": [],
+   "opts": [
+    "discontinuities",
+    "uniform areas",
+    "bright colours",
+    "saturated colours"
+   ],
+   "pics": [],
+   "varies": "",
+   "check": "",
+   "example": null,
+   "mine": "right",
+   "gen": "w7-facts",
+   "same": null,
+   "unsure": "",
+   "n": 9,
+   "kind": "Multiple choice",
+   "q": "What does the nonlinear range filter highlight on an image?",
+   "ans": "discontinuities",
+   "method": [
+    "Range = max − min of the window. A window that holds both dark and bright pixels gives a large output. That happens at an edge.",
+    "A uniform area gives max = min, so the output is 0. Uniform areas come out black, so that option is the opposite of the answer.",
+    "Discontinuity is another word for edge or sudden change."
+   ],
+   "trap": "Choosing bright colours. A bright flat area has range 0 and comes out black."
+  },
+  {
+   "given": [
+    {
+     "cap": "L",
+     "m": [
+      [
+       133,
+       127,
+       194,
+       176
+      ],
+      [
+       6,
+       152,
+       192,
+       128
+      ],
+      [
+       20,
+       149,
+       28,
+       62
+      ],
+      [
+       50,
+       62,
+       67,
+       180
+      ]
+     ]
+    }
+   ],
+   "opts": [],
+   "pics": [],
+   "varies": "The pixel values change on each attempt.",
+   "check": "The answer is between 0 and 255 and is never negative.",
+   "example": {
+    "working": [
+     "Window: 133 127 194 / 6 152 192 / 20 149 28.",
+     "max = 194, min = 6.",
+     "194 − 6 = 188."
+    ],
+    "answer": "188"
+   },
+   "mine": "right",
+   "gen": "w7-rank",
+   "same": 5,
+   "unsure": "",
+   "n": 10,
+   "kind": "Formula",
+   "q": "For the following 8-bit greyscale image matrix, calculate the output produced if a 3×3 range filter were applied to a window, w, centred at coordinate (2,2).",
+   "ans": "188",
+   "method": [
+    "Same window as card 5: rows 1 to 3, columns 1 to 3.",
+    "Find the largest and the smallest pixel in the window.",
+    "Range = largest − smallest."
+   ],
+   "trap": "Mixing range up with midpoint. Range subtracts. Midpoint adds and halves."
+  },
+  {
+   "given": [],
+   "opts": [
+    "binary",
+    "greyscale",
+    "RGB colour",
+    "indexed colour",
+    "vector"
+   ],
+   "pics": [],
+   "varies": "",
+   "check": "",
+   "example": null,
+   "mine": "right",
+   "gen": "w7-facts",
+   "same": null,
+   "unsure": "",
+   "n": 11,
+   "kind": "Multiple choice",
+   "q": "The majority filter is typically applied to what type of image?",
+   "ans": "binary",
+   "method": [
+    "The majority filter outputs the most common value in the window (the mode).",
+    "A binary image has only two values, so a 3×3 window always has a clear winner.",
+    "In a greyscale window the nine values are often all different, so there is no useful most common value."
+   ],
+   "trap": "Choosing greyscale because the other rank filters in this quiz use greyscale images."
+  },
+  {
+   "given": [
+    {
+     "cap": "L",
+     "m": [
+      [
+       0,
+       0,
+       1,
+       1
+      ],
+      [
+       0,
+       0,
+       1,
+       0
+      ],
+      [
+       1,
+       1,
+       0,
+       1
+      ],
+      [
+       1,
+       0,
+       0,
+       0
+      ]
+     ]
+    }
+   ],
+   "opts": [],
+   "pics": [],
+   "varies": "The pixel values change on each attempt.",
+   "check": "Ones plus zeros must add up to 9. Nine cells cannot tie.",
+   "example": {
+    "working": [
+     "Window: 0 0 1 / 0 0 1 / 1 1 0.",
+     "Four ones and five zeros.",
+     "Zeros are the majority, so the output is 0."
+    ],
+    "answer": "0"
+   },
+   "mine": "right",
+   "gen": "w7-majority",
+   "same": null,
+   "unsure": "",
+   "n": 12,
+   "kind": "Formula",
+   "q": "For the following binary image matrix, calculate the output produced if a 3×3 majority filter were applied centred at coordinate (2,2).",
+   "ans": "0",
+   "method": [
+    "The window covers rows 1 to 3 and columns 1 to 3. Cross out row 4 and column 4.",
+    "Count the ones in the nine cells.",
+    "Five or more ones gives 1. Four or fewer gives 0."
+   ],
+   "trap": "Counting ones over the whole 4×4 matrix, or answering with the centre pixel."
+  },
+  {
+   "given": [],
+   "opts": [
+    "Midpoint",
+    "Min Filter",
+    "Max Filter",
+    "Median Filter"
+   ],
+   "pics": [
+    "q7-xRayThumbsUp",
+    "q7-xGaussian",
+    "q7-xSalt",
+    "q7-xPepper",
+    "q7-xSaltPepper"
+   ],
+   "varies": "",
+   "check": "The filter name is the opposite of the speck colour: white specks need min, black specks need max.",
+   "example": null,
+   "mine": "right",
+   "gen": "w7-noise",
+   "same": null,
+   "unsure": "The capture shows only the correct matches. Any extra options in the drop-down list are not visible.",
+   "n": 13,
+   "kind": "Matching",
+   "q": "For each image A-D, identify the simplest nonlinear filter that will reduce/remove the noise.",
+   "ans": "A (Gaussian grain all over) → Midpoint. B (white specks, salt) → Min Filter. C (black specks, pepper) → Max Filter. D (white and black specks) → Median Filter.",
+   "method": [
+    "Name the noise first. Fine grain over the whole picture is Gaussian. White specks are salt. Black specks are pepper. Both together are salt and pepper.",
+    "Salt is the brightest value in its window, so the min filter never picks it. Pepper is the darkest value, so the max filter never picks it.",
+    "With both kinds present, min would keep the pepper and max would keep the salt. The median drops both ends.",
+    "Gaussian noise has no extreme specks to drop. Midpoint averages the min and the max, which smooths the grain."
+   ],
+   "trap": "Pairing salt with max and pepper with min. Also look for pepper on the bright bones. Black specks do not show on the black background, so picture C can look clean at first."
+  },
+  {
+   "given": [],
+   "opts": [
+    "A filter that adapts to the particular content of the image to be processed by taking some global measurements (e.g, min and max)",
+    "A filter that adapts to the particular content of the image to be processed by taking some local measurements at each window position (e.g, min, max, or range)",
+    "A filter who's output is a linear combination of the original pixel values at each window position",
+    "A filter who's output is the result of some nonlinear numerical process applied to the pixels of the original image at each window position",
+    "A filter that exploits data from an image's normalised count histogram"
+   ],
+   "pics": [],
+   "varies": "",
+   "check": "",
+   "example": null,
+   "mine": "right",
+   "gen": "w7-facts",
+   "same": null,
+   "unsure": "",
+   "n": 14,
+   "kind": "Multiple choice",
+   "q": "Which is the most accurate description of an adaptive filter?",
+   "ans": "A filter that adapts to the particular content of the image to be processed by taking some local measurements at each window position (e.g, min, max, or range)",
+   "method": [
+    "Adaptive means the filter changes its behaviour from place to place. To do that it must measure the pixels in each window, so the key word is local.",
+    "The first option is the same sentence with global in place of local. A global measurement is one number for the whole image, so the filter would act the same everywhere.",
+    "The third option describes any linear filter. The fourth describes any non-linear filter. Neither says the filter adapts."
+   ],
+   "trap": "Picking the global option. The two sentences differ by one word, so read to the end."
+  },
+  {
+   "given": [],
+   "opts": [
+    "morphological erosion",
+    "morphological dilation"
+   ],
+   "pics": [],
+   "varies": "",
+   "check": "Min makes white shapes smaller. Max makes white shapes larger.",
+   "example": null,
+   "mine": "right",
+   "gen": "w7-facts",
+   "same": null,
+   "unsure": "The capture shows only the correct matches. Any extra options in the drop-down list are not visible.",
+   "n": 15,
+   "kind": "Matching",
+   "q": "The min and max nonlinear filters have counterparts in morphological operators if we consider the nonlinear filter window to be the size and shape of the morphological structuring element. Which is which? (hint: think about what would happen to a white circle on a black background).",
+   "ans": "min filter → morphological erosion. max filter → morphological dilation.",
+   "method": [
+    "Use the hint. Take a white circle (255) on a black background (0).",
+    "Min filter: any window that touches the background outputs 0. The circle loses its rim and shrinks. Shrinking is erosion.",
+    "Max filter: any window that touches the circle outputs 255. The circle gains a rim and grows. Growing is dilation."
+   ],
+   "trap": "Swapping them. Min lowers values, so white objects shrink."
+  }
+ ]
+}

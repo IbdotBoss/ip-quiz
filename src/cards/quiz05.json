@@ -1,0 +1,1533 @@
+{
+ "quiz": 5,
+ "title": "Morphological Operators",
+ "cards": [
+  {
+   "n": 1,
+   "kind": "Fill in the Blank",
+   "q": "Given the set below: A = {(1,2),(2,3),(1,3),(4,1),(3,3),(3,4)}. Provide the corresponding binary image:",
+   "given": [],
+   "opts": [],
+   "ans": "A 4 × 4 image with 1 at (1,2), (1,3), (2,3), (3,3), (3,4) and (4,1). Every other pixel is 0. Rows: 0 1 1 0, then 0 0 1 0, then 0 0 1 1, then 1 0 0 0.",
+   "pics": [],
+   "varies": "The coordinates in the set.",
+   "method": [
+    "Each pair is (row, column), counted from 1 at the top-left.",
+    "Start with a grid of zeros. For each pair, go down to row i, then across to column j, and write 1.",
+    "Tick each pair in the set as you place it."
+   ],
+   "check": "Count the ones in the grid. The count must equal the number of pairs in the set. Here both are 6.",
+   "trap": "Reading the pair as (x, y). (4,1) is row 4, column 1, which is the bottom-left corner. It is not the top-right.",
+   "example": {
+    "working": [
+     "(1,2) and (1,3): row 1 becomes 0 1 1 0.",
+     "(2,3): row 2 becomes 0 0 1 0.",
+     "(3,3) and (3,4): row 3 becomes 0 0 1 1.",
+     "(4,1): row 4 becomes 1 0 0 0.",
+     "6 ones for 6 pairs."
+    ],
+    "answer": "See the matrix.",
+    "m": [
+     [
+      0,
+      1,
+      1,
+      0
+     ],
+     [
+      0,
+      0,
+      1,
+      0
+     ],
+     [
+      0,
+      0,
+      1,
+      1
+     ],
+     [
+      1,
+      0,
+      0,
+      0
+     ]
+    ]
+   },
+   "mine": "right",
+   "gen": "w5-set",
+   "same": null,
+   "unsure": ""
+  },
+  {
+   "n": 2,
+   "kind": "Fill in the Blank",
+   "q": "For the two binary matrices corresponding to two sets A and B, below, provide the information requested. Assume a finite universe of discourse ξ, in which M = N = 3. The cardinality of A, denoted |A|, is ___. The cardinality of B, denoted |B|, is ___. The minimum possible cardinality of a set in ξ is ___. The maximum possible cardinality of a set in ξ is ___.",
+   "given": [
+    {
+     "cap": "A",
+     "m": [
+      [
+       0,
+       1,
+       0
+      ],
+      [
+       1,
+       0,
+       1
+      ],
+      [
+       0,
+       1,
+       0
+      ]
+     ]
+    },
+    {
+     "cap": "B",
+     "m": [
+      [
+       0,
+       1,
+       1
+      ],
+      [
+       0,
+       1,
+       0
+      ],
+      [
+       1,
+       1,
+       0
+      ]
+     ]
+    }
+   ],
+   "opts": [],
+   "ans": "|A| = 4. |B| = 5. Minimum possible cardinality = 0. Maximum possible cardinality = 9.",
+   "pics": [],
+   "varies": "The matrices A and B, and possibly M and N.",
+   "method": [
+    "Cardinality is the number of members of the set. For a binary image that is the number of ones.",
+    "Count the ones in A, then the ones in B.",
+    "The minimum is 0, because the empty set (an image of all zeros) is allowed.",
+    "The maximum is M × N, because the largest set is the whole universe (an image of all ones)."
+   ],
+   "check": "Each cardinality must be between 0 and M × N.",
+   "trap": "Answering 1 for the minimum. The empty set has cardinality 0.",
+   "example": {
+    "working": [
+     "A has ones at (1,2), (2,1), (2,3), (3,2). |A| = 4.",
+     "B has ones at (1,2), (1,3), (2,2), (3,1), (3,2). |B| = 5.",
+     "Minimum = 0. Maximum = 3 × 3 = 9."
+    ],
+    "answer": "4, 5, 0, 9"
+   },
+   "mine": "right",
+   "gen": "w5-setops",
+   "same": null,
+   "unsure": ""
+  },
+  {
+   "n": 3,
+   "kind": "Fill in the Blank",
+   "q": "For the two binary matrices corresponding to two sets A and B: Give the binary image produced by A∪B and state its cardinality |A∪B|:",
+   "given": [
+    {
+     "cap": "A",
+     "m": [
+      [
+       0,
+       1,
+       0
+      ],
+      [
+       1,
+       0,
+       1
+      ],
+      [
+       0,
+       1,
+       0
+      ]
+     ]
+    },
+    {
+     "cap": "B",
+     "m": [
+      [
+       0,
+       1,
+       1
+      ],
+      [
+       0,
+       1,
+       0
+      ],
+      [
+       1,
+       1,
+       0
+      ]
+     ]
+    }
+   ],
+   "opts": [],
+   "ans": "A∪B has rows 0 1 1, then 1 1 1, then 1 1 0. Cardinality = 7.",
+   "pics": [],
+   "varies": "The matrices A and B.",
+   "method": [
+    "Union is logical OR. Compare A and B position by position.",
+    "Write 1 where A is 1 or B is 1 (or both). Write 0 only where both are 0.",
+    "Count the ones in the result. That is the cardinality."
+   ],
+   "check": "|A∪B| = |A| + |B| − |A∩B|. Here 4 + 5 − 2 = 7.",
+   "trap": "Counting a shared 1 twice. A 1 in both A and B gives a single 1, so the cardinality is not |A| + |B|.",
+   "example": {
+    "working": [
+     "Row 1: 0 1 0 OR 0 1 1 = 0 1 1.",
+     "Row 2: 1 0 1 OR 0 1 0 = 1 1 1.",
+     "Row 3: 0 1 0 OR 1 1 0 = 1 1 0.",
+     "Ones: 2 + 3 + 2 = 7."
+    ],
+    "answer": "Cardinality 7",
+    "m": [
+     [
+      0,
+      1,
+      1
+     ],
+     [
+      1,
+      1,
+      1
+     ],
+     [
+      1,
+      1,
+      0
+     ]
+    ]
+   },
+   "mine": "right",
+   "gen": "w5-setops",
+   "same": null,
+   "unsure": ""
+  },
+  {
+   "n": 4,
+   "kind": "Fill in the Blank",
+   "q": "For the two binary matrices corresponding to two sets A and B: Give the binary image produced by A∩B and state its cardinality |A∩B|:",
+   "given": [
+    {
+     "cap": "A",
+     "m": [
+      [
+       0,
+       1,
+       0
+      ],
+      [
+       1,
+       0,
+       1
+      ],
+      [
+       0,
+       1,
+       0
+      ]
+     ]
+    },
+    {
+     "cap": "B",
+     "m": [
+      [
+       0,
+       1,
+       1
+      ],
+      [
+       0,
+       1,
+       0
+      ],
+      [
+       1,
+       1,
+       0
+      ]
+     ]
+    }
+   ],
+   "opts": [],
+   "ans": "A∩B has rows 0 1 0, then 0 0 0, then 0 1 0. Cardinality = 2.",
+   "pics": [],
+   "varies": "The matrices A and B.",
+   "method": [
+    "Same position-by-position method as question 3, with a different rule.",
+    "Intersection is logical AND. Write 1 only where A is 1 and B is 1."
+   ],
+   "check": "The result cannot have more ones than the smaller of A and B. Every 1 in the result is also a 1 in A and in B.",
+   "trap": "Using OR in place of AND. The symbol ∩ is intersection (both). The symbol ∪ is union (either).",
+   "example": {
+    "working": [
+     "Row 1: 0 1 0 AND 0 1 1 = 0 1 0.",
+     "Row 2: 1 0 1 AND 0 1 0 = 0 0 0.",
+     "Row 3: 0 1 0 AND 1 1 0 = 0 1 0.",
+     "Ones: 2."
+    ],
+    "answer": "Cardinality 2",
+    "m": [
+     [
+      0,
+      1,
+      0
+     ],
+     [
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      1,
+      0
+     ]
+    ]
+   },
+   "mine": "right",
+   "gen": "w5-setops",
+   "same": 3,
+   "unsure": ""
+  },
+  {
+   "n": 5,
+   "kind": "Fill in the Blank",
+   "q": "For the two binary matrices corresponding to two sets A and B: Give the binary image produced by A/B and state its cardinality |A/B|:",
+   "given": [
+    {
+     "cap": "A",
+     "m": [
+      [
+       0,
+       1,
+       0
+      ],
+      [
+       1,
+       0,
+       1
+      ],
+      [
+       0,
+       1,
+       0
+      ]
+     ]
+    },
+    {
+     "cap": "B",
+     "m": [
+      [
+       0,
+       1,
+       1
+      ],
+      [
+       0,
+       1,
+       0
+      ],
+      [
+       1,
+       1,
+       0
+      ]
+     ]
+    }
+   ],
+   "opts": [],
+   "ans": "A/B has rows 0 0 0, then 1 0 1, then 0 0 0. Cardinality = 2.",
+   "pics": [],
+   "varies": "The matrices A and B.",
+   "method": [
+    "Same position-by-position method as question 3, with a different rule.",
+    "Difference A/B keeps the members of A that are not in B. Start from A and change a 1 to 0 wherever B is also 1."
+   ],
+   "check": "|A/B| = |A| − |A∩B|. Here 4 − 2 = 2. Every 1 in the result is a 1 in A.",
+   "trap": "Doing B/A. The order matters. A/B starts from A. Do not treat the slash as a division.",
+   "example": {
+    "working": [
+     "A has ones at (1,2), (2,1), (2,3), (3,2).",
+     "B is also 1 at (1,2) and (3,2), so remove those.",
+     "(2,1) and (2,3) remain."
+    ],
+    "answer": "Cardinality 2",
+    "m": [
+     [
+      0,
+      0,
+      0
+     ],
+     [
+      1,
+      0,
+      1
+     ],
+     [
+      0,
+      0,
+      0
+     ]
+    ]
+   },
+   "mine": "right",
+   "gen": "w5-setops",
+   "same": 3,
+   "unsure": ""
+  },
+  {
+   "n": 6,
+   "kind": "Fill in the Blank",
+   "q": "For the two binary matrices corresponding to two sets A and B: Give the binary image produced by A△B and state its cardinality |A△B|:",
+   "given": [
+    {
+     "cap": "A",
+     "m": [
+      [
+       0,
+       1,
+       0
+      ],
+      [
+       1,
+       0,
+       1
+      ],
+      [
+       0,
+       1,
+       0
+      ]
+     ]
+    },
+    {
+     "cap": "B",
+     "m": [
+      [
+       0,
+       1,
+       1
+      ],
+      [
+       0,
+       1,
+       0
+      ],
+      [
+       1,
+       1,
+       0
+      ]
+     ]
+    }
+   ],
+   "opts": [],
+   "ans": "A△B has rows 0 0 1, then 1 1 1, then 1 0 0. Cardinality = 5.",
+   "pics": [],
+   "varies": "The matrices A and B.",
+   "method": [
+    "Same position-by-position method as question 3, with a different rule.",
+    "Symmetric difference keeps members that are in one set but not in both. Write 1 where A and B are different. Write 0 where they are the same."
+   ],
+   "check": "|A△B| = |A∪B| − |A∩B|. Here 7 − 2 = 5.",
+   "trap": "Giving the union. Where A and B are both 1, the symmetric difference is 0.",
+   "example": {
+    "working": [
+     "Row 1: 0 1 0 and 0 1 1 differ only in column 3. Result 0 0 1.",
+     "Row 2: 1 0 1 and 0 1 0 differ everywhere. Result 1 1 1.",
+     "Row 3: 0 1 0 and 1 1 0 differ only in column 1. Result 1 0 0.",
+     "Ones: 1 + 3 + 1 = 5."
+    ],
+    "answer": "Cardinality 5",
+    "m": [
+     [
+      0,
+      0,
+      1
+     ],
+     [
+      1,
+      1,
+      1
+     ],
+     [
+      1,
+      0,
+      0
+     ]
+    ]
+   },
+   "mine": "right",
+   "gen": "w5-setops",
+   "same": 3,
+   "unsure": ""
+  },
+  {
+   "n": 7,
+   "kind": "Fill in the Blank",
+   "q": "For the binary matrix corresponding to a set A: Give the binary image produced by A′ and state its cardinality |A′|:",
+   "given": [
+    {
+     "cap": "A",
+     "m": [
+      [
+       0,
+       1,
+       0
+      ],
+      [
+       1,
+       0,
+       1
+      ],
+      [
+       0,
+       1,
+       0
+      ]
+     ]
+    }
+   ],
+   "opts": [],
+   "ans": "A′ has rows 1 0 1, then 0 1 0, then 1 0 1. Cardinality = 5.",
+   "pics": [],
+   "varies": "The matrix A.",
+   "method": [
+    "Only one matrix is used here.",
+    "Complement swaps every pixel. Each 0 becomes 1 and each 1 becomes 0."
+   ],
+   "check": "|A′| = M × N − |A|. Here 9 − 4 = 5.",
+   "trap": "Leaving some pixels unchanged. Every position changes.",
+   "example": {
+    "working": [
+     "Row 1: 0 1 0 becomes 1 0 1.",
+     "Row 2: 1 0 1 becomes 0 1 0.",
+     "Row 3: 0 1 0 becomes 1 0 1.",
+     "Ones: 9 − 4 = 5."
+    ],
+    "answer": "Cardinality 5",
+    "m": [
+     [
+      1,
+      0,
+      1
+     ],
+     [
+      0,
+      1,
+      0
+     ],
+     [
+      1,
+      0,
+      1
+     ]
+    ]
+   },
+   "mine": "right",
+   "gen": "w5-setops",
+   "same": 3,
+   "unsure": ""
+  },
+  {
+   "n": 8,
+   "kind": "Formula",
+   "q": "If we threshold an image to try to isolate an object, the pixels that are \"selected\" by our threshold may or may not be part of the desired object. Given the confusion matrix below, indicate the percentage of correctly labelled pixels (enter your answer to 2 decimal places). Truly part of object and selected: 46. Truly part of object and not selected: 43. Not part of object and selected: 55. Not part of object and not selected: 58.",
+   "given": [
+    {
+     "cap": "Rows: Was Pixel Truly Part of Object? YES, NO. Columns: Was Pixel Selected? YES, NO.",
+     "m": [
+      [
+       46,
+       43
+      ],
+      [
+       55,
+       58
+      ]
+     ]
+    }
+   ],
+   "opts": [],
+   "ans": "51.49",
+   "pics": [],
+   "varies": "The four numbers in the confusion matrix.",
+   "method": [
+    "A pixel is correctly labelled when the two answers agree. That is YES and YES (true positive) and NO and NO (true negative).",
+    "Correct = top-left + bottom-right, the main diagonal.",
+    "Total = all four numbers added.",
+    "Percentage = correct ÷ total × 100. Round to 2 decimal places."
+   ],
+   "check": "The answer is between 0 and 100. If the diagonal numbers are about half of the total, the answer is near 50.",
+   "trap": "Adding a row or a column in place of the diagonal. Also entering 0.51. The question asks for a percentage.",
+   "example": {
+    "working": [
+     "Correct = 46 + 58 = 104.",
+     "Total = 46 + 43 + 55 + 58 = 202.",
+     "104 ÷ 202 × 100 = 51.485, which rounds to 51.49."
+    ],
+    "answer": "51.49"
+   },
+   "mine": "right",
+   "gen": "w5-confusion",
+   "same": null,
+   "unsure": ""
+  },
+  {
+   "n": 9,
+   "kind": "Matching",
+   "q": "Match the statements concerning the intended adjustment to confusion matrices produced by morphological opening and closing.",
+   "given": [],
+   "opts": [
+    "attempts to convert false positives to true negatives",
+    "attempts to convert false negatives to true positives"
+   ],
+   "ans": "Morphological Opening: attempts to convert false positives to true negatives. Morphological Closing: attempts to convert false negatives to true positives.",
+   "pics": [],
+   "varies": "",
+   "method": [
+    "Opening is erosion then dilation. It removes small specks of 1s. Those specks are pixels that were selected but are not part of the object, which are false positives. Setting them to 0 makes them true negatives.",
+    "Closing is dilation then erosion. It fills small holes of 0s inside the object. Those holes are object pixels that were not selected, which are false negatives. Setting them to 1 makes them true positives."
+   ],
+   "check": "Opening removes pixels, so it can only turn a positive into a negative. Closing adds pixels, so it can only turn a negative into a positive.",
+   "trap": "Swapping the two. Opening opens gaps (removes). Closing closes holes (adds).",
+   "example": null,
+   "mine": "right",
+   "gen": "w5-facts",
+   "same": null,
+   "unsure": "The results page shows only the options that were matched. Any unused extra options in the drop-down were not captured."
+  },
+  {
+   "n": 10,
+   "kind": "Fill in the Blank",
+   "q": "Show the output image produced if morphological dilation is applied to image A using N4 structuring element, S. Assume that the origin (focal point) of the structuring element is at the centre. Formula: A⊕S",
+   "given": [
+    {
+     "cap": "A",
+     "m": [
+      [
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      [
+       0,
+       0,
+       0,
+       1,
+       0
+      ],
+      [
+       0,
+       1,
+       1,
+       0,
+       0
+      ],
+      [
+       0,
+       0,
+       1,
+       0,
+       0
+      ],
+      [
+       0,
+       0,
+       1,
+       0,
+       0
+      ],
+      [
+       0,
+       0,
+       0,
+       0,
+       0
+      ]
+     ]
+    },
+    {
+     "cap": "S",
+     "m": [
+      [
+       "",
+       1,
+       ""
+      ],
+      [
+       1,
+       1,
+       1
+      ],
+      [
+       "",
+       1,
+       ""
+      ]
+     ]
+    }
+   ],
+   "opts": [],
+   "ans": "Rows: 0 0 0 1 0, then 0 1 1 1 1, then 1 1 1 1 0, then 0 1 1 1 0, then 0 1 1 1 0, then 0 0 1 0 0.",
+   "pics": [],
+   "varies": "The image A.",
+   "method": [
+    "Copy A. Dilation keeps every 1 that A already has.",
+    "For every 1 in A, also write 1 in the pixel above, below, left and right of it. This stamps the plus shape of S on each 1.",
+    "A stamp that falls outside the image is dropped. The output has the same size as A."
+   ],
+   "check": "The output has at least as many ones as A. Every 0 in the output has no 1 of A above, below, left or right of it.",
+   "trap": "Adding the diagonal neighbours. N4 is the plus shape only. Also forgetting that a 1 can be written in the border rows and columns.",
+   "example": {
+    "working": [
+     "A has ones at (2,4), (3,2), (3,3), (4,3), (5,3).",
+     "(2,4) adds (1,4), (3,4), (2,3), (2,5).",
+     "(3,2) adds (2,2), (4,2), (3,1).",
+     "(3,3) adds (2,3), (4,3), (3,4). (4,3) adds (4,2), (4,4). (5,3) adds (6,3), (5,2), (5,4).",
+     "The output has 16 ones."
+    ],
+    "answer": "See the matrix.",
+    "m": [
+     [
+      0,
+      0,
+      0,
+      1,
+      0
+     ],
+     [
+      0,
+      1,
+      1,
+      1,
+      1
+     ],
+     [
+      1,
+      1,
+      1,
+      1,
+      0
+     ],
+     [
+      0,
+      1,
+      1,
+      1,
+      0
+     ],
+     [
+      0,
+      1,
+      1,
+      1,
+      0
+     ],
+     [
+      0,
+      0,
+      1,
+      0,
+      0
+     ]
+    ]
+   },
+   "mine": "right",
+   "gen": "w5-dilate",
+   "same": null,
+   "unsure": ""
+  },
+  {
+   "n": 11,
+   "kind": "Fill in the Blank",
+   "q": "Show the output image produced if morphological erosion is applied to image A using N4 structuring element, S. Assume that the origin (focal point) of the structuring element is at the centre. Formula: A⊖S",
+   "given": [
+    {
+     "cap": "A",
+     "m": [
+      [
+       0,
+       0,
+       0,
+       1,
+       0
+      ],
+      [
+       0,
+       0,
+       1,
+       1,
+       1
+      ],
+      [
+       1,
+       1,
+       1,
+       1,
+       0
+      ],
+      [
+       0,
+       1,
+       1,
+       1,
+       0
+      ],
+      [
+       0,
+       0,
+       1,
+       0,
+       0
+      ],
+      [
+       0,
+       0,
+       0,
+       0,
+       0
+      ]
+     ]
+    },
+    {
+     "cap": "S",
+     "m": [
+      [
+       "",
+       1,
+       ""
+      ],
+      [
+       1,
+       1,
+       1
+      ],
+      [
+       "",
+       1,
+       ""
+      ]
+     ]
+    }
+   ],
+   "opts": [],
+   "ans": "Rows: 0 0 0 0 0, then 0 0 0 1 0, then 0 0 1 0 0, then 0 0 1 0 0, then 0 0 0 0 0, then 0 0 0 0 0.",
+   "pics": [],
+   "varies": "The image A.",
+   "method": [
+    "Start with a grid of zeros. Only pixels that are 1 in A can be 1 in the output.",
+    "Test each 1 in A. It survives only if the pixels above, below, left and right of it are all 1 as well.",
+    "A neighbour outside the image counts as 0. So a 1 in a border row or border column never survives."
+   ],
+   "check": "The output has no more ones than A. Each 1 in the output is the centre of a full plus shape of ones in A.",
+   "trap": "Keeping a 1 that has only three of its four neighbours. For example (3,4) fails because (3,5) is 0.",
+   "example": {
+    "working": [
+     "(2,4): above (1,4) = 1, below (3,4) = 1, left (2,3) = 1, right (2,5) = 1. Survives.",
+     "(3,3): above 1, below 1, left 1, right 1. Survives.",
+     "(4,3): above 1, below (5,3) = 1, left 1, right 1. Survives.",
+     "(3,4): right (3,5) = 0. Removed. (3,2): above (2,2) = 0. Removed.",
+     "The output has 3 ones."
+    ],
+    "answer": "See the matrix.",
+    "m": [
+     [
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      0,
+      0,
+      1,
+      0
+     ],
+     [
+      0,
+      0,
+      1,
+      0,
+      0
+     ],
+     [
+      0,
+      0,
+      1,
+      0,
+      0
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      0
+     ]
+    ]
+   },
+   "mine": "right",
+   "gen": "w5-erode",
+   "same": null,
+   "unsure": "Reading 05 says that in erosion, structuring element positions outside the image are assumed to be 1. The accepted quiz answers fit outside = 0 (question 12 only works that way). In this question no border pixel is affected, so both rules give the same output."
+  },
+  {
+   "n": 12,
+   "kind": "Fill in the Blank",
+   "q": "Show the output image produced if morphological closing is applied to image A using N4 structuring element, S. Assume that the origin (focal point) of the structuring element is at the centre. Formula: A∙S = (A⊕S)⊖S",
+   "given": [
+    {
+     "cap": "A",
+     "m": [
+      [
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      [
+       0,
+       1,
+       1,
+       1,
+       0
+      ],
+      [
+       0,
+       1,
+       0,
+       1,
+       0
+      ],
+      [
+       0,
+       1,
+       0,
+       1,
+       0
+      ],
+      [
+       0,
+       1,
+       1,
+       1,
+       0
+      ],
+      [
+       0,
+       0,
+       0,
+       0,
+       0
+      ]
+     ]
+    },
+    {
+     "cap": "S",
+     "m": [
+      [
+       "",
+       1,
+       ""
+      ],
+      [
+       1,
+       1,
+       1
+      ],
+      [
+       "",
+       1,
+       ""
+      ]
+     ]
+    }
+   ],
+   "opts": [],
+   "ans": "Rows: 0 0 0 0 0, then 0 1 1 1 0, then 0 1 1 1 0, then 0 1 1 1 0, then 0 1 1 1 0, then 0 0 0 0 0.",
+   "pics": [],
+   "varies": "The image A.",
+   "method": [
+    "Closing is dilation first, then erosion. Do it as two separate grids on paper.",
+    "Grid 1: dilate A (question 10 method).",
+    "Grid 2: erode grid 1 (question 11 method). Test the pixels of grid 1, not the pixels of A.",
+    "Outside the image counts as 0 in the erosion, so ones in the border rows and columns of grid 1 are removed."
+   ],
+   "check": "The output contains every 1 of A. Holes smaller than the plus shape are filled. Here the 2-pixel hole in the middle is filled.",
+   "trap": "Doing erosion first. That is opening. Also keeping the border ones from the dilation step.",
+   "example": {
+    "working": [
+     "Dilation of A: 0 1 1 1 0, then 1 1 1 1 1, then 1 1 1 1 1, then 1 1 1 1 1, then 1 1 1 1 1, then 0 1 1 1 0.",
+     "Erode that grid. Every pixel in a border row or column fails because one neighbour is outside the image.",
+     "Inside, rows 2 to 5 and columns 2 to 4 all have four neighbours equal to 1. They survive.",
+     "The ring has become a solid block. The hole at (3,3) and (4,3) is filled."
+    ],
+    "answer": "See the matrix.",
+    "m": [
+     [
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      1,
+      1,
+      1,
+      0
+     ],
+     [
+      0,
+      1,
+      1,
+      1,
+      0
+     ],
+     [
+      0,
+      1,
+      1,
+      1,
+      0
+     ],
+     [
+      0,
+      1,
+      1,
+      1,
+      0
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      0
+     ]
+    ]
+   },
+   "mine": "right",
+   "gen": "w5-close",
+   "same": null,
+   "unsure": "Reading 05 says that in erosion, positions outside the image are assumed to be 1. With that rule row 1 would contain ones, for example at (1,3). Canvas accepted row 1 as all zeros, so the quiz uses outside = 0."
+  },
+  {
+   "n": 13,
+   "kind": "Fill in the Blank",
+   "q": "Show the output image produced if morphological opening is applied to image A using N4 structuring element, S. Assume that the origin (focal point) of the structuring element is at the centre. Formula: A◯S = (A⊖S)⊕S",
+   "given": [
+    {
+     "cap": "A",
+     "m": [
+      [
+       0,
+       0,
+       1,
+       0,
+       0
+      ],
+      [
+       0,
+       1,
+       1,
+       1,
+       0
+      ],
+      [
+       0,
+       1,
+       1,
+       1,
+       0
+      ],
+      [
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      [
+       0,
+       1,
+       0,
+       1,
+       0
+      ],
+      [
+       0,
+       0,
+       0,
+       0,
+       0
+      ]
+     ]
+    },
+    {
+     "cap": "S",
+     "m": [
+      [
+       "",
+       1,
+       ""
+      ],
+      [
+       1,
+       1,
+       1
+      ],
+      [
+       "",
+       1,
+       ""
+      ]
+     ]
+    }
+   ],
+   "opts": [],
+   "ans": "Rows: 0 0 1 0 0, then 0 1 1 1 0, then 0 0 1 0 0, then 0 0 0 0 0, then 0 0 0 0 0, then 0 0 0 0 0.",
+   "pics": [],
+   "varies": "The image A.",
+   "method": [
+    "Opening is erosion first, then dilation. Do it as two separate grids on paper.",
+    "Grid 1: erode A (question 11 method). Mark the centres of full plus shapes.",
+    "Grid 2: dilate grid 1 (question 10 method). Stamp a plus shape on each surviving 1."
+   ],
+   "check": "The output never has a 1 where A has a 0. The output is a set of whole plus shapes. If the erosion leaves nothing, the answer is all zeros.",
+   "trap": "Doing dilation first. That is closing. Also keeping parts of A that cannot hold a full plus shape, such as the two single pixels in row 5.",
+   "example": {
+    "working": [
+     "Erosion of A: only (2,3) survives. Its neighbours (1,3), (3,3), (2,2), (2,4) are all 1.",
+     "(3,3) fails because (4,3) is 0. The single pixels (5,2) and (5,4) fail.",
+     "Dilate the single 1 at (2,3): ones at (1,3), (2,2), (2,3), (2,4), (3,3).",
+     "The corners (3,2) and (3,4) and the two specks in row 5 are removed."
+    ],
+    "answer": "See the matrix.",
+    "m": [
+     [
+      0,
+      0,
+      1,
+      0,
+      0
+     ],
+     [
+      0,
+      1,
+      1,
+      1,
+      0
+     ],
+     [
+      0,
+      0,
+      1,
+      0,
+      0
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      0
+     ]
+    ]
+   },
+   "mine": "right",
+   "gen": "w5-open",
+   "same": null,
+   "unsure": ""
+  },
+  {
+   "n": 14,
+   "kind": "Fill in the Blank",
+   "q": "Show the output image produced if morphological gradient operator is applied to image A using N4 structuring element, S. Assume that the origin (focal point) of the structuring element is at the centre. Formula: (A⊕S)−(A⊖S)",
+   "given": [
+    {
+     "cap": "A",
+     "m": [
+      [
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      [
+       0,
+       0,
+       1,
+       0,
+       0
+      ],
+      [
+       0,
+       1,
+       1,
+       1,
+       0
+      ],
+      [
+       0,
+       1,
+       1,
+       1,
+       0
+      ],
+      [
+       0,
+       0,
+       1,
+       0,
+       0
+      ],
+      [
+       0,
+       0,
+       0,
+       0,
+       0
+      ]
+     ]
+    },
+    {
+     "cap": "S",
+     "m": [
+      [
+       "",
+       1,
+       ""
+      ],
+      [
+       1,
+       1,
+       1
+      ],
+      [
+       "",
+       1,
+       ""
+      ]
+     ]
+    }
+   ],
+   "opts": [],
+   "ans": "Rows: 0 0 1 0 0, then 0 1 1 1 0, then 1 1 0 1 1, then 1 1 0 1 1, then 0 1 1 1 0, then 0 0 1 0 0.",
+   "pics": [],
+   "varies": "The image A.",
+   "method": [
+    "Grid 1: dilate A (question 10 method).",
+    "Grid 2: erode A (question 11 method). Both grids start from the original A.",
+    "Subtract grid 2 from grid 1, position by position. The result is 1 where the dilation is 1 and the erosion is 0."
+   ],
+   "check": "The result is the dilation with a hole where the erosion had ones. Number of ones = ones in dilation − ones in erosion. Here 18 − 2 = 16.",
+   "trap": "Eroding the dilated image. Both operations use the original A. Also subtracting in the wrong order.",
+   "example": {
+    "working": [
+     "Dilation of A: 0 0 1 0 0, then 0 1 1 1 0, then 1 1 1 1 1, then 1 1 1 1 1, then 0 1 1 1 0, then 0 0 1 0 0. That is 18 ones.",
+     "Erosion of A: ones only at (3,3) and (4,3).",
+     "Subtract: set (3,3) and (4,3) to 0 in the dilation. 16 ones remain."
+    ],
+    "answer": "See the matrix.",
+    "m": [
+     [
+      0,
+      0,
+      1,
+      0,
+      0
+     ],
+     [
+      0,
+      1,
+      1,
+      1,
+      0
+     ],
+     [
+      1,
+      1,
+      0,
+      1,
+      1
+     ],
+     [
+      1,
+      1,
+      0,
+      1,
+      1
+     ],
+     [
+      0,
+      1,
+      1,
+      1,
+      0
+     ],
+     [
+      0,
+      0,
+      1,
+      0,
+      0
+     ]
+    ]
+   },
+   "mine": "right",
+   "gen": "w5-gradient",
+   "same": null,
+   "unsure": ""
+  },
+  {
+   "n": 15,
+   "kind": "Fill in the Blank",
+   "q": "Show the output binary matrix produced by applying the corner-detecting hit-and-miss operator set below to image A for performing a set-theoretic union on the four outputs.",
+   "given": [
+    {
+     "cap": "TL",
+     "m": [
+      [
+       0,
+       0,
+       ""
+      ],
+      [
+       0,
+       1,
+       1
+      ],
+      [
+       "",
+       1,
+       ""
+      ]
+     ]
+    },
+    {
+     "cap": "TR",
+     "m": [
+      [
+       "",
+       0,
+       0
+      ],
+      [
+       1,
+       1,
+       0
+      ],
+      [
+       "",
+       1,
+       ""
+      ]
+     ]
+    },
+    {
+     "cap": "BL",
+     "m": [
+      [
+       "",
+       1,
+       ""
+      ],
+      [
+       0,
+       1,
+       1
+      ],
+      [
+       0,
+       0,
+       ""
+      ]
+     ]
+    },
+    {
+     "cap": "BR",
+     "m": [
+      [
+       "",
+       1,
+       ""
+      ],
+      [
+       1,
+       1,
+       0
+      ],
+      [
+       "",
+       0,
+       0
+      ]
+     ]
+    },
+    {
+     "cap": "A",
+     "m": [
+      [
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      [
+       0,
+       1,
+       1,
+       0,
+       0
+      ],
+      [
+       0,
+       1,
+       1,
+       0,
+       0
+      ],
+      [
+       0,
+       1,
+       0,
+       1,
+       0
+      ],
+      [
+       0,
+       1,
+       1,
+       1,
+       0
+      ],
+      [
+       0,
+       0,
+       0,
+       0,
+       0
+      ]
+     ]
+    }
+   ],
+   "opts": [],
+   "ans": "Rows: 0 0 0 0 0, then 0 1 1 0 0, then 0 0 0 0 0, then 0 0 0 0 0, then 0 1 0 1 0, then 0 0 0 0 0. The ones are at (2,2), (2,3), (5,2) and (5,4).",
+   "pics": [],
+   "varies": "The image A.",
+   "method": [
+    "Every pattern has 1 at its centre, so test only the pixels of A that are 1.",
+    "Put the centre of a pattern on the pixel. The pixel matches if every 1 in the pattern is on a 1 of A and every 0 in the pattern is on a 0 of A. Blank cells can be anything. Outside the image counts as 0.",
+    "Read each pattern as a corner. TL needs 0 above, 0 to the left and 0 at the upper-left, with 1 to the right and 1 below. TR, BL and BR are the same idea for the other three corners.",
+    "Do all four patterns. The answer has a 1 wherever any one of the four matched (union)."
+   ],
+   "check": "Each 1 in the answer is a 1 in A and sits on an outside corner of the shape. Straight edges and inside pixels give 0.",
+   "trap": "Forgetting the diagonal 0 in the pattern. (3,3) looks like a bottom-right corner: above and left are 1, right and below are 0. But the lower-right pixel (4,4) is 1 and BR needs 0 there, so (3,3) does not match.",
+   "example": {
+    "working": [
+     "TL matches at (2,2): above, left and upper-left are 0. Right (2,3) and below (3,2) are 1.",
+     "TR matches at (2,3): above, right and upper-right are 0. Left (2,2) and below (3,3) are 1.",
+     "BL matches at (5,2): below, left and lower-left are 0. Above (4,2) and right (5,3) are 1.",
+     "BR matches at (5,4): below, right and lower-right are 0. Above (4,4) and left (5,3) are 1.",
+     "Union of the four outputs: ones at (2,2), (2,3), (5,2), (5,4)."
+    ],
+    "answer": "See the matrix.",
+    "m": [
+     [
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      1,
+      1,
+      0,
+      0
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      1,
+      0,
+      1,
+      0
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      0
+     ]
+    ]
+   },
+   "mine": "right",
+   "gen": "w5-hitmiss",
+   "same": null,
+   "unsure": "Blank cells of the structuring elements and patterns are stored as empty strings \"\" in \"given\". The LaTeX in the capture shows which cells are blank, so the layout is confirmed."
+  }
+ ]
+}
