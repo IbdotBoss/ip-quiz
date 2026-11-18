@@ -73,3 +73,7 @@ One static HTML file built by `build.py` from `template.html`, `src/gens.js` and
 ## Sharing (17 Nov 2026)
 
 The sheet is shared with the class, so nothing refers to one person's attempt. Traps describe the mistake in general. Answers Canvas never confirmed are listed privately, outside the repo. Every page ends with links to the previous and next quiz, all quizzes, Rules, Look-up and the top. Look-up (`#/ref`) names each quiz picture by what it shows, without the A to D letters the quiz uses.
+
+## Modes (18 Nov 2026)
+
+The two modes are the two original comps, with the Canvas type and matrices kept. Dark mode is Slide (black ground). Light mode is Crib sheet (squared paper, navy ink). The Canvas grey palette used on 17 Nov is gone. The answer stays in a green bar.
