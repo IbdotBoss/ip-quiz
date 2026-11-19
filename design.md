@@ -25,17 +25,18 @@ Two comps, in `comps/`, shown to Stage on 17 Nov 2026: a black "Slide" ground an
 ## Look: a Canvas question, annotated
 
 - The left side of a card is set like the Canvas question it came from: a dark number box and the question type, the image matrix as a ruled table, kernels as bracketed matrices with `k =`, fractions stacked, and the formula line in a maths face.
-- The right side is the cheatsheet. The answer sits in a green bar with a tick, the way Canvas shows an accepted answer.
+- The right side is the cheatsheet. The answer sits in a green bar with a tick, the way Canvas shows an accepted answer. On a card without a worked example the answer comes first, above the method. On a calculation card it closes the worked example, because it belongs to that example's numbers.
 
 ## Tokens
 
 ```css
 :root { --r: 4px; --t-s: .9375rem; --t-m: 1rem; --t-l: 1.25rem; --t-xl: 1.75rem; }
-[data-theme="light"] { --paper:#fff;    --panel:#fff;    --ink:#2d3b45; --ink-2:#556572; --hair:#c7cdd1; --tint:#f5f5f5; --mark:#ffe680; --mark-ink:#2d3b45; --right:#0b874b; --wrong:#c5221f; --focus:#0770a3; --nb:#2d3b45; --nb-ink:#fff; }
-[data-theme="dark"]  { --paper:#12171b; --panel:#1b2228; --ink:#f2f4f5; --ink-2:#a9b3b9; --hair:#3b464e; --tint:#222a31; --mark:#f5d76e; --mark-ink:#12171b; --right:#57cc94; --wrong:#ff928c; --focus:#74bde8; --nb:#f2f4f5; --nb-ink:#12171b; }
+[data-theme="light"] { --paper:#fbfbf7;--panel:#fff;--ink:#14213d;--ink-2:#4d5670;--hair:#b3c0d8;--tint:#edf1f7;--mark:#ffe45c;--mark-ink:#14213d;--right:#0c6b3d;--wrong:#b3261e;--focus:#2f5fd0;--nb:#14213d;--nb-ink:#fff;
+  --grid:linear-gradient(#dfe7f3 1px,transparent 1px),linear-gradient(90deg,#dfe7f3 1px,transparent 1px); }
+[data-theme="dark"]  { --paper:#000;--panel:#111113;--ink:#f2f2f0;--ink-2:#b0b0ab;--hair:#3d3d41;--tint:#1a1a1d;--mark:#ffd84a;--mark-ink:#000;--right:#7be0a4;--wrong:#ff9d94;--focus:#8ab4ff;--nb:#f2f2f0;--nb-ink:#000;--grid:none; }
 ```
 
-Light uses Canvas's own ink (#2d3b45), rule (#c7cdd1) and green (#0b874b). Dark is the same page with the lights off. The mode follows the device until the "Dark mode" or "Light mode" button is used, then it is remembered. Spacing is on a 4px base. One radius, 4px.
+Since 18 Nov the modes use the Slide (dark) and Crib sheet (light) palettes; see Modes below. The values above are copied from `template.html`. The mode follows the device until the "Dark mode" or "Light mode" button is used, then it is remembered. Spacing is on a 4px base. One radius, 4px.
 
 ## Colour
 

@@ -4,10 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Image Processing cheatsheet</title>
-<meta name="description" content="A cheatsheet for every question in the weekly Image Processing quizzes: the method, a quick check, the trap and a worked example.">
+<meta name="description" content="A cheatsheet for every question in the weekly Image Processing quizzes: the method, the trap, and worked examples for the calculations.">
 <link rel="canonical" href="https://ibdotboss.github.io/ip-quiz/">
 <meta property="og:title" content="Image Processing cheatsheet">
-<meta property="og:description" content="A cheatsheet for every question in the weekly quizzes: the method, a quick check, the trap and a worked example.">
+<meta property="og:description" content="A cheatsheet for every question in the weekly quizzes: the method, the trap, and worked examples for the calculations.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://ibdotboss.github.io/ip-quiz/">
 <meta name="color-scheme" content="dark light">
@@ -371,7 +371,7 @@ function home() {
   here = "home";
   const rows = Object.keys(WEEKS).map(w => `<section class="wk"><h2><a href="#/q/${w}">Quiz ${two(w)} <span>${WEEKS[w]}</span></a></h2>${CARDS[w] ? strip(w) : `<p class="s">This quiz was still locked on Canvas. The page for it is built from the Week ${w} reading.</p>`}</section>`).join("");
   page(head("Image Processing cheatsheet", `<a href="#/rules">Rules</a><a href="#/ref">Look-up</a>`) + `
-<p>One card for every question in the weekly quizzes. Each card has the question as the tutor words it, the method, a quick check, the trap and a worked example.</p>
+<p>One card for every question in the weekly quizzes. Each card has the question as the tutor words it, the method and the trap. Calculation cards add a quick check and a worked example. On the other cards the answer comes first.</p>
 ${rows}` + pager(`<a class="btn" href="#/rules">Rules for every week</a><a class="btn" href="#/ref">Look-up tables</a>`));
 }
 
@@ -400,10 +400,11 @@ ${c.varies ? `<p class="s">What changes: ${esc(c.varies)}</p>` : ""}
 </div>
 <div class="do">
 ${c.same ? `<p class="s">Same method as <a href="#/q/${w}/${c.same}">Question ${c.same}</a>.</p>` : ""}
+${!ex ? sec("Answer", c.ans ? ansbar(c.ans) : "") : ""}
 ${sec("Method", c.method && c.method.length ? (c.method.length === 1 ? `<p>${inl(c.method[0])}</p>` : `<ol>${c.method.map(m => `<li>${inl(m)}</li>`).join("")}</ol>`) : "")}
 ${sec("Check", c.check ? `<p>${inl(c.check)}</p>` : "", "check")}
 ${sec("Trap", c.trap ? `<div class="trap">${inl(c.trap)}</div>` : "")}
-${ex ? sec("Worked example", `<div class="work">${(ex.working || []).map(workLine).join("")}</div>${ex.m ? figs([{ cap: ex.m2 ? "Cross correlation" : "", m: ex.m }].concat(ex.m2 ? [{ cap: "Convolution", m: ex.m2 }] : [])) : ""}${ansbar(ex.answer)}`) : sec("Answer", c.ans ? ansbar(c.ans) : "")}
+${ex ? sec("Worked example", `<div class="work">${(ex.working || []).map(workLine).join("")}</div>${ex.m ? figs([{ cap: ex.m2 ? "Cross correlation" : "", m: ex.m }].concat(ex.m2 ? [{ cap: "Convolution", m: ex.m2 }] : [])) : ""}${ansbar(ex.answer)}`) : ""}
 ${c.gen && gen(c.gen) ? `<a class="btn" href="#/try/${c.gen}/${w}-${c.n}">${SHUFFLED.includes(c.gen) ? "Try with shuffled letters" : "Try with new numbers"}</a>` : ""}
 </div>
 </article>`;

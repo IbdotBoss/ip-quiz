@@ -24,7 +24,7 @@
     "A linear filter multiplies each pixel in the window by a kernel coefficient and adds the results. That sliding weighted sum is called convolution.",
     "The other three words start with the same letters but are not image processing operations."
    ],
-   "trap": "Reading too fast. All four options start with co."
+   "trap": "Mixing up convolution and cross correlation. Both slide the kernel and add the weighted values, but convolution turns the kernel through 180° first."
   },
   {
    "given": [],

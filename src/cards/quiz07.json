@@ -51,7 +51,7 @@
     "All three sort the pixels in the window and pick by rank. Min picks the lowest rank, max the highest rank, median the middle rank.",
     "Radon is a real transform used in CT scanning. It has nothing to do with sorting a window."
    ],
-   "trap": "Picking radon because it sounds technical."
+   "trap": "Calling them linear. A rank filter sorts the window and picks one value by its position, so no kernel of weights can produce it."
   },
   {
    "given": [],
