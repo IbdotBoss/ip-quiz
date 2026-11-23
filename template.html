@@ -68,7 +68,9 @@ button.p:hover{background:var(--ink-2)}
 /* the question strip: one square per quiz question */
 .strip{display:flex;gap:4px;overflow-x:auto;padding:8px 0;scrollbar-width:thin}
 .strip:not(.stick){flex-wrap:wrap;overflow-x:visible}
-.strip.stick{position:sticky;top:0;z-index:2;background:var(--paper);border-bottom:1px solid var(--hair)}
+.stick{position:sticky;top:0;z-index:2;background:var(--paper);border-bottom:1px solid var(--hair);display:flex;gap:8px;align-items:center}
+.stick .strip{flex:1;min-width:0;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}.stick .strip::-webkit-scrollbar{display:none}
+.stick>button{flex:none;padding:8px 12px;min-height:44px;font-size:var(--t-s)}
 .strip a{flex:0 0 auto;min-width:44px;height:44px;display:grid;place-items:center;font-weight:700;color:var(--ink);text-decoration:none;border:1px solid var(--hair);border-radius:var(--r);background:var(--panel)}
 .strip a:hover{border-color:var(--ink)}
 .strip a[aria-current]{background:var(--nb);color:var(--nb-ink);border-color:var(--nb)}
@@ -146,7 +148,9 @@ fieldset{border:0;margin:16px 0 0;padding:0;min-width:0}legend{padding:0;font-we
 .rules td,.rules th{border-bottom:1px solid var(--hair);padding:8px 16px 8px 0;text-align:left;vertical-align:top}
 .rules th{border-bottom:1px solid var(--ink)}
 .rules li{margin:8px 0}
-.pager{display:flex;flex-wrap:wrap;gap:12px;margin-top:24px;padding-top:16px;border-top:1px solid var(--hair)}
+.pager{display:flex;flex-wrap:wrap;gap:4px 24px;margin-top:24px;padding-top:16px;border-top:1px solid var(--hair);font-size:var(--t-s)}
+.pager :is(a.btn,button){background:none;border:0;padding:12px 0;font-weight:400;text-decoration:underline;color:var(--ink)}
+.pager :is(a.btn,button):hover{background:none;text-decoration-thickness:2px}
 .steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:32px}
 a.btn.step{display:block;line-height:1.35}
 .step small{display:block;font-weight:400;color:var(--ink-2);font-size:var(--t-s)}
@@ -370,7 +374,7 @@ function page(html, narrow, focus = "h1") {
 }
 const TOP = `<button type="button" data-top>Back to top</button>`;
 const pager = (links, extra = "") => `<nav class="pager" aria-label="Other pages">${links}${TOP}${extra}</nav>`;
-const strip = (w, stick) => `<nav class="strip${stick ? " stick" : ""}" aria-label="Quiz ${two(w)} questions">` + CARDS[w].cards.map(c => `<a href="#/q/${w}/${c.n}" data-n="${c.n}" aria-label="Question ${c.n}">${c.n}</a>`).join("") + `</nav>`;
+const strip = (w, stick) => (stick ? `<div class="stick">` : "") + `<nav class="strip" aria-label="Quiz ${two(w)} questions">` + CARDS[w].cards.map(c => `<a href="#/q/${w}/${c.n}" data-n="${c.n}" aria-label="Question ${c.n}">${c.n}</a>`).join("") + `</nav>` + (stick ? `<button type="button" data-step="-1">Previous</button><button type="button" data-step="1">Next</button></div>` : "");
 
 function home() {
   here = "home";
@@ -433,7 +437,7 @@ function quiz(w, n) {
   page(head(`Quiz ${two(w)} <span>${WEEKS[w]}</span>`, nav) + body + `<nav class="steps" aria-label="Previous and next quiz">${step(w - 1, "Previous")}${step(w + 1, "Next")}</nav>` + pager(`<a class="btn" href="#/">All quizzes</a><a class="btn" href="#/rules">How to answer</a><a class="btn" href="#/ref">Pictures and kernels</a>`, `<button type="button" data-print>Print this quiz</button>`));
   jump();
   if (spy) spy.disconnect();
-  const bar = $(".strip.stick"); if (!bar || !("IntersectionObserver" in window)) return;
+  const bar = $(".stick .strip"); if (!bar || !("IntersectionObserver" in window)) return;
   spy = new IntersectionObserver(es => es.forEach(e => {
     if (!e.isIntersecting) return;
     bar.querySelectorAll("[aria-current]").forEach(a => a.removeAttribute("aria-current"));
@@ -528,7 +532,6 @@ function check() {
     els.forEach(e => e.disabled = true);
   });
   q.checked = true;
-  const prompt = encodeURIComponent(aiPrompt());
   const fb = $("#fb"); fb.hidden = false; app.querySelector("[type=submit]").hidden = true;
   fb.innerHTML = `<p class="verdict ${all ? "good" : "poor"}">${all ? TICK + "Right" : CROSS + "Not right"}</p>
 ${out.map(o => `<div>${o}</div>`).join("")}
@@ -536,14 +539,9 @@ ${q.steps.length ? `<h2>Working</h2><ol>${q.steps.map(s => `<li>${esc(s)}</li>`)
 <p><b>Method.</b> ${esc(q.g.rule)}</p>
 <p><b>Trap.</b> ${esc(q.g.trap)}</p>
 <div class="acts"><button class="p" type="button" data-again>Another question like this</button><a class="btn" href="${backHref()}">${backText()}</a></div>
-<p class="s">Still unclear? Ask <a href="https://claude.ai/new?q=${prompt}" target="_blank" rel="noopener">Claude</a> or <a href="https://chatgpt.com/?q=${prompt}" target="_blank" rel="noopener">ChatGPT</a> about this question. Both open in a new tab with the question filled in.</p>`;
+`;
   fb.querySelector("[data-again]").focus();
 }
-const aiPrompt = () => {
-  const mats = (q.show || []).filter(s => s.m).map(s => (s.cap ? s.cap + " = " : "") + "[" + s.m.map(r => r.join(" ")).join("; ") + "]").join("\n");
-  const ans = q.inputs.map(i => i.k === "mc" ? i.opts[i.ans] : i.k === "match" ? i.left.map((l, k) => l.t + " = " + i.opts[i.ans[k]]).join(", ") : i.k === "multi" ? i.opts.filter((o, k) => i.ans[k]).join("; ") : JSON.stringify(i.ans)).join(" and ");
-  return `I am revising for a university image processing test. Coordinates are (row, column) from 1, and ".5 rounds upwards". Explain step by step how to answer this, and why the method works.\n\nQuestion: ${q.stem}\n${mats}\n${q.formula || ""}\nGiven answer: ${ans}`.slice(0, 1800);
-};
 
 /* ---------- routing ---------- */
 function route() {
@@ -554,6 +552,7 @@ function route() {
   else if (p[0] === "try" && gen(p[1])) tryOne(p[1], p[2]);
   else home();
 }
+if ("scrollRestoration" in history) history.scrollRestoration = "manual";
 addEventListener("hashchange", route);
 app.addEventListener("submit", e => { e.preventDefault(); check(); });
 app.addEventListener("click", e => {
@@ -562,6 +561,11 @@ app.addEventListener("click", e => {
   else if ("top" in d) { window.scrollTo(0, 0); const h = app.querySelector("h1"); if (h) h.focus({ preventScroll: true }); }
   else if ("jump" in d) { const el = document.getElementById(d.jump); if (el) { el.scrollIntoView(); el.tabIndex = -1; el.focus({ preventScroll: true }); } }
   else if ("again" in d) ask(q.g.id);
+  else if ("step" in d) {
+    // Previous or next question; past either end, the neighbouring quiz.
+    const w = +here.slice(1), cur = app.querySelector(".stick [aria-current]"), n = (cur ? +cur.dataset.n : 0) + +d.step, last = CARDS[w] ? CARDS[w].cards.length : 0;
+    location.hash = n < 1 ? (WEEKS[w - 1] ? `#/q/${w - 1}` : `#/q/${w}/1`) : n > last ? (WEEKS[w + 1] ? `#/q/${w + 1}` : `#/q/${w}/${last}`) : `#/q/${w}/${n}`;
+  }
   else if ("themeToggle" in d) {
     root.dataset.theme = root.dataset.theme === "dark" ? "light" : "dark";
     try { localStorage.setItem("ip-sheet-mode", root.dataset.theme); } catch (err) {}
