@@ -6,7 +6,7 @@ A cheatsheet for the MOD002643 Image Processing in-class test at ARU. The test d
 
 - 135 cards for quizzes 1 to 9, in quiz order. Each has the question as the tutor words it, the method and the trap. Calculation cards add a quick check and a worked example. On the other cards the answer comes first.
 - The picture questions show the tutor's own quiz pictures, stored in `docs/img`.
-- **Rules** explains the symbols and wording in the questions. **Look-up** has the colours, the quiz pictures named by what they show, and every kernel.
+- **How to answer** explains the symbols and wording in the questions. **Pictures and kernels** has the colours, the quiz pictures named by what they show, and every kernel.
 - "Try with new numbers" on a card opens the same question type with fresh numbers and checks the answer.
 - Quizzes 10 and 11 were still locked, so those two pages are built from the readings.
 - Set like the Canvas questions: same text face, kernels in brackets, formulas as maths. Dark and light modes. Every quiz page prints.

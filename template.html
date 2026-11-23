@@ -217,7 +217,7 @@ const RULES = `
 <li>Skip every zero in a kernel. Most 3 × 3 kernels only need four or five numbers.</li>
 <li><b>Largest possible output</b> = 255 × the sum of the positive coefficients. Smallest = 255 × the sum of the negative coefficients.</li>
 <li>Blur kernels (mean, Gaussian) add up to 1, so brightness is kept and the largest output is 255. Edge kernels add up to 0, so a flat area gives 0. Sharpen adds up to 1 but has a 5 in it, so it can reach 1,275.</li>
-<li>The kernels themselves are on the <a href="#/ref">look-up page</a>.</li>
+<li>The kernels themselves are on the <a href="#/ref">Pictures and kernels</a> page.</li>
 </ul>
 <h2 id="r-flip">When the kernel flip matters</h2>
 <p>Convolution turns the kernel through 180° before using it. Cross correlation uses it as printed. Turning through 180° means reversing the order of all the numbers.</p>
@@ -372,10 +372,10 @@ const strip = (w, stick) => `<nav class="strip${stick ? " stick" : ""}" aria-lab
 function home() {
   here = "home";
   const rows = Object.keys(WEEKS).map(w => `<section class="wk"><h2><a href="#/q/${w}">Quiz ${two(w)} <span>${WEEKS[w]}</span></a></h2>${CARDS[w] ? strip(w) : `<p class="s">This quiz was still locked on Canvas. <a href="#/q/${w}">The Quiz ${two(w)} page</a> is built from the Week ${w} reading.</p>`}</section>`).join("");
-  page(head("Image Processing cheatsheet", `<a href="#/rules">Rules</a><a href="#/ref">Look-up</a><a href="https://faaja.space/">All three modules</a>`) + `
+  page(head("Image Processing cheatsheet", `<a href="#/rules">How to answer</a><a href="#/ref">Pictures and kernels</a><a href="https://faaja.space/">All three modules</a>`) + `
 <p>One card for every question in the weekly quizzes. Each card has the question as the tutor words it, the method and the trap. Calculation cards add a quick check and a worked example. On the other cards the answer comes first.</p>
-<p class="s"><a href="#/rules">Rules</a> explains the symbols and wording in the questions. <a href="#/ref">Look-up</a> has the colours, the quiz pictures and every kernel. Tap a question number to open its card. "Try with new numbers" or "Try with shuffled letters" on a card gives a fresh version and checks your answer.</p>
-${rows}` + pager(`<a class="btn" href="#/rules">Rules for every week</a><a class="btn" href="#/ref">Look-up tables</a>`));
+<p class="s"><a href="#/rules">How to answer</a> covers the symbols in the questions, how to type an answer and the checks that catch a mistake. <a href="#/ref">Pictures and kernels</a> has the colours, the quiz pictures and every kernel. Tap a question number to open its card. "Try with new numbers" or "Try with shuffled letters" on a card gives a fresh version and checks your answer.</p>
+${rows}` + pager(`<a class="btn" href="#/rules">How to answer</a><a class="btn" href="#/ref">Pictures and kernels</a>`));
 }
 
 const SHUFFLED = ["w1-formats", "w4-histmatch", "w6-pictures", "w6-picformula", "w7-noise", "w8-plots", "w9-plots"];
@@ -422,12 +422,12 @@ function quiz(w, n) {
   const jump = () => { const el = n && $("#c" + n); if (el) el.scrollIntoView(); };
   if (here === "q" + w) return jump();
   here = "q" + w;
-  const nav = `<a href="#/">All quizzes</a><a href="#/rules">Rules</a><a href="#/ref">Look-up</a><button type="button" data-print>Print this quiz</button>`;
+  const nav = `<a href="#/">All quizzes</a><a href="#/rules">How to answer</a><a href="#/ref">Pictures and kernels</a><button type="button" data-print>Print this quiz</button>`;
   const step = (v, word) => WEEKS[v] ? `<a class="btn step" href="#/q/${v}"><small>${word} quiz</small>Quiz ${two(v)} <span>${WEEKS[v]}</span></a>` : "";
   const body = CARDS[w]
     ? strip(w, true) + CARDS[w].cards.map(c => cardHTML(w, c)).join("")
     : `<p class="note">Quiz ${two(w)} was still locked on Canvas when this page was built. These cards come from the Week ${w} reading, so the real quiz may ask things that are not here.</p>` + GENS.filter(g => g.w === w).map(g => typeCardHTML(w, g)).join("");
-  page(head(`Quiz ${two(w)} <span>${WEEKS[w]}</span>`, nav) + body + `<nav class="steps" aria-label="Previous and next quiz">${step(w - 1, "Previous")}${step(w + 1, "Next")}</nav>` + pager(`<a class="btn" href="#/">All quizzes</a><a class="btn" href="#/rules">Rules</a><a class="btn" href="#/ref">Look-up tables</a>`, `<button type="button" data-print>Print this quiz</button>`));
+  page(head(`Quiz ${two(w)} <span>${WEEKS[w]}</span>`, nav) + body + `<nav class="steps" aria-label="Previous and next quiz">${step(w - 1, "Previous")}${step(w + 1, "Next")}</nav>` + pager(`<a class="btn" href="#/">All quizzes</a><a class="btn" href="#/rules">How to answer</a><a class="btn" href="#/ref">Pictures and kernels</a>`, `<button type="button" data-print>Print this quiz</button>`));
   jump();
   if (spy) spy.disconnect();
   const bar = $(".strip.stick"); if (!bar || !("IntersectionObserver" in window)) return;
@@ -444,7 +444,7 @@ function quiz(w, n) {
 const toc = secs => `<nav class="toc" aria-label="On this page">${secs.map(([id, h]) => `<button type="button" data-jump="${id}">${h}</button>`).join("")}</nav>`;
 function rules() {
   here = "rules";
-  page(head("Rules for every week", `<a href="#/">All quizzes</a><a href="#/ref">Look-up</a><button type="button" data-print>Print this page</button>`) + `<p>What the wording of a question means, and the checks that catch a wrong answer before you hand it in.</p>` + toc(RULE_SECS) + `<div class="rules">${RULES}</div>` + pager(`<a class="btn" href="#/">All quizzes</a><a class="btn" href="#/ref">Look-up tables</a>`, `<button type="button" data-print>Print this page</button>`), true);
+  page(head("How to answer", `<a href="#/">All quizzes</a><a href="#/ref">Pictures and kernels</a><button type="button" data-print>Print this page</button>`) + `<p>What the wording of a question means, and the checks that catch a wrong answer before you hand it in.</p>` + toc(RULE_SECS) + `<div class="rules">${RULES}</div>` + pager(`<a class="btn" href="#/">All quizzes</a><a class="btn" href="#/ref">Pictures and kernels</a>`, `<button type="button" data-print>Print this page</button>`), true);
 }
 
 const lookFig = ([imgs, name, tell]) => `<figure>${[].concat(imgs).length > 1 ? `<div class="pair">` : ""}${[].concat(imgs).map(p => { const s = PIC[p] || ["", 120, 120]; return `<img class="real" src="${IMG}${p}.jpg" width="${s[1]}" height="${s[2]}" alt="${esc(name)}" loading="lazy">`; }).join("")}${[].concat(imgs).length > 1 ? `</div>` : ""}<figcaption><b>${esc(name)}</b>${inl(tell)}</figcaption></figure>`;
@@ -452,7 +452,7 @@ const kernFig = ([name, mats, note]) => `<div><h3>${esc(name)}</h3><div class="f
 function ref() {
   here = "ref";
   const secs = [["colours", "Colours"]].concat(LOOK.map(s => [s.id, s.h]), [["kernels", "Kernels"]]);
-  page(head("Look-up tables", `<a href="#/">All quizzes</a><a href="#/rules">Rules</a><button type="button" data-print>Print this page</button>`) + `<p>The facts and pictures you have to recognise, in one place: colours, the tutor's quiz pictures named by what they show, and every kernel.</p>` + toc(secs) + `
+  page(head("Pictures and kernels", `<a href="#/">All quizzes</a><a href="#/rules">How to answer</a><button type="button" data-print>Print this page</button>`) + `<p>The facts and pictures you have to recognise, in one place: colours, the tutor's quiz pictures named by what they show, and every kernel.</p>` + toc(secs) + `
 <div class="rules">
 <h2 id="colours">Colours as (red, green, blue)</h2>
 <p>One channel at 255 is a primary colour. Two channels at 255 make a secondary colour. Three equal channels make a grey.</p>
@@ -462,7 +462,7 @@ function ref() {
 ${LOOK.map(s => `<h2 id="${s.id}">${s.h}</h2><p>${inl(s.p)}</p><div class="look${s.wide ? " wide" : ""}">${s.items.map(lookFig).join("")}</div>${s.table || ""}<p>From ${s.from}.</p>`).join("")}
 <h2 id="kernels">Kernels</h2>
 <p>Largest possible output = 255 × the sum of the positive coefficients. "Flip" says what happens when convolution turns the kernel through 180°.</p>
-<div class="kern">${KERNELS.map(kernFig).join("")}</div>` + pager(`<a class="btn" href="#/">All quizzes</a><a class="btn" href="#/rules">Rules</a>`, `<button type="button" data-print>Print this page</button>`));
+<div class="kern">${KERNELS.map(kernFig).join("")}</div>` + pager(`<a class="btn" href="#/">All quizzes</a><a class="btn" href="#/rules">How to answer</a>`, `<button type="button" data-print>Print this page</button>`));
 }
 
 /* ---------- one question with new numbers ---------- */
