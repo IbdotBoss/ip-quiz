@@ -1,0 +1,822 @@
+{
+ "quiz": 10,
+ "title": "Steganography",
+ "cards": [
+  {
+   "given": [],
+   "opts": [
+    "Covered Writing",
+    "Hidden Secret",
+    "Crouching Tiger",
+    "Secret Message",
+    "Buried Treasure"
+   ],
+   "pics": [],
+   "varies": "",
+   "check": "",
+   "example": null,
+   "gen": "w10-facts",
+   "same": null,
+   "n": 1,
+   "kind": "Multiple choice",
+   "q": "Which of the following is an approximate translation of the word steganography?",
+   "ans": "Covered Writing",
+   "method": [
+    "Steganography comes from two Greek words. Steganos means covered and graphia means writing.",
+    "The message is covered by something that looks ordinary, so nobody knows a message is there."
+   ],
+   "trap": "Choosing Secret Message or Hidden Secret. Both describe the idea, but the question asks for the translation of the word."
+  },
+  {
+   "given": [],
+   "opts": [
+    "True",
+    "False"
+   ],
+   "pics": [],
+   "varies": "",
+   "check": "",
+   "example": null,
+   "gen": "w10-facts",
+   "same": null,
+   "n": 2,
+   "kind": "True or False",
+   "q": "Steganography is an example of security by obscurity.",
+   "ans": "True",
+   "method": [
+    "Steganography does not lock the message. It only hides the fact that a message exists.",
+    "A person who knows where to look can read the message. Protection that depends on nobody knowing the method is called security by obscurity."
+   ],
+   "trap": "Mixing steganography up with cryptography. Cryptography scrambles a message that everyone can see. Steganography hides a message that anyone could read."
+  },
+  {
+   "given": [],
+   "opts": [
+    "covertext",
+    "cleartext"
+   ],
+   "pics": [],
+   "varies": "",
+   "check": "",
+   "example": null,
+   "gen": "w10-facts",
+   "same": null,
+   "n": 3,
+   "kind": "Matching",
+   "q": "Match the general terms in steganography to those used specifically with text.",
+   "ans": "carrier: covertext. payload: cleartext.",
+   "method": [
+    "The carrier is the ordinary-looking thing that holds the secret. With text the carrier is called the covertext, because it covers the secret.",
+    "The payload is the secret message. With text the payload is called the cleartext."
+   ],
+   "trap": "Swapping the two. The carrier covers, so carrier goes with covertext."
+  },
+  {
+   "given": [
+    {
+     "cap": "",
+     "m": [
+      [
+       89,
+       69,
+       83,
+       72,
+       85
+      ],
+      [
+       73,
+       70,
+       73,
+       68,
+       75
+      ],
+      [
+       65,
+       76,
+       79,
+       71,
+       83
+      ],
+      [
+       67,
+       65,
+       80,
+       69,
+       45
+      ],
+      [
+       71,
+       79,
+       65,
+       84,
+       46
+      ]
+     ]
+    }
+   ],
+   "opts": [],
+   "pics": [],
+   "varies": "The matrix, the start position and the length.",
+   "check": "The answer should be a real word or name. Values from 65 to 90 are capital letters. 32 is a space.",
+   "example": {
+    "working": [
+     "Row 3 is 65, 76, 79, 71, 83. Start at column 2 and take 3 pixels: 76, 79, 71.",
+     "76 − 64 = 12, the 12th letter, L.",
+     "79 − 64 = 15, the 15th letter, O.",
+     "71 − 64 = 7, the 7th letter, G."
+    ],
+    "answer": "LOG"
+   },
+   "gen": "w10-ascii",
+   "same": null,
+   "n": 4,
+   "kind": "Fill in the Blank",
+   "q": "What ASCII-encoded text is hidden in the image matrix below, start row = 3, start column = 2, length = 3 consecutive pixels horizontally.\n\nThe question also shows an ASCII table.",
+   "ans": "LOG",
+   "method": [
+    "Go to the start row and the start column. Coordinates are row first, then column, counting from 1.",
+    "Read the given number of pixels to the right along that row.",
+    "Turn each pixel value into a letter. Capital A is 65, so the letter's place in the alphabet is the value minus 64. Small a is 97, so subtract 96."
+   ],
+   "trap": "Reading down the column, or starting at (2,3) because the row and column were swapped. Swapped here would give 73, 68, 75, which is IDK."
+  },
+  {
+   "given": [],
+   "opts": [],
+   "pics": [],
+   "varies": "The encoded message.",
+   "check": "The decoded message should read as words. Decoding the answer again must give back the encoded text.",
+   "example": {
+    "working": [
+     "Top row: A B C D E F G H I J K L M. Bottom row: N O P Q R S T U V W X Y Z.",
+     "YNCYNPR: Y is under L, N is under A, C is over P, Y gives L, N gives A, P gives C, R gives E. That is LAPLACE.",
+     "QRZBA: Q gives D, R gives E, Z gives M, B gives O, A gives N. That is DEMON."
+    ],
+    "answer": "LAPLACE DEMON"
+   },
+   "gen": null,
+   "same": null,
+   "n": 5,
+   "kind": "Fill in the Blank",
+   "q": "We can combine steganography with cryptography for extra security. For instance, we may apply a cipher to an ASCII message prior to inserting it in an image. One very basic cipher is ROT13, which rolls alphabetic letters forwards 13 places during encryption, such that those letters that would go beyond Z are rolled circularly back through A. The ROT13 cipher is an example of a Caesar cipher with a fixed key (13). During decryption, the encoded letters are rolled back 13 places. Decode the following message that was extracted from an image.\n\nEncoded: YNCYNPR QRZBA",
+   "ans": "LAPLACE DEMON",
+   "method": [
+    "Write the alphabet in two rows of 13. A to M on top, N to Z underneath.",
+    "Each letter swaps with the letter directly above or below it. A swaps with N, B with O, and so on up to M with Z.",
+    "Swap every letter of the encoded message. Leave spaces as they are."
+   ],
+   "trap": "Counting 13 places by hand for each letter and miscounting. The two-row table needs no counting. Forwards 13 and back 13 give the same letter, because the alphabet has 26 letters."
+  },
+  {
+   "given": [],
+   "opts": [],
+   "pics": [],
+   "varies": "The two sizes.",
+   "check": "",
+   "example": {
+    "working": [
+     "Carrier before = 18,160 bytes.",
+     "Carrier after = 18,160 bytes. The 638 bytes of payload replace existing values."
+    ],
+    "answer": "18160"
+   },
+   "gen": null,
+   "same": null,
+   "n": 6,
+   "kind": "Formula",
+   "q": "A greyscale image is to serve as a carrier to hold a secret message (payload) using steganography. At the beginning (before inserting the message) the carrier is 18,160 bytes and the payload is 638 bytes.\n\nHow large, in bytes, will the carrier be once the payload message has been inserted?",
+   "ans": "18160",
+   "method": [
+    "The answer is the size of the carrier before the message went in.",
+    "Steganography replaces values that are already in the carrier. It does not add pixels, so the file stays the same size."
+   ],
+   "trap": "Adding the two sizes (18,798 here) or subtracting them. A carrier that grew would give the secret away."
+  },
+  {
+   "given": [],
+   "opts": [
+    "A",
+    "B",
+    "C",
+    "D",
+    "E",
+    "F"
+   ],
+   "pics": [
+    "q10-orig",
+    "q10-A",
+    "q10-B",
+    "q10-C",
+    "q10-D",
+    "q10-E",
+    "q10-F"
+   ],
+   "varies": "The order of the options may change.",
+   "check": "",
+   "example": null,
+   "gen": null,
+   "same": null,
+   "n": 7,
+   "kind": "Multiple choice",
+   "q": "Given the 8-bit greyscale image below:\n\nWhich of the following shows the image's Least Significant Bit-plane (LSB)?",
+   "ans": "F",
+   "method": [
+    "The LSB is bit 1, the bit worth 1. It flips between neighbouring grey levels, so its plane looks like random black and white noise with no picture in it.",
+    "Pick the option where none of the original picture can be seen.",
+    "The most significant bit-plane (bit 8, worth 128) is the opposite. It looks like the picture thresholded at 128, with clear shapes."
+   ],
+   "trap": "Picking a plane that is mostly noise but still shows faint outlines. That is a middle plane, such as bit 4 or bit 5. In the LSB plane nothing of the picture is left."
+  },
+  {
+   "given": [
+    {
+     "cap": "",
+     "m": [
+      [
+       115,
+       176,
+       21,
+       114,
+       203
+      ],
+      [
+       140,
+       47,
+       237,
+       79,
+       165
+      ],
+      [
+       76,
+       94,
+       198,
+       130,
+       97
+      ],
+      [
+       190,
+       160,
+       125,
+       131,
+       207
+      ],
+      [
+       49,
+       199,
+       112,
+       209,
+       136
+      ]
+     ]
+    }
+   ],
+   "opts": [],
+   "pics": [],
+   "varies": "The pixel values.",
+   "check": "Every answer is 0 or 1. Count the odd pixels in the image. That count must equal the number of 1s in the answer.",
+   "example": {
+    "working": [
+     "Row 1: 115 odd, 176 even, 21 odd, 114 even, 203 odd. That is 1 0 1 0 1.",
+     "Row 2: 140 even, 47 odd, 237 odd, 79 odd, 165 odd. That is 0 1 1 1 1.",
+     "Rows 3 to 5 the same way."
+    ],
+    "answer": "1 0 1 0 1 / 0 1 1 1 1 / 0 0 0 0 1 / 0 0 1 1 1 / 1 1 0 1 0",
+    "m": [
+     [
+      1,
+      0,
+      1,
+      0,
+      1
+     ],
+     [
+      0,
+      1,
+      1,
+      1,
+      1
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      1
+     ],
+     [
+      0,
+      0,
+      1,
+      1,
+      1
+     ],
+     [
+      1,
+      1,
+      0,
+      1,
+      0
+     ]
+    ]
+   },
+   "gen": "w10-planes",
+   "same": null,
+   "n": 8,
+   "kind": "Fill in the Blank",
+   "q": "What is in the Least Significant Bit-plane (LSB) of the 8-bit greyscale carrier image shown below?",
+   "ans": "Rows: 1 0 1 0 1, then 0 1 1 1 1, then 0 0 0 0 1, then 0 0 1 1 1, then 1 1 0 1 0.",
+   "method": [
+    "Look only at the last digit of each pixel value.",
+    "An odd value has LSB 1. An even value has LSB 0.",
+    "Write the 1 or 0 in the same position as the pixel."
+   ],
+   "trap": "Converting every pixel to 8-bit binary. Only odd or even matters, so the conversion wastes time and invites slips."
+  },
+  {
+   "given": [
+    {
+     "cap": "",
+     "m": [
+      [
+       222,
+       3,
+       3,
+       3,
+       20
+      ],
+      [
+       22,
+       57,
+       222,
+       22,
+       62
+      ],
+      [
+       102,
+       3,
+       3,
+       3,
+       32
+      ],
+      [
+       66,
+       107,
+       140,
+       3,
+       46
+      ],
+      [
+       204,
+       3,
+       3,
+       7,
+       62
+      ]
+     ]
+    }
+   ],
+   "opts": [],
+   "pics": [],
+   "varies": "The pixel values and the hidden digit.",
+   "check": "A drawn digit has strokes that join up. If the shaded cells look scattered, recheck odd and even.",
+   "example": {
+    "working": [
+     "Odd pixels: row 1 columns 2 to 4, row 2 column 2, row 3 columns 2 to 4, row 4 columns 2 and 4, row 5 columns 2 to 4.",
+     "The shape has a top bar, a left stroke, a middle bar, both sides below it and a bottom bar. That is 6."
+    ],
+    "answer": "6",
+    "m": [
+     [
+      0,
+      1,
+      1,
+      1,
+      0
+     ],
+     [
+      0,
+      1,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      1,
+      1,
+      1,
+      0
+     ],
+     [
+      0,
+      1,
+      0,
+      1,
+      0
+     ],
+     [
+      0,
+      1,
+      1,
+      1,
+      0
+     ]
+    ]
+   },
+   "gen": "w10-planes",
+   "same": 8,
+   "n": 9,
+   "kind": "Numeric",
+   "q": "What single digit graphic is hidden in the Least Significant Bit-plane (LSB) of the 8-bit greyscale carrier image shown below?",
+   "ans": "6",
+   "method": [
+    "Shade every odd pixel on the matrix. Odd pixels are the 1s of the LSB plane.",
+    "Read the shape that the shaded cells make. It is a digit drawn on a 5 × 5 grid, like a calculator display."
+   ],
+   "trap": "Typing the LSB values or a pixel value. The answer is the one digit that the pattern draws."
+  },
+  {
+   "given": [
+    {
+     "cap": "Carrier",
+     "m": [
+      [
+       194,
+       181,
+       210,
+       112,
+       125
+      ],
+      [
+       190,
+       9,
+       178,
+       89,
+       114
+      ],
+      [
+       101,
+       71,
+       81,
+       196,
+       165
+      ],
+      [
+       168,
+       12,
+       243,
+       203,
+       181
+      ],
+      [
+       44,
+       25,
+       9,
+       48,
+       193
+      ]
+     ]
+    },
+    {
+     "cap": "Payload",
+     "m": [
+      [
+       0,
+       0,
+       1,
+       0,
+       0
+      ],
+      [
+       0,
+       1,
+       0,
+       1,
+       0
+      ],
+      [
+       0,
+       1,
+       1,
+       1,
+       0
+      ],
+      [
+       0,
+       1,
+       0,
+       1,
+       0
+      ],
+      [
+       0,
+       1,
+       0,
+       1,
+       0
+      ]
+     ]
+    }
+   ],
+   "opts": [],
+   "pics": [],
+   "varies": "The carrier values and the payload.",
+   "check": "No pixel moves by more than 1. Each output is odd where the payload is 1 and even where the payload is 0. An odd pixel never goes up and an even pixel never goes down.",
+   "example": {
+    "working": [
+     "Row 1, payload 0 0 1 0 0: 194 stays, 181 goes down to 180, 210 goes up to 211, 112 stays, 125 goes down to 124.",
+     "Row 3, payload 0 1 1 1 0: 101 goes down to 100, 71 stays, 81 stays, 196 goes up to 197, 165 goes down to 164.",
+     "Row 4, payload 0 1 0 1 0: 168 stays, 12 goes up to 13, 243 goes down to 242, 203 stays, 181 goes down to 180."
+    ],
+    "answer": "194 180 211 112 124 / 190 9 178 89 114 / 100 71 81 197 164 / 168 13 242 203 180 / 44 25 8 49 192",
+    "m": [
+     [
+      194,
+      180,
+      211,
+      112,
+      124
+     ],
+     [
+      190,
+      9,
+      178,
+      89,
+      114
+     ],
+     [
+      100,
+      71,
+      81,
+      197,
+      164
+     ],
+     [
+      168,
+      13,
+      242,
+      203,
+      180
+     ],
+     [
+      44,
+      25,
+      8,
+      49,
+      192
+     ]
+    ]
+   },
+   "gen": "w10-embed",
+   "same": null,
+   "n": 10,
+   "kind": "Fill in the Blank",
+   "q": "Below is an 8-bit greyscale image matrix, and below it is a binary image (payload) that we wish to insert in the Least Significant Bit-plane (LSB) of that greyscale image.\n\nGive the values of the greyscale image pixels after the payload has been inserted:",
+   "ans": "Rows: 194 180 211 112 124, then 190 9 178 89 114, then 100 71 81 197 164, then 168 13 242 203 180, then 44 25 8 49 192.",
+   "method": [
+    "Payload 1 means the pixel must end up odd. Payload 0 means the pixel must end up even.",
+    "If the pixel is already right, copy it unchanged.",
+    "If an even pixel must become odd, add 1. If an odd pixel must become even, subtract 1.",
+    "Never do it the other way round. Even + 1 and odd − 1 change only the last bit."
+   ],
+   "trap": "Subtracting 1 from an even pixel or adding 1 to an odd pixel. 196 with payload 1 becomes 197, not 195. 243 with payload 0 becomes 242, not 244. The wrong direction changes other bits as well as the last one."
+  },
+  {
+   "given": [],
+   "opts": [
+    "application",
+    "image",
+    "video",
+    "text",
+    "audio"
+   ],
+   "pics": [],
+   "varies": "",
+   "check": "",
+   "example": null,
+   "gen": "w10-facts",
+   "same": null,
+   "n": 11,
+   "kind": "Multiple answer",
+   "q": "Which of the following file types are capable of serving as carriers for hosting a digital payload using steganography?",
+   "ans": "All five: application, image, video, text and audio.",
+   "method": [
+    "Tick every option. Any digital file is a string of bits, and some of those bits can be changed without anyone noticing.",
+    "Images, video and audio have spare low bits. Text can hide data in spacing or letter choice. An application file has unused space."
+   ],
+   "trap": "Leaving out application because it is not a media file. Each missed option loses a fifth of the mark."
+  },
+  {
+   "given": [],
+   "opts": [
+    "replace part of a row of pixels with ASCII codes",
+    "insert smaller image into larger image by spreading out pixels",
+    "insert binary image payload into LSB",
+    "replace frame in a video with an image"
+   ],
+   "pics": [],
+   "varies": "",
+   "check": "",
+   "example": null,
+   "gen": "w10-facts",
+   "same": null,
+   "n": 12,
+   "kind": "Multiple answer",
+   "q": "Assuming a greyscale, which of the following approaches to Steganography will create distortions that are likely to be visible if the values in the payload are not very carefully matched to the values in the carrier?",
+   "ans": "Three options: replace part of a row of pixels with ASCII codes, insert smaller image into larger image by spreading out pixels, replace frame in a video with an image.",
+   "method": [
+    "Ask of each option how far a carrier value can move.",
+    "LSB insertion moves a pixel by 1 at most. The eye cannot see a change of 1 grey level, so do not tick it.",
+    "The other three overwrite whole pixel values or a whole frame. A pixel can jump by up to 255, which shows unless the new values are close to the old ones. Tick all three."
+   ],
+   "trap": "Ticking LSB insertion as well. It is the one method here that stays invisible without any matching."
+  },
+  {
+   "given": [],
+   "opts": [
+    "Insert text into an image as ASCII codes",
+    "Insert binary image into LSB of another image",
+    "Spread pixels of small image across larger image"
+   ],
+   "pics": [],
+   "varies": "",
+   "check": "",
+   "example": null,
+   "gen": "w10-facts",
+   "same": null,
+   "n": 13,
+   "kind": "Multiple answer",
+   "q": "Which of the following methods of steganography with images are fragile (rather than robust)?",
+   "ans": "All three: Insert text into an image as ASCII codes, Insert binary image into LSB of another image, Spread pixels of small image across larger image.",
+   "method": [
+    "Fragile means the hidden message is destroyed when the carrier is changed, for example by resizing, cropping, blurring or lossy compression such as JPEG.",
+    "All three methods store the message in exact pixel values at exact positions. Any of those changes alters the values or moves the pixels, so tick all three."
+   ],
+   "trap": "Thinking the ASCII and spread-pixel methods are robust because they change whole pixels. They still need every value to survive exactly."
+  },
+  {
+   "given": [
+    {
+     "cap": "Carrier",
+     "m": [
+      [
+       87,
+       166,
+       211,
+       199,
+       232,
+       37,
+       33,
+       125,
+       103,
+       90
+      ],
+      [
+       43,
+       177,
+       138,
+       209,
+       46,
+       219,
+       46,
+       87,
+       25,
+       210
+      ],
+      [
+       203,
+       191,
+       255,
+       223,
+       68,
+       159,
+       63,
+       231,
+       34,
+       5
+      ],
+      [
+       81,
+       115,
+       20,
+       23,
+       39,
+       90,
+       107,
+       95,
+       241,
+       10
+      ],
+      [
+       135,
+       23,
+       113,
+       103,
+       34,
+       131,
+       13,
+       29,
+       245,
+       45
+      ],
+      [
+       42,
+       59,
+       29,
+       67,
+       223,
+       102,
+       231,
+       199,
+       146,
+       167
+      ],
+      [
+       155,
+       233,
+       247,
+       204,
+       149,
+       21,
+       241,
+       101,
+       16,
+       187
+      ],
+      [
+       69,
+       39,
+       3,
+       111,
+       140,
+       63,
+       127,
+       63,
+       61,
+       166
+      ]
+     ]
+    }
+   ],
+   "opts": [],
+   "pics": [
+    "q10-tap"
+   ],
+   "varies": "The pixel values and the hidden message.",
+   "check": "The count of numbers must be even, two for each letter. No group has more than five 1s. The image ends on a 0.",
+   "example": {
+    "working": [
+     "LSB of row 1: 1 0 1 1 0 1 1 1 1 0. LSB of row 2: 1 1 0 1 0 1 0 1 1 0.",
+     "All eight rows joined: 1 0 11 0 1111 0 11 0 1 0 1 0 11 0 1111 0 111 0 111 0 11 0 111 0 1111 0 11111 0 1111 0 11 0 1111 0 1111 0 11111 0 1111 0.",
+     "Group sizes: 1 2, 4 2, 1 1, 2 4, 3 3, 2 3, 4 5, 4 2, 4 4, 5 4.",
+     "(1,2) B. (4,2) R. (1,1) A. (2,4) I. (3,3) N. (2,3) H. (4,5) U. (4,2) R. (4,4) T. (5,4) Y."
+    ],
+    "answer": "BRAINHURTY"
+   },
+   "gen": null,
+   "same": null,
+   "n": 14,
+   "kind": "Fill in the Blank",
+   "q": "Tap Code is thought to have been invented in ancient Greece by soldiers and prisoners who would repeatedly bang resonant objects that could be heard by those nearby. It is also thought to have been used in prisons more recently (e.g., by banging pipes or bars).\n\nA message using Tap Code has been embedded in the LSB of an 8-bit greyscale image, below. To decode the message, we first obtain the LSB. Then we read the row number in the Tap Code grid which is encoded as a sequence of 1s (between 1 and 5 \"taps\"), followed by a single 0, and then we read column number in the grid which is encoded as another row of 1s (between 1 and 5 \"taps\"). This is followed by a single 0 before we start the next letter. Note that we read the binary digits left to right as if we were reading text. Note that a sequence of 1s at the end of a row may continue on the next row.\n\nWhat's the message?",
+   "ans": "BRAINHURTY",
+   "method": [
+    "Go along each row and write 1 for an odd pixel and 0 for an even pixel. Join the rows into one long line.",
+    "Split the line at every 0. Count the 1s in each group. This gives a list of numbers from 1 to 5.",
+    "Take the numbers two at a time. The first is the grid row and the second is the grid column.",
+    "Look each pair up in the Tap Code grid and write the letter."
+   ],
+   "trap": "Stopping a group of 1s at the end of an image row. The group carries on at the start of the next row. Also reading the pair as column then row."
+  },
+  {
+   "given": [],
+   "opts": [],
+   "pics": [
+    "q10-vector",
+    "q10-tap"
+   ],
+   "varies": "The path and the hidden message.",
+   "check": "The number of letters equals the number of corners on the path, counting both markers.",
+   "example": {
+    "working": [
+     "Green marker at row 3, col 2: M.",
+     "Next corners in order: (3,4) O. (2,2) G. (5,2) W. (1,1) A.",
+     "Red marker at (2,4): I."
+    ],
+    "answer": "MOGWAI"
+   },
+   "gen": null,
+   "same": 14,
+   "n": 15,
+   "kind": "Fill in the Blank",
+   "q": "In this week's lecture, we saw that a vector image can be encoded as a sound, such as a melody in a musical scale. We can also encode a message on a Polybius square, like the Tap Code grid we used above, as a vector image. What text is encoded in the vector image below? The green marker denotes the start of the sequence.\n\nWhat's the message?",
+   "ans": "MOGWAI",
+   "method": [
+    "Find the green marker. That point is the first letter.",
+    "Read the point as (row, column). The horizontal axis is labelled row and the vertical axis is labelled col.",
+    "Look the pair up in the Tap Code grid and write the letter.",
+    "Follow the line to the next corner and repeat. The red marker is the last letter."
+   ],
+   "trap": "Reading the horizontal axis as the column out of habit. On this plot the horizontal axis is the row. Also starting from the red marker, which spells the message backwards."
+  }
+ ]
+}

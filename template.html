@@ -86,6 +86,8 @@ button.p:hover{background:var(--ink-2)}
 .opts{margin:8px 0;padding-left:1.2em}
 .opts li{margin:4px 0}
 .pics{display:grid;grid-template-columns:repeat(auto-fill,minmax(132px,1fr));gap:8px;margin:12px 0}
+.pics.few{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.pics.few img.real{background:#fff}
 .pics.p4{grid-template-columns:repeat(2,minmax(0,1fr));align-items:end}
 @media(min-width:600px){.pics.p4{grid-template-columns:repeat(4,minmax(0,1fr))}}
 .do>section{margin:0 0 16px}
@@ -308,6 +310,7 @@ const PIC = {
   "q6-orig": ["Original", 216, 144], "q6-A": ["A", 216, 144], "q6-B": ["B", 216, 144], "q6-C": ["C", 216, 144], "q6-D": ["D", 144, 216], "q6-E": ["E", 144, 216], "q6-F": ["F", 144, 216], "q6-G": ["G", 144, 216],
   "q7-xRayThumbsUp": ["Original", 438, 329], "q7-xGaussian": ["A", 438, 329], "q7-xSalt": ["B", 438, 329], "q7-xPepper": ["C", 438, 329], "q7-xSaltPepper": ["D", 438, 329],
   "q8-sharpenKernel": ["A", 560, 421], "q8-gaussianKernel": ["B", 560, 421], "q8-embossKernel": ["C", 560, 421], "q8-meanKernel": ["D", 560, 421],
+  "q10-orig": ["Original", 600, 400], "q10-A": ["A", 240, 160], "q10-B": ["B", 240, 160], "q10-C": ["C", 240, 160], "q10-D": ["D", 240, 160], "q10-E": ["E", 240, 160], "q10-F": ["F", 480, 320], "q10-tap": ["Tap Code grid", 474, 367], "q10-vector": ["Vector image", 703, 660],
   "q9-robKernel": ["A", 560, 421], "q9-lapKernel": ["B", 560, 421], "q9-sobKernel": ["C", 560, 421], "q9-prewKernel": ["D", 560, 421],
 };
 
@@ -381,7 +384,7 @@ ${rows}` + pager(`<a class="btn" href="#/rules">How to answer</a><a class="btn" 
 const SHUFFLED = ["w1-formats", "w4-histmatch", "w6-pictures", "w6-picformula", "w7-noise", "w8-plots", "w9-plots"];
 const picHTML = (c) => {
   const ps = (c.pics || []).filter(p => PIC[p]); if (!ps.length) return "";
-  return `<div class="pics${ps.length === 8 ? " p4" : ""}">` + ps.map(p => `<figure><figcaption>${PIC[p][0]}</figcaption><img class="real" src="${IMG}${p}.jpg" width="${PIC[p][1]}" height="${PIC[p][2]}" alt="${PIC[p][0]}, picture for question ${c.n}" loading="lazy"></figure>`).join("") + `</div>`;
+  return `<div class="pics${ps.length === 8 ? " p4" : ps.length < 3 ? " few" : ""}">` + ps.map(p => `<figure><figcaption>${PIC[p][0]}</figcaption><img class="real" src="${IMG}${p}.jpg" width="${PIC[p][1]}" height="${PIC[p][2]}" alt="${PIC[p][0]}, picture for question ${c.n}" loading="lazy"></figure>`).join("") + `</div>`;
 };
 const KERNEL = /^(k|S$|TL$|TR$|BL$|BR$)/;
 const TICKS = `<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5" fill="none" stroke="currentColor" stroke-width="3"/></svg>`;

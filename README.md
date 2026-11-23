@@ -8,7 +8,7 @@ A cheatsheet for the MOD002643 Image Processing in-class test at ARU. The test d
 - The picture questions show the tutor's own quiz pictures, stored in `docs/img`.
 - **How to answer** explains the symbols and wording in the questions. **Pictures and kernels** has the colours, the quiz pictures named by what they show, and every kernel.
 - "Try with new numbers" on a card opens the same question type with fresh numbers and checks the answer.
-- Quizzes 10 and 11 were still locked, so those two pages are built from the readings.
+- Quiz 11 was still locked, so that page is built from the reading.
 - Set like the Canvas questions: same text face, kernels in brackets, formulas as maths. Dark and light modes. Every quiz page prints.
 
 ## Build
