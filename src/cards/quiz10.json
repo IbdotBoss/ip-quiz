@@ -115,7 +115,9 @@
     }
    ],
    "opts": [],
-   "pics": [],
+   "pics": [
+    "q10-ascii"
+   ],
    "varies": "The matrix, the start position and the length.",
    "check": "The answer should be a real word or name. Values from 65 to 90 are capital letters. 32 is a space.",
    "example": {
@@ -131,7 +133,7 @@
    "same": null,
    "n": 4,
    "kind": "Fill in the Blank",
-   "q": "What ASCII-encoded text is hidden in the image matrix below, start row = 3, start column = 2, length = 3 consecutive pixels horizontally.\n\nThe question also shows an ASCII table.",
+   "q": "What ASCII-encoded text is hidden in the image matrix below, start row = 3, start column = 2, length = 3 consecutive pixels horizontally.",
    "ans": "LOG",
    "method": [
     "Go to the start row and the start column. Coordinates are row first, then column, counting from 1.",
